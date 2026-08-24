@@ -3,9 +3,12 @@
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
+
+from dotenv import load_dotenv
 
 
 def read_records(path: Path) -> list[dict]:
@@ -44,14 +47,18 @@ def expected_qids(answer_file: Path, nugget_qids: set[str]) -> set[str]:
 def run_command(command: list[str], timeout: int) -> None:
     result = subprocess.run(command, text=True, capture_output=True, timeout=timeout)
     if result.returncode:
+        details = "\n".join(
+            value[-2000:] for value in (result.stdout, result.stderr) if value.strip()
+        )
         raise RuntimeError(
             f"Command failed ({result.returncode}): {' '.join(command)}\n"
-            f"{result.stderr[-2000:]}"
+            f"{details}"
         )
 
 
 def main() -> int:
     repo = Path(__file__).resolve().parent.parent
+    load_dotenv(repo / ".env", override=False)
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--rag-results-dir", type=Path, default=repo / "querygym" / "rag_results"
@@ -75,6 +82,23 @@ def main() -> int:
             parser.error(f"Required path does not exist: {required}")
     if "llama" in args.model.lower():
         parser.error("Do not replace the paper's Nuggetizer evaluator with Llama")
+    if args.use_azure_openai:
+        required_azure = (
+            "AZURE_OPENAI_API_BASE",
+            "AZURE_OPENAI_API_VERSION",
+            "AZURE_OPENAI_API_KEY",
+        )
+        missing = [name for name in required_azure if not os.environ.get(name)]
+        if missing:
+            parser.error(
+                "Missing Azure OpenAI setting(s) in the environment or repository .env: "
+                + ", ".join(missing)
+            )
+    elif not (os.environ.get("OPENAI_API_KEY") or os.environ.get("OPEN_AI_API_KEY")):
+        parser.error(
+            "Missing OPENAI_API_KEY in the environment or repository .env; "
+            "GPT-4o is required for the paper-consistent Nuggetizer stage"
+        )
 
     nugget_qids = {
         str(record["qid"]) for record in read_records(args.nugget_file)

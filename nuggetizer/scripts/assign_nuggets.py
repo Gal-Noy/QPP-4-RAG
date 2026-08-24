@@ -140,6 +140,7 @@ def main():
     # Process each pair of records
     logger.info("Processing %d record pairs", len(nugget_data))
     
+    failed_qids = []
     with open(args.output_file, 'a') as f:
         for i, nugget_record in enumerate(nugget_data, 1):
             qid = str(nugget_record['qid'])
@@ -158,10 +159,15 @@ def main():
                 f.flush()  # Ensure the record is written immediately
             except Exception as e:
                 logger.error("Error processing record %s: %s", nugget_record['qid'], str(e))
+                failed_qids.append(qid)
                 continue
-    
+
+    if failed_qids:
+        logger.error("Failed to assign %d qids: %s", len(failed_qids), failed_qids)
+        return 1
     logger.info("Processing complete")
+    return 0
 
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())
