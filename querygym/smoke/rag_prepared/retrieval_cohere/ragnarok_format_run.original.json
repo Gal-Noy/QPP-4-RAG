@@ -1,0 +1,75 @@
+[
+  {
+    "query": {
+      "text": "is it dangerous to have wbc over 15,000 without treatment?",
+      "qid": "2024-105741"
+    },
+    "candidates": [
+      {
+        "doc": {
+          "docid": "msmarco_v2.1_doc_11_1429319552#2_3022858430",
+          "url": "https://answers.zocdoc.com/details/18336/i-had-cbc-done-today-and-was-told-i-have-a-wbc-over-15000-what-does-that",
+          "title": "I had CBC done today and was told I have a WBC over 15000. What does that mean? | Zocdoc Answers",
+          "headings": "\" I had CBC done today and was told I have a WBC over 15000. What does that mean? \"\nZocdoc Answers\nMedical questions & health advice by licensed doctors\n\" I had CBC done today and was told I have a WBC over 15000. What does that mean? \"\nQuestion\nAnswer\nSee a doctor who can help\nNeed more info?\n",
+          "segment": "I take nasal spray as directed and have already finished entire zpack. I went back to Dr today and got blood brawn and found WBC over 15000. I have to go back in a week to get another CBC but I was wondering what this could mean\nAnswer\nSorry to hear that you are not feeling well. A white count of 15,000 (with a white count being slang for elevated white blood cells, or WBCs) is often a sign of an infection, as most labs will have a normal value that is somewhat less than that. Many things can cause this leukocytosis (which is another way to describe an increase in white blood cells), but most commonly it has something to do with an infection. See a doctor who can help\nFind Infectious disease specialists near you\nI recommend that you speak with your doctor. The fact that you have hot flashes, sore joints, fatigue, swollen lymph nodes, and other symptoms all can indicate that some sort of infection is ongoing. Your doctor should be able to help you by recommending the appropriate treatment and testing that is needed to determine what is causing your symptoms. Often, doctors will prescribe an antibiotic before knowing exactly what is causing the infection (ie, whether the infection is from a virus or a bacteria). This can often be considered empiric therapy, which has a role in some situations.",
+          "start_char": 619,
+          "end_char": 1931
+        },
+        "docid": "msmarco_v2.1_doc_11_1429319552#2_3022858430",
+        "score": 0.630064
+      },
+      {
+        "doc": {
+          "docid": "msmarco_v2.1_doc_11_1429319552#1_3022856821",
+          "url": "https://answers.zocdoc.com/details/18336/i-had-cbc-done-today-and-was-told-i-have-a-wbc-over-15000-what-does-that",
+          "title": "I had CBC done today and was told I have a WBC over 15000. What does that mean? | Zocdoc Answers",
+          "headings": "\" I had CBC done today and was told I have a WBC over 15000. What does that mean? \"\nZocdoc Answers\nMedical questions & health advice by licensed doctors\n\" I had CBC done today and was told I have a WBC over 15000. What does that mean? \"\nQuestion\nAnswer\nSee a doctor who can help\nNeed more info?\n",
+          "segment": "What does that mean? Question\nI went to Dr first time last Friday for what I thought was a flu. I have headaches, diarrhea, fatigue, very sore joins and hot fashes along with a fever. I was tod I had fluid behind ears and glands in neck were swollen. I was prescribed nasal spray and zpack. I take nasal spray as directed and have already finished entire zpack. I went back to Dr today and got blood brawn and found WBC over 15000. I have to go back in a week to get another CBC but I was wondering what this could mean\nAnswer\nSorry to hear that you are not feeling well. A white count of 15,000 (with a white count being slang for elevated white blood cells, or WBCs) is often a sign of an infection, as most labs will have a normal value that is somewhat less than that. Many things can cause this leukocytosis (which is another way to describe an increase in white blood cells), but most commonly it has something to do with an infection.",
+          "start_char": 328,
+          "end_char": 1269
+        },
+        "docid": "msmarco_v2.1_doc_11_1429319552#1_3022856821",
+        "score": 0.603897
+      },
+      {
+        "doc": {
+          "docid": "msmarco_v2.1_doc_42_824556075#2_1915584757",
+          "url": "https://www.healthtap.com/user_questions/1422061-can-prednisone-cause-high-wbc-count-esp-neutrophils-at-9-6-k-ul-and-true-lym",
+          "title": "can prednisone cause high wbc count. esp neutrophils at 9.6 k/ul and true lymphocytes at 4.5 k/ul? wbc at 15k/ul. is this mild or moderate elevation | Answers from Doctors | HealthTap",
+          "headings": "can prednisone cause high wbc count. esp neutrophils at 9.6 k/ul and true lymphocytes at 4.5 k/ul? wbc at 15k/ul. is this mild or moderate elevation\ncan prednisone cause high wbc count. esp neutrophils at 9.6 k/ul and true lymphocytes at 4.5 k/ul? wbc at 15k/ul. is this mild or moderate elevation\nDr. Michael Dugan answered\n90,000 U.S. doctors in 147 specialties are here to answer your questions or offer you advice, prescriptions, and more. Get help now:\n90,000 U.S. doctors in 147 specialties are here to answer your questions or offer you advice, prescriptions, and more. Get help now:\nDisclaimer:\n",
+          "segment": "Upper limit of normal WBC is about 10.5. So 15 is a mild increase\n3.9k views Reviewed >2 years ago\nThank\nDr. Leila Hashemi and 2 doctors agree\n3 doctors agree\n2 thanks\nAsk U.S. doctors your own question and get educational, text answers — it's anonymous and free! 0/250\nDoctors typically provide answers within 24 hours. Educational text answers on HealthTap are not intended for individual diagnosis, treatment or prescription. For these, please consult a doctor (virtually or in person). For potential or actual medical emergencies, immediately call 911 or your local emergency service. Post a free question\nAsk your question Ask question Free\nTalk to a doctor now Talk to a doctor $\nAsk U.S. doctors your own question and get educational, text answers — it's anonymous and free! 0/250\nDoctors typically provide answers within 24 hours. Educational text answers on HealthTap are not intended for individual diagnosis, treatment or prescription. For these, please consult a doctor (virtually or in person).",
+          "start_char": 572,
+          "end_char": 1579
+        },
+        "docid": "msmarco_v2.1_doc_42_824556075#2_1915584757",
+        "score": 0.601313
+      },
+      {
+        "doc": {
+          "docid": "msmarco_v2.1_doc_04_226503092#2_603244298",
+          "url": "http://www.answers.com/Q/Why_prednisone_causes_elevated_wbc",
+          "title": "",
+          "headings": "\n",
+          "segment": "A white blood cell (WBC) count of 12.5 may mean that you have an\nelevated WBC count. Some causes for this can be that WBC production\nis increased to fight an infection in the body, or a person has a\ndisorder of the immune system. There can be many other causes. Can a wbc of 21000 indicate leukemia? Yes an elevated WBC count is usually found in leukemia patients\nWhat does a high wbc of 15.4 mean? WBC refers to the white blood cell count. A WBC of 15.4 can show\nthat you are suffering from some sort of infection. Some\nmedications like prednisone can also elevate your WBC. What does a WBC of 13 mean? Elevated white blood cell counts can be from a variety of causes\nsuch as infections or physical stresses.",
+          "start_char": 1681,
+          "end_char": 2391
+        },
+        "docid": "msmarco_v2.1_doc_04_226503092#2_603244298",
+        "score": 0.591863
+      },
+      {
+        "doc": {
+          "docid": "msmarco_v2.1_doc_11_1429319552#4_3022862229",
+          "url": "https://answers.zocdoc.com/details/18336/i-had-cbc-done-today-and-was-told-i-have-a-wbc-over-15000-what-does-that",
+          "title": "I had CBC done today and was told I have a WBC over 15000. What does that mean? | Zocdoc Answers",
+          "headings": "\" I had CBC done today and was told I have a WBC over 15000. What does that mean? \"\nZocdoc Answers\nMedical questions & health advice by licensed doctors\n\" I had CBC done today and was told I have a WBC over 15000. What does that mean? \"\nQuestion\nAnswer\nSee a doctor who can help\nNeed more info?\n",
+          "segment": "As your symptoms did not resolve after the first round of treatment, speaking with your doctor can be helpful to make sure that there is nothing more serious. Please speak with your doctor about this question. Need more info? See an infectious disease specialist today\nZocdoc Answers is for general informational purposes only and is not a substitute for professional medical advice. If you think you may have a medical emergency, call your doctor (in the United States) 911 immediately. Always seek the advice of your doctor before starting or changing treatment. Medical professionals who provide responses to health-related questions are intended third party beneficiaries with certain rights under Zocdoc’s Terms of Service.",
+          "start_char": 1932,
+          "end_char": 2660
+        },
+        "docid": "msmarco_v2.1_doc_11_1429319552#4_3022862229",
+        "score": 0.588107
+      }
+    ]
+  }
+]

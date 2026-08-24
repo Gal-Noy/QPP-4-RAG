@@ -146,7 +146,7 @@ class LocalLlamaGenerator:
     def __init__(self, model_name: str, device: str, dtype: str,
                  local_files_only: bool, load_in_4bit: bool):
         import torch
-        from transformers import AutoModelForCausalLM, AutoTokenizer
+        from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
         self.torch = torch
         self.tokenizer = AutoTokenizer.from_pretrained(
@@ -162,7 +162,11 @@ class LocalLlamaGenerator:
         else:
             kwargs["dtype"] = "auto"
         if load_in_4bit:
-            kwargs["load_in_4bit"] = True
+            compute_dtype = getattr(torch, dtype) if dtype != "auto" else None
+            kwargs["quantization_config"] = BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_compute_dtype=compute_dtype,
+            )
             kwargs["device_map"] = "auto"
         elif device == "auto":
             kwargs["device_map"] = "auto"

@@ -1,0 +1,70 @@
+[
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-105741",
+    "topic": "is it dangerous to have wbc over 15,000 without treatment?",
+    "references": [
+      "msmarco_v2.1_doc_16_287012450#4_490828734",
+      "msmarco_v2.1_doc_16_287012450#3_490827079",
+      "msmarco_v2.1_doc_38_790476313#1_1678659952",
+      "msmarco_v2.1_doc_38_1524878562#6_3221565634",
+      "msmarco_v2.1_doc_38_790476313#0_1678658072"
+    ],
+    "response_length": 275,
+    "answer": [
+      {
+        "text": "Having a white blood cell (WBC) count over 15,000/μL without treatment can be a cause for concern, as it may indicate the presence of an infection or inflammation.",
+        "citations": [
+          0,
+          3
+        ]
+      },
+      {
+        "text": "However, it's essential to consider the context and underlying medical conditions, as a high WBC count can also be a response to stress, dehydration, or other non-infectious causes.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "In the case of a febrile infant, a WBC count over 15,000/μL may be considered a red flag for bacterial infection, and further investigation is necessary to determine the underlying cause.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "However, in patients with known or suspected hematological malignancies, such as leukemia or myeloproliferative disorders, extremely high WBC counts (up to 1 million cells/mm3) are not uncommon.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "It's also worth noting that Neulasta, a medication used to stimulate neutrophil production, can increase the risk of a high WBC count, and it's crucial to monitor patients closely and adjust treatment as needed.",
+        "citations": [
+          2,
+          4
+        ]
+      },
+      {
+        "text": "In the case of a patient who received Neulasta without checking their WBC count first, the risk of a high WBC count and potential complications, such as respiratory distress, was a significant concern.",
+        "citations": [
+          2,
+          4
+        ]
+      },
+      {
+        "text": "In general, a WBC count over 15,000/μL without treatment may require further investigation and treatment to determine the underlying cause and prevent potential complications.",
+        "citations": []
+      },
+      {
+        "text": "However, it's essential to consider the individual patient's medical history, underlying conditions, and the context in which the WBC count was measured.",
+        "citations": []
+      },
+      {
+        "text": "In the context of the provided guidelines, a WBC count over 15,000/μL in a febrile infant may be considered a low-risk criterion for bacterial infection, but it's essential to consider the other factors mentioned in the guidelines, such as the band-to-neutrophil ratio, absolute neutrophil count, and urine assessment.",
+        "citations": [
+          0
+        ]
+      }
+    ]
+  }
+]
