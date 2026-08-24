@@ -19,13 +19,21 @@ For a 4 GB NVIDIA GPU (including the verified RTX 3050 Ti), install
 python3 -m pip install bitsandbytes
 ```
 
-Required credentials:
+Create a repository-local `.env` (it is git-ignored) and fill the credentials
+needed by the stages you run:
 
 ```bash
-export COHERE_API_KEY='...'       # CO_API_KEY is also accepted
-export OPENAI_API_KEY='...'       # only the unchanged GPT-4o Nuggetizer
-export HF_TOKEN='...'             # if Hugging Face requests authentication
+cp .env.example .env
 ```
+
+```dotenv
+COHERE_API_KEY=...   # CO_API_KEY is also accepted
+OPENAI_API_KEY=...   # only the unchanged GPT-4o Nuggetizer
+HF_TOKEN=...         # if Hugging Face requests authentication
+```
+
+Azure OpenAI variables are also listed in `.env.example`. Shell-exported
+variables remain supported and take precedence over values in `.env`.
 
 Accept the Meta model terms if Hugging Face requires it, then make sure
 `meta-llama/Llama-3.2-3B-Instruct` can be downloaded. The first BM25 use pulls

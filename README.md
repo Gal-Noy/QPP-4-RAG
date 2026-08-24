@@ -46,6 +46,8 @@ both retrievers and record it with the run.
 
 See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for environment setup, one-query
 smokes, the full 56 x 31 commands, data/API requirements, and verification.
+All active pipeline credentials can be placed in a repository-local `.env` by
+copying `.env.example`; exported variables remain supported and take priority.
 
 ## Key paths
 

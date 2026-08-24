@@ -1,17 +1,26 @@
 import os
+from pathlib import Path
 from typing import Dict, Optional
 
 from dotenv import load_dotenv
 
 
+_REPO_ENV = Path(__file__).resolve().parents[4] / ".env"
+
+
+def _load_local_env() -> None:
+    """Load repository-root .env without overriding exported variables."""
+    load_dotenv(dotenv_path=_REPO_ENV, override=False)
+
+
 def get_openai_api_key() -> Optional[str]:
-    load_dotenv(dotenv_path=".env")
+    _load_local_env()
     openai_api_key = os.getenv("OPEN_AI_API_KEY") or os.getenv("OPENAI_API_KEY")
     return openai_api_key
 
 
 def get_azure_openai_args() -> Dict[str, Optional[str]]:
-    load_dotenv(dotenv_path=".env")
+    _load_local_env()
     azure_args = {
         "api_type": "azure",
         "api_version": os.getenv("AZURE_OPENAI_API_VERSION"),
@@ -31,12 +40,12 @@ def get_azure_openai_args() -> Dict[str, Optional[str]]:
 
 
 def get_cohere_api_key() -> Optional[str]:
-    load_dotenv(dotenv_path=".env.local")
-    co_api_key = os.getenv("CO_API_KEY")
+    _load_local_env()
+    co_api_key = os.getenv("COHERE_API_KEY") or os.getenv("CO_API_KEY")
     return co_api_key
 
 
 def get_anyscale_api_key() -> Optional[str]:
-    load_dotenv(dotenv_path=".env.local")
+    _load_local_env()
     anyscale_api_key = os.getenv("ANYSCALE_API_KEY")
     return anyscale_api_key

@@ -10,10 +10,20 @@ from pathlib import Path
 import numpy as np
 
 
+def load_local_env() -> None:
+    """Load repository-root .env without overriding exported variables."""
+    from dotenv import load_dotenv
+
+    load_dotenv(Path(__file__).resolve().parent.parent / ".env", override=False)
+
+
 def get_api_key() -> str:
+    load_local_env()
     key = os.environ.get("COHERE_API_KEY") or os.environ.get("CO_API_KEY")
     if not key:
-        raise RuntimeError("Set COHERE_API_KEY (or CO_API_KEY)")
+        raise RuntimeError(
+            "Set COHERE_API_KEY (or CO_API_KEY) in the environment or repository .env"
+        )
     os.environ["COHERE_API_KEY"] = key.strip()
     return key.strip()
 

@@ -1,15 +1,24 @@
 import json
+import os
 import sys
 import tempfile
 import unittest
+from importlib import import_module
 from pathlib import Path
 from types import SimpleNamespace
+from unittest.mock import patch
 
 import numpy as np
 
 from querygym import retrieve_all_queries
 from querygym import retrieve_all_queries_cohere
-from querygym.run_llama_generator import build_messages, make_result, model_tag, parse_answer
+from querygym.run_llama_generator import (
+    build_messages,
+    load_local_env as load_llama_env,
+    make_result,
+    model_tag,
+    parse_answer,
+)
 from scripts.convert_to_ragnarok_format import convert_run, read_queries, read_run
 
 
@@ -42,6 +51,33 @@ class FakeSearcher:
 
 
 class ReproductionPipelineTests(unittest.TestCase):
+    def test_all_active_key_loaders_use_repo_env_without_override(self):
+        calls = []
+
+        def fake_load_dotenv(path=None, dotenv_path=None, override=None):
+            calls.append((Path(path or dotenv_path), override))
+            return True
+
+        fake_dotenv = SimpleNamespace(load_dotenv=fake_load_dotenv)
+        with patch.dict(sys.modules, {"dotenv": fake_dotenv}):
+            with patch.dict(os.environ, {"COHERE_API_KEY": "exported-key"}):
+                self.assertEqual(
+                    retrieve_all_queries_cohere.get_api_key(), "exported-key"
+                )
+            load_llama_env()
+            api = import_module("nuggetizer.utils.api")
+            api._load_local_env()
+
+        self.assertEqual(calls, [(REPO / ".env", False)] * 3)
+        example = (REPO / ".env.example").read_text(encoding="utf-8")
+        for key in (
+            "COHERE_API_KEY",
+            "OPENAI_API_KEY",
+            "HF_TOKEN",
+            "AZURE_OPENAI_API_KEY",
+        ):
+            self.assertIn(f"{key}=", example)
+
     def test_one_query_bm25_checkpoint(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

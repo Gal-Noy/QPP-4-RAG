@@ -17,6 +17,13 @@ CHATQA_SYSTEM = (
 )
 
 
+def load_local_env() -> None:
+    """Load repository-root .env without overriding exported variables."""
+    from dotenv import load_dotenv
+
+    load_dotenv(Path(__file__).resolve().parent.parent / ".env", override=False)
+
+
 def load_json_records(path: Path) -> list[dict]:
     text = path.read_text(encoding="utf-8").strip()
     if not text:
@@ -255,6 +262,7 @@ def main() -> int:
         help="Validate Top-5 files and output mapping without loading the model",
     )
     args = parser.parse_args()
+    load_local_env()
     if len(args.input_dirs) != len(args.output_dirs):
         parser.error("--input-dirs and --output-dirs must have equal lengths")
     if args.batch_size < 1:
