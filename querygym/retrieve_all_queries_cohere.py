@@ -96,7 +96,9 @@ def fetch_document(index, doc_idx: int) -> dict:
     index.download_from_remote(corpus_relative)
     index.download_from_remote(offsets_relative)
     offsets = np.load(Path(index.local_dir) / offsets_relative, mmap_mode="r")
-    with IndexedZstdFile(Path(index.local_dir) / corpus_relative) as corpus:
+    # indexed_zstd accepts str/bytes (or an integer file descriptor), but
+    # some releases do not implement the os.PathLike protocol.
+    with IndexedZstdFile(str(Path(index.local_dir) / corpus_relative)) as corpus:
         corpus.seek(offsets[doc_idx % index.config["corpus_num_lines"]])
         return json.loads(corpus.readline())
 
@@ -153,6 +155,15 @@ def main() -> int:
     if not files or any(not path.exists() for path in files):
         parser.error("Selected topics file(s) do not exist")
     args.output_dir.mkdir(parents=True, exist_ok=True)
+    args.cache_dir.mkdir(parents=True, exist_ok=True)
+
+    # DiskVectorIndex uses fixed "_part" names and is not safe when two
+    # processes download into the same cache. Serialize cache access so a
+    # duplicate invocation waits instead of racing at os.rename().
+    import fcntl
+    cache_lock = (args.cache_dir / ".cohere-retrieval.lock").open("w")
+    print(f"Waiting for Cohere cache lock: {args.cache_dir}")
+    fcntl.flock(cache_lock, fcntl.LOCK_EX)
 
     tasks = []
     handles = {}
@@ -190,6 +201,8 @@ def main() -> int:
     finally:
         for handle in handles.values():
             handle.close()
+        fcntl.flock(cache_lock, fcntl.LOCK_UN)
+        cache_lock.close()
     print(f"Cohere dense retrieval complete: {len(tasks)} queries")
     return 0
 

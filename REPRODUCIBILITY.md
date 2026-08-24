@@ -12,6 +12,10 @@ python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 ```
 
+The `numpy<2` constraint is required by the `faiss-cpu==1.8.0` wheel installed
+by DiskVectorIndex. If this environment previously installed NumPy 2, repair it
+with `python3 -m pip install --force-reinstall "numpy<2"`.
+
 For a 4 GB NVIDIA GPU (including the verified RTX 3050 Ti), install
 `bitsandbytes` and use the 4-bit command shown below:
 
