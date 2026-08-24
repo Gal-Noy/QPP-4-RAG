@@ -56,15 +56,24 @@ python3 scripts/prepare_trec2024_data.py
   locally from that export. Its 56 grouped `{qid, query, nuggets}` records are
   consumed by the GPT Nuggetizer evaluator.
 
-## Important `query.text` provenance ambiguity
+## Main experiment: matching `query.text`
 
-The public repository is inconsistent: its old preparation commands supplied
-the original TREC question, while the paper describes generation conditioned
-on each reformulated query. This fork does not choose between those claims.
-Preparation requires an explicit `--query-text-source matching` or
-`--query-text-source original`. The Llama generator then copies the prepared
-`query.text` without reloading or rewriting it. Use one declared choice for
-both retrievers and record it with the run.
+The main reproduction uses `--query-text-source matching`. This follows the
+methodology described in the paper and the repository's `convert_all_batch.py`:
+each reformulated retrieval run is paired with its corresponding reformulated
+query file.
+
+```bash
+python3 scripts/convert_to_ragnarok_format.py \
+  --retrieval-dir querygym/retrieval \
+  --output-dir querygym/rag_prepared/retrieval \
+  --query-text-source matching --k 5
+```
+
+Use the same `matching` setting for Cohere preparation. The Llama generator
+then copies the prepared `query.text` without reloading or rewriting it.
+`--query-text-source original` is retained only for an optional sensitivity or
+ablation run and should write to separate prepared/result directories.
 
 See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for environment setup, one-query
 smokes, the full 56 x 31 commands, data/API requirements, and verification.

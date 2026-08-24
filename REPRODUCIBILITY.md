@@ -94,8 +94,8 @@ python3 querygym/retrieve_all_queries_cohere.py \
   --cache-dir index_cache --output-dir querygym/smoke/retrieval_cohere
 ```
 
-For this original-query smoke, `matching` and `original` are identical. Create
-both exact Top-5 inputs:
+Use the main experiment's `matching` provenance setting for the smoke and
+create both exact Top-5 inputs:
 
 ```bash
 python3 scripts/convert_to_ragnarok_format.py \
@@ -156,31 +156,34 @@ python3 querygym/retrieve_all_queries_cohere.py \
 python3 scripts/verify_llama_pipeline.py --stage retrieval
 ```
 
-### Explicit provenance decision and Top-5 preparation
+### Main experiment: matching query provenance and Top-5 preparation
 
-Set this only after deciding which interpretation of the public provenance
-conflict the run represents. `matching` writes each variant's reformulation;
-`original` writes the original TREC question into every prepared variant.
+Use `matching` for the reproduction. This follows the paper's described
+methodology and `querygym/convert_all_batch.py`, where each reformulated
+retrieval run is paired with the matching `topics.<variant>.txt` query file.
 
 ```bash
-export QUERY_TEXT_SOURCE=matching   # or: original
-
 python3 scripts/convert_to_ragnarok_format.py \
   --retrieval-dir querygym/retrieval \
   --output-dir querygym/rag_prepared/retrieval \
-  --query-text-source "$QUERY_TEXT_SOURCE" --k 5
+  --query-text-source matching --k 5
 
 python3 scripts/convert_to_ragnarok_format.py \
   --retrieval-dir querygym/retrieval_cohere \
   --output-dir querygym/rag_prepared/retrieval_cohere \
-  --query-text-source "$QUERY_TEXT_SOURCE" --k 5
+  --query-text-source matching --k 5
 
 python3 scripts/verify_llama_pipeline.py --stage prepared
 ```
 
 Preparation copies the stored MS MARCO passage object and the exact first five
 ranked doc IDs. It neither reranks nor changes candidate order. Completed files
-are skipped; use `--overwrite` only when intentionally changing provenance.
+are skipped.
+
+For an optional sensitivity/ablation run only, repeat preparation with
+`--query-text-source original` and separate output directories. This writes the
+original TREC question into each prepared variant; do not mix those artifacts
+with the main `matching` experiment.
 
 ### Local Llama generation
 
