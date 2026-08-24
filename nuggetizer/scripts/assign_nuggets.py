@@ -2,8 +2,11 @@
 import argparse
 import json
 import logging
+import sys
 from pathlib import Path
 from typing import Dict, List
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from nuggetizer.core.types import ScoredNugget
 from nuggetizer.models.nuggetizer import Nuggetizer
@@ -22,13 +25,17 @@ def setup_logging(log_level: int) -> None:
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     )
 
-def read_jsonl(file_path: str) -> List[Dict]:
-    """Read JSONL file and return list of dictionaries."""
-    data = []
-    with open(file_path, 'r') as f:
-        for line in f:
-            data.append(json.loads(line))
-    return data
+def read_records(file_path: str) -> List[Dict]:
+    """Read either a JSON array (Ragnarok) or JSONL (Nuggetizer)."""
+    text = Path(file_path).read_text(encoding="utf-8").strip()
+    if not text:
+        return []
+    if text.startswith("["):
+        records = json.loads(text)
+        if not isinstance(records, list):
+            raise ValueError(f"Expected a JSON array in {file_path}")
+        return records
+    return [json.loads(line) for line in text.splitlines() if line.strip()]
 
 
 def get_run_id(file_path: str) -> str:
@@ -56,7 +63,7 @@ def process_record(answer_record: Dict, nugget_record: Dict, run_id: str, nugget
     # Create output record
     output_record = {
         "query": nugget_record["query"],
-        "qid": nugget_record["qid"],
+        "qid": str(nugget_record["qid"]),
         "answer_text": answer_text,
         "response_length": answer_record["response_length"],
         "run_id": run_id,
@@ -88,7 +95,7 @@ def get_processed_qids(output_file: str) -> set:
             for line in f:
                 try:
                     record = json.loads(line)
-                    processed_qids.add(record['qid'])
+                    processed_qids.add(str(record['qid']))
                 except json.JSONDecodeError:
                     continue
     except FileNotFoundError:
@@ -125,21 +132,22 @@ def main():
     
     # Read input files
     logger.info("Reading nugget file: %s", args.nugget_file)
-    nugget_data = read_jsonl(args.nugget_file)
+    nugget_data = read_records(args.nugget_file)
     logger.info("Reading answer file: %s", args.answer_file)
-    answer_data = read_jsonl(args.answer_file)
-    qid_to_answer_data = {a['topic_id']: a for a in answer_data}
+    answer_data = read_records(args.answer_file)
+    qid_to_answer_data = {str(a['topic_id']): a for a in answer_data}
     
     # Process each pair of records
     logger.info("Processing %d record pairs", len(nugget_data))
     
     with open(args.output_file, 'a') as f:
         for i, nugget_record in enumerate(nugget_data, 1):
-            answer_record = qid_to_answer_data.get(nugget_record['qid'])
+            qid = str(nugget_record['qid'])
+            answer_record = qid_to_answer_data.get(qid)
             if answer_record is None:
-                answer_record = {"answer": [], "response_length": 0, "qid": nugget_record['qid']}
-                # Default to setting each nugget to not_support
-            if nugget_record['qid'] in processed_qids:
+                # Evaluate partial/smoke files only on answers that are present.
+                continue
+            if qid in processed_qids:
                 logger.info("Skipping already processed record %s", nugget_record['qid'])
                 continue
                 

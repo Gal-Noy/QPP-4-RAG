@@ -1,328 +1,254 @@
-# Reproducibility Guide
+# Llama reproduction guide
 
-This document provides detailed instructions for reproducing all results in the paper.
+Run commands from the repository root. Python 3.10 or 3.11 and Java 21 are
+recommended.
 
-## Environment Setup
-
-### 1. Python Environment
-
-```bash
-# Create conda environment
-conda create -n qpp4rag python=3.8
-conda activate qpp4rag
-
-# Install core dependencies
-pip install torch transformers sentence-transformers
-pip install pyserini
-pip install openai cohere
-pip install tqdm pandas numpy
-```
-
-### 2. Java Setup (for Pyserini)
-
-Pyserini requires Java 11+. Install it via your package manager or conda:
+## 1. Environment and required inputs
 
 ```bash
-# Option 1: conda
-conda install -c conda-forge openjdk=21
-
-# Option 2: system package manager (Ubuntu/Debian)
-sudo apt-get install -y openjdk-21-jdk
-
-# Then export JAVA_HOME (adjust path to your installation):
-export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
-# Or, if using conda:
-export JAVA_HOME=$CONDA_PREFIX
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install --upgrade pip
+python3 -m pip install -r requirements.txt
 ```
 
-### 3. API Keys
+For a 4 GB NVIDIA GPU (including the verified RTX 3050 Ti), install
+`bitsandbytes` and use the 4-bit command shown below:
 
 ```bash
-# OpenAI API key
-export OPENAI_API_KEY="your-openai-key"
-
-# Cohere API key
-export COHERE_API_KEY="your-cohere-key"
-# OR
-export CO_API_KEY="your-cohere-key"
+python3 -m pip install bitsandbytes
 ```
 
-### 4. Data Requirements
-
-- **TREC-RAG Dataset**: TREC 2024 RAG Track test queries and qrels
-- **MS MARCO v2.1 Document Index**: For retrieval (downloaded automatically by Pyserini)
-- **Nugget File**: `data/hr_scored_nist_nuggets_20241218_rag24.test_qrels_nist.jsonl`
-
-## Complete Pipeline Execution
-
-### Step 1: Query Generation
-
-**Input**: Reformulation data (JSON format with query variants)
-
-**Script**: `querygym/generate_query_files.py`
+Required credentials:
 
 ```bash
-cd querygym
-python generate_query_files.py
+export COHERE_API_KEY='...'       # CO_API_KEY is also accepted
+export OPENAI_API_KEY='...'       # only the unchanged GPT-4o Nuggetizer
+export HF_TOKEN='...'             # if Hugging Face requests authentication
 ```
 
-**Output**: 
-- 31 query files in `queries/` directory
-- Format: `topics.{method}_trial{trial}.txt` or `topics.original.txt`
+Accept the Meta model terms if Hugging Face requires it, then make sure
+`meta-llama/Llama-3.2-3B-Instruct` can be downloaded. The first BM25 use pulls
+Pyserini's `msmarco-v2.1-doc-segmented` prebuilt index. The first Cohere use
+downloads `Cohere/trec-rag-2024-index` and corpus shards into `index_cache/`;
+budget substantial disk space (the vector index alone is about 15 GB).
 
-**Expected Output**:
-- `queries/topics.original.txt` (56 queries)
-- `queries/topics.genqr_trial1.txt` through `topics.genqr_trial5.txt` (5 files)
-- `queries/topics.genqr_ensemble_trial1.txt` through `topics.genqr_ensemble_trial5.txt` (5 files)
-- `queries/topics.mugi_trial1.txt` through `topics.mugi_trial5.txt` (5 files)
-- `queries/topics.qa_expand_trial1.txt` through `topics.qa_expand_trial5.txt` (5 files)
-- `queries/topics.query2doc_trial1.txt` through `topics.query2doc_trial5.txt` (5 files)
-- `queries/topics.query2e_trial1.txt` through `topics.query2e_trial5.txt` (5 files)
+The repository does not redistribute these official TREC 2024 assessment
+files. Place them at the shown paths, or pass another path explicitly:
 
-**Total**: 31 files
+```text
+data/hr_scored_nist_nuggets_20241218_rag24.test_qrels_nist.jsonl
+data/qrels.rag24.raggy-dev.txt
+```
 
-### Step 2: Retrieval
+The first is required for Nuggetizer. The second is required for retrieval
+metrics used by consolidation/oracle analysis. Java discovery normally works;
+if needed, set `JAVA_HOME` to the JDK root.
 
-#### 2.1 Pyserini BM25 Retrieval
-
-**Script**: `querygym/retrieve_all_queries.py`
+Do not regenerate query variants. Confirm all 31 x 56 checked-in inputs:
 
 ```bash
-python retrieve_all_queries.py \
-    --queries-dir queries \
-    --output-dir retrieval \
-    --k 100
+python3 scripts/verify_llama_pipeline.py --stage queries
 ```
 
-**Output**: 
-- 31 TREC-format run files in `retrieval/`
-- Format: `run.{method}_trial{trial}.txt` or `run.original.txt`
+## 2. Incremental one-query smoke
 
-#### 2.2 Cohere Rerank Retrieval
-
-**Script**: `querygym/retrieve_all_queries_cohere.py`
+Use the same qid for both retrievers:
 
 ```bash
-python retrieve_all_queries_cohere.py \
-    --queries-dir queries \
-    --output-dir retrieval_cohere \
-    --k 100 \
-    --candidate-k 1000
+SMOKE_QID=2024-105741
+mkdir -p querygym/smoke/retrieval querygym/smoke/retrieval_cohere
+
+python3 querygym/retrieve_all_queries.py \
+  --test-file topics.original.txt --qid "$SMOKE_QID" --k 100 \
+  --output-dir querygym/smoke/retrieval
+
+python3 querygym/retrieve_all_queries_cohere.py \
+  --test-file topics.original.txt --qid "$SMOKE_QID" --k 100 --batch-size 32 \
+  --cache-dir index_cache --output-dir querygym/smoke/retrieval_cohere
 ```
 
-**Output**:
-- 31 TREC-format run files in `retrieval_cohere/`
-
-### Step 3: RAG Preparation
-
-**Script**: `scripts/convert_to_ragnarok_format.py`
+For this original-query smoke, `matching` and `original` are identical. Create
+both exact Top-5 inputs:
 
 ```bash
-# Run from the repository root.
-# Convert each of the 31 retrieval run files to Ragnarok format.
-# Example for pyserini results:
-for run_file in querygym/retrieval/run.*.txt; do
-    python scripts/convert_to_ragnarok_format.py \
-        --queries querygym/queries/topics.original.txt \
-        --single-file "$run_file" \
-        --output-dir querygym/rag_prepared/retrieval \
-        --k 5
-done
+python3 scripts/convert_to_ragnarok_format.py \
+  --run-file querygym/smoke/retrieval/run.original.txt \
+  --output-dir querygym/smoke/rag_prepared/retrieval \
+  --query-text-source matching --qid "$SMOKE_QID" --k 5
 
-# For Cohere results:
-for run_file in querygym/retrieval_cohere/run.*.txt; do
-    python scripts/convert_to_ragnarok_format.py \
-        --queries querygym/queries/topics.original.txt \
-        --single-file "$run_file" \
-        --output-dir querygym/rag_prepared/retrieval_cohere \
-        --k 5
-done
+python3 scripts/convert_to_ragnarok_format.py \
+  --run-file querygym/smoke/retrieval_cohere/run.original.txt \
+  --output-dir querygym/smoke/rag_prepared/retrieval_cohere \
+  --query-text-source matching --qid "$SMOKE_QID" --k 5
 ```
 
-**Output**:
-- 31 JSON files in `rag_prepared/retrieval/`
-- 31 JSON files in `rag_prepared/retrieval_cohere/`
-
-**Note**: This step converts TREC-format retrieval results to Ragnarok format for RAG generation.
-
-### Step 4: RAG Generation
-
-**Script**: `querygym/run_RAG_on_prepared_files.py`
+Validate without loading a model, then generate one answer with the required
+3B model:
 
 ```bash
-cd querygym
-# Process all prepared files (both retrieval methods) with default settings
-python run_RAG_on_prepared_files.py \
-    --input-dirs rag_prepared/retrieval_cohere rag_prepared/retrieval \
-    --output-dirs rag_results/retrieval_cohere rag_results/retrieval \
-    --model gpt-4o \
-    --topk 3 \
-    --num-workers 8
+python3 querygym/run_llama_generator.py \
+  --input-dirs querygym/smoke/rag_prepared/retrieval \
+               querygym/smoke/rag_prepared/retrieval_cohere \
+  --output-dirs querygym/smoke/rag_results/retrieval \
+                querygym/smoke/rag_results/retrieval_cohere \
+  --validate-only
+
+python3 querygym/run_llama_generator.py \
+  --input-dirs querygym/smoke/rag_prepared/retrieval \
+  --output-dirs querygym/smoke/rag_results/retrieval \
+  --model meta-llama/Llama-3.2-3B-Instruct \
+  --qid "$SMOKE_QID" --max-files 1 --max-records 1 \
+  --device auto --dtype float16 --load-in-4bit --batch-size 1
 ```
 
-**Output**:
-- 31 JSON files in `rag_results/retrieval/`
-- 31 JSON files in `rag_results/retrieval_cohere/`
-
-**Format**: Each file contains RAG-generated answers with citations.
-
-### Step 5: Nuggetizer Evaluation
-
-**Script**: `querygym/run_rag_nuggetizer.py`
+Evaluate the generated smoke answer with the unchanged evaluator (the nugget
+file may contain all 56 qids; only the present answer is processed):
 
 ```bash
-# For Pyserini results
-python run_rag_nuggetizer.py \
-    --rag-results-dir rag_results/retrieval \
-    --nugget-file data/hr_scored_nist_nuggets_20241218_rag24.test_qrels_nist.jsonl \
-    --output-dir rag_nuggetized_eval/retrieval \
-    --model gpt-4o
-
-# For Cohere results
-python run_rag_nuggetizer.py \
-    --rag-results-dir rag_results/retrieval_cohere \
-    --nugget-file data/hr_scored_nist_nuggets_20241218_rag24.test_qrels_nist.jsonl \
-    --output-dir rag_nuggetized_eval/retrieval_cohere \
-    --model gpt-4o
+python3 querygym/run_rag_nuggetizer.py \
+  --rag-results-dir querygym/smoke/rag_results/retrieval \
+  --nugget-file data/hr_scored_nist_nuggets_20241218_rag24.test_qrels_nist.jsonl \
+  --output-dir querygym/smoke/rag_nuggetized_eval/retrieval \
+  --model gpt-4o --max-files 1
 ```
 
-**Output**:
-- Assignment files in `rag_nuggetized_eval/retrieval/assignments/`
-- Score files in `rag_nuggetized_eval/retrieval/scores/`
-- Same structure for `retrieval_cohere/`
+## 3. Full 56 x 31 pipeline
 
-**Metrics**: Each score file contains:
-- `strict_vital_score`
-- `strict_all_score`
-- `vital_score`
-- `all_score`
+### Retrieval
 
-### Step 6: QPP Predictions
-
-#### 6.1 Pre-Retrieval QPP
-
-**Script**: `querygym/qpp/run_pre_retrieval_verbose.py`
+Both commands resume complete qids. `--no-resume` deliberately starts the
+selected outputs over. Cohere groups up to 32 queries into each embed request
+instead of making 1,736 individual requests.
 
 ```bash
-cd querygym/qpp
-python run_pre_retrieval_verbose.py \
-    --queries-dir ../queries \
-    --output-dir . \
-    --index msmarco-v2.1-doc-segmented
+python3 querygym/retrieve_all_queries.py --k 100
+
+python3 querygym/retrieve_all_queries_cohere.py \
+  --k 100 --batch-size 32 --cache-dir index_cache
+
+python3 scripts/verify_llama_pipeline.py --stage retrieval
 ```
 
-**Output**:
-- 31 CSV files: `pre_retrieval_{method}_trial{trial}_qpp_metrics.csv`
-- 1 file: `pre_retrieval_original_qpp_metrics.csv`
+### Explicit provenance decision and Top-5 preparation
 
-**Metrics Included**:
-- `ql`: Query Length
-- `IDF-avg`, `IDF-max`, `IDF-sum`
-- `SCQ-avg`, `SCQ-max`, `SCQ-sum`
-- `avgICTF`
-- `SCS-APX`, `SCS-FULL` (Simplified Clarity Score - approximate and full)
-
-#### 6.2 Post-Retrieval QPP
-
-**Script**: `querygym/qpp/run_qpp_querygym.py`
+Set this only after deciding which interpretation of the public provenance
+conflict the run represents. `matching` writes each variant's reformulation;
+`original` writes the original TREC question into every prepared variant.
 
 ```bash
-cd querygym/qpp
-# Run post-retrieval QPP for both retrieval methods simultaneously
-python run_qpp_querygym.py \
-    --queries_dir ../queries \
-    --retrieval_dirs ../retrieval ../retrieval_cohere \
-    --output_dir . \
-    --index_path msmarco-v2.1-doc-segmented \
-    --mode post
+export QUERY_TEXT_SOURCE=matching   # or: original
+
+python3 scripts/convert_to_ragnarok_format.py \
+  --retrieval-dir querygym/retrieval \
+  --output-dir querygym/rag_prepared/retrieval \
+  --query-text-source "$QUERY_TEXT_SOURCE" --k 5
+
+python3 scripts/convert_to_ragnarok_format.py \
+  --retrieval-dir querygym/retrieval_cohere \
+  --output-dir querygym/rag_prepared/retrieval_cohere \
+  --query-text-source "$QUERY_TEXT_SOURCE" --k 5
+
+python3 scripts/verify_llama_pipeline.py --stage prepared
 ```
 
-**Output**:
-- 62 CSV files: `post_retrieval_{method}_trial{trial}_{method}_trial{trial}_{retrieval_method}_qpp_metrics.csv`
-- 2 files: `post_retrieval_original_original_{retrieval_method}_qpp_metrics.csv`
+Preparation copies the stored MS MARCO passage object and the exact first five
+ranked doc IDs. It neither reranks nor changes candidate order. Completed files
+are skipped; use `--overwrite` only when intentionally changing provenance.
 
-**Metrics Included**:
-- `clarity-score-k100`
-- `wig-norm-k100`, `wig-no-norm-k100`
-- `nqc-norm-k100`, `nqc-no-norm-k100`
-- `smv-norm-k100`, `smv-no-norm-k100`
-- `sigma-x0.5`, `sigma-max`
-- `RSD`
-- `qsdqpp_predicted_ndcg`
-
-#### 6.3 BERT-QPP Predictions
-
-**Script**: `querygym/run_bert_qpp.py`
+### Local Llama generation
 
 ```bash
-cd ..
-python run_bert_qpp.py \
-    --queries-dir queries \
-    --retrieval-dir retrieval \
-    --retrieval-cohere-dir retrieval_cohere \
-    --output-dir qpp/bert_qpp_results \
-    --ce-model-path path/to/cross-encoder-model \
-    --bi-model-path path/to/bi-encoder-model
+python3 querygym/run_llama_generator.py \
+  --input-dirs querygym/rag_prepared/retrieval \
+               querygym/rag_prepared/retrieval_cohere \
+  --output-dirs querygym/rag_results/retrieval \
+                querygym/rag_results/retrieval_cohere \
+  --model meta-llama/Llama-3.2-3B-Instruct \
+  --device auto --dtype float16 --load-in-4bit --batch-size 1 \
+  --context-size 8192 --max-new-tokens 1024
+
+python3 scripts/verify_llama_pipeline.py --stage generated
 ```
 
-**Output**:
-- `qpp/bert_qpp_results/bert_qpp_scores.json`
-- `qpp/bert_qpp_results/bert_qpp_scores.csv`
+The shown 4-bit configuration is the appropriate starting point for 4 GB VRAM.
+On a larger GPU, omit `--load-in-4bit` and use `--dtype float16` or
+`--dtype bfloat16`. Increase `--batch-size` only if memory permits. Prompts are
+never silently truncated: a request exceeding `--context-size` fails with its
+qid. Output is checkpointed after every generation batch; rerunning skips
+existing topic IDs.
 
-**Note**: BERT-QPP models need to be trained separately or downloaded. See `BERTQPP/README.md` for details.
-
-## Verification
-
-After running all steps, verify the outputs:
-
-### Expected File Counts
-
-- **Query files**: 31 files in `queries/`
-- **Retrieval results**: 31 files in `retrieval/`, 31 in `retrieval_cohere/`
-- **RAG prepared**: 31 files in `rag_prepared/retrieval/`, 31 in `rag_prepared/retrieval_cohere/`
-- **RAG results**: 31 files in `rag_results/retrieval/`, 31 in `rag_results/retrieval_cohere/`
-- **Nuggetizer scores**: 31 score files in `rag_nuggetized_eval/retrieval/scores/`, 31 in `rag_nuggetized_eval/retrieval_cohere/scores/`
-- **Pre-retrieval QPP**: 31 CSV files in `qpp/`
-- **Post-retrieval QPP**: 62 CSV files in `qpp/` (31 × 2 retrieval methods)
-- **BERT-QPP**: 2 files in `qpp/bert_qpp_results/`
-
-### Data Validation
+### Paper-consistent Nuggetizer
 
 ```bash
-# Check query files
-ls querygym/queries/*.txt | wc -l  # Should be 31
+python3 querygym/run_rag_nuggetizer.py \
+  --rag-results-dir querygym/rag_results \
+  --nugget-file data/hr_scored_nist_nuggets_20241218_rag24.test_qrels_nist.jsonl \
+  --output-dir querygym/rag_nuggetized_eval \
+  --model gpt-4o
 
-# Check retrieval results
-ls querygym/retrieval/*.txt | wc -l  # Should be 31
-ls querygym/retrieval_cohere/*.txt | wc -l  # Should be 31
-
-# Check RAG results
-ls querygym/rag_results/retrieval/*.json | wc -l  # Should be 31
-ls querygym/rag_results/retrieval_cohere/*.json | wc -l  # Should be 31
-
-# Check QPP predictions
-ls querygym/qpp/pre_retrieval_*.csv | wc -l  # Should be 31
-ls querygym/qpp/post_retrieval_*.csv | wc -l  # Should be 62
+python3 scripts/verify_llama_pipeline.py --stage scores
 ```
 
-## Troubleshooting
+This is an expensive OpenAI stage and resumes by qid. Do not pass a Llama model:
+the wrapper rejects it. Score files contain per-qid and aggregate `all_score`
+and `strict_vital_score` values.
 
-### Common Issues
+### Retrieval metrics, QPP, oracle, and Utility-Gap analysis
 
-1. **Java/Pyserini errors**: Ensure Java is properly configured and JVM_PATH is set
-2. **API key errors**: Verify environment variables are set correctly
-3. **Memory issues**: Reduce `--num-workers` or process files in batches
-4. **Missing index**: Pyserini will download the index automatically on first use
+The existing analysis remains in place; rerun it on the new retrieval/generation
+artifacts as follows:
 
-### Performance Notes
+```bash
+python3 querygym/evaluate_retrieval_per_query.py \
+  --qrels data/qrels.rag24.raggy-dev.txt
 
-- **RAG generation**: Most time-consuming step (~hours for full dataset)
-- **QPP computation**: Pre-retrieval is fast, post-retrieval takes longer
-- **Nuggetizer**: Moderate time, depends on API rate limits
+python3 querygym/qpp/run_pre_retrieval_verbose.py \
+  --queries-dir querygym/queries --output-dir querygym/qpp \
+  --index msmarco-v2.1-doc-segmented
 
-## Additional Resources
+python3 querygym/qpp/run_qpp_querygym.py \
+  --mode post --queries_dir querygym/queries \
+  --retrieval_dirs querygym/retrieval querygym/retrieval_cohere \
+  --output_dir querygym/qpp --index_path msmarco-v2.1-doc-segmented \
+  --k_top 100
 
-- See `README.md` for overview
-- See `querygym/README.md` for query-specific documentation
-- See `QPP4CS/README.md` for QPP method details
-- See `BERTQPP/README.md` for BERT-QPP training instructions
+python3 querygym/consolidate_query_data.py \
+  --rag-score-tag llama_3_2_3b_instruct_top5
+python3 querygym/analyze_qpp_correlations.py
+python3 querygym/analyze_qpp_oracle_performance.py
+```
+
+Optional BERT-QPP/QSDQPP inputs are loaded from their existing locations when
+present; missing optional predictors remain absent rather than blocking the
+base analysis. The consolidation keeps retrieval metrics, QPP values, oracle
+selection, and downstream Utility-Gap inputs while switching only the answer
+score tag.
+
+Final structural audit:
+
+```bash
+python3 scripts/verify_llama_pipeline.py --stage all
+```
+
+Success means two retrievers x 31 variants x 56 topics, top-100 retrieval,
+exact Top-5 preparation/references, preserved `query.text`, and both requested
+nugget score fields for every topic.
+
+## 4. Offline developer checks
+
+These do not download indexes or call paid APIs:
+
+```bash
+python3 -m unittest discover -s tests -v
+python3 querygym/run_llama_generator.py \
+  --input-dirs tests/fixtures/rag_prepared/retrieval \
+  --output-dirs /tmp/qpp4rag-validate --validate-only
+python3 nuggetizer/scripts/calculate_metrics.py \
+  --input_file tests/fixtures/nuggetizer/smoke_assignments.jsonl \
+  --output_file /tmp/qpp4rag-smoke-scores.jsonl
+```
+
+The unit tests use fake retrievers to confirm BM25 checkpoint behavior and that
+multiple Cohere queries use one embed call. They also assert exact Top-5/order,
+query provenance, Llama result shape, citation bounds, and nugget metrics.

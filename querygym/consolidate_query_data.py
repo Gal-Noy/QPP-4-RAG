@@ -6,6 +6,7 @@ into a single JSON file.
 
 import json
 import csv
+import argparse
 from pathlib import Path
 from collections import defaultdict
 
@@ -272,7 +273,8 @@ def consolidate_data(
     bert_qpp_file,
     qsdqpp_dir,
     generationonly_scores_dir,
-    output_file
+    output_file,
+    rag_score_tag
 ):
     """Consolidate all data into a single JSON file."""
     
@@ -320,8 +322,8 @@ def consolidate_data(
             # Determine file naming pattern
             if method == 'original':
                 query_file = queries_dir / "topics.original.txt"
-                nugget_file_retrieval = retrieval_scores_dir / f"rag_results_run.original_gpt_4o_mini_top3_scores.jsonl"
-                nugget_file_cohere = retrieval_cohere_scores_dir / f"rag_results_run.original_gpt_4o_mini_top3_scores.jsonl"
+                nugget_file_retrieval = retrieval_scores_dir / f"rag_results_run.original_{rag_score_tag}_scores.jsonl"
+                nugget_file_cohere = retrieval_cohere_scores_dir / f"rag_results_run.original_{rag_score_tag}_scores.jsonl"
                 nugget_file_generationonly = generationonly_scores_dir / f"rag_results_run.original_gpt_4o_mini_top3_top0_scores.jsonl"
                 qpp_file_pyserini = qpp_dir / f"post_retrieval_original_original_pyserini_qpp_metrics.csv"
                 qpp_file_cohere = qpp_dir / f"post_retrieval_original_original_cohere_qpp_metrics.csv"
@@ -330,8 +332,8 @@ def consolidate_data(
                 retrieval_eval_file_cohere = retrieval_eval_dir / "retrieval_cohere_original_per_query.jsonl"
             else:
                 query_file = queries_dir / f"topics.{method}_trial{trial}.txt"
-                nugget_file_retrieval = retrieval_scores_dir / f"rag_results_run.{method}_trial{trial}_gpt_4o_mini_top3_scores.jsonl"
-                nugget_file_cohere = retrieval_cohere_scores_dir / f"rag_results_run.{method}_trial{trial}_gpt_4o_mini_top3_scores.jsonl"
+                nugget_file_retrieval = retrieval_scores_dir / f"rag_results_run.{method}_trial{trial}_{rag_score_tag}_scores.jsonl"
+                nugget_file_cohere = retrieval_cohere_scores_dir / f"rag_results_run.{method}_trial{trial}_{rag_score_tag}_scores.jsonl"
                 nugget_file_generationonly = generationonly_scores_dir / f"rag_results_run.{method}_trial{trial}_gpt_4o_mini_top3_top0_scores.jsonl"
                 qpp_file_pyserini = qpp_dir / f"post_retrieval_{method}_trial{trial}_{method}_trial{trial}_pyserini_qpp_metrics.csv"
                 qpp_file_cohere = qpp_dir / f"post_retrieval_{method}_trial{trial}_{method}_trial{trial}_cohere_qpp_metrics.csv"
@@ -441,6 +443,17 @@ def consolidate_data(
 
 def main():
     base_dir = Path(__file__).resolve().parent
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        '--rag-score-tag',
+        default='llama_3_2_3b_instruct_top5',
+        help='Generator tag embedded in Nuggetizer score filenames'
+    )
+    parser.add_argument(
+        '--output-file', type=Path,
+        default=base_dir / 'consolidated_query_data.json'
+    )
+    args = parser.parse_args()
     
     queries_file = base_dir / "queries" / "topics.original.txt"
     queries_dir = base_dir / "queries"
@@ -449,9 +462,9 @@ def main():
     generationonly_scores_dir = base_dir / "rag_nuggetized_eval_o" / "scores"
     qpp_dir = base_dir / "qpp"
     retrieval_eval_dir = base_dir / "retrieval_eval"
-    bert_qpp_file = base_dir / "bert_qpp_results" / "bert_qpp_scores.json"
-    qsdqpp_dir = base_dir / "QSDQPP"
-    output_file = base_dir / "consolidated_query_data.json"
+    bert_qpp_file = base_dir / "qpp" / "bert_qpp_results" / "bert_qpp_scores.json"
+    qsdqpp_dir = base_dir / "qpp" / "QSDQPP"
+    output_file = args.output_file
     
     consolidate_data(
         queries_file,
@@ -463,7 +476,8 @@ def main():
         bert_qpp_file,
         qsdqpp_dir,
         generationonly_scores_dir,
-        output_file
+        output_file,
+        args.rag_score_tag
     )
     
     print(f"\n🎉 Done! Output saved to: {output_file}")

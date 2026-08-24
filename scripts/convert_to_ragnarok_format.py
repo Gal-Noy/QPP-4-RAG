@@ -1,401 +1,204 @@
 #!/usr/bin/env python3
-"""
-Helper script to convert your retrieved results to ragnarok format.
-Modify this script based on your input data format.
-"""
+"""Convert TREC runs to Ragnarok requests with exactly the first five passages."""
+
+import argparse
 import json
 import os
-import sys
-from typing import List, Dict, Any
+from collections import defaultdict
+from pathlib import Path
 
-# Set up Java environment before importing pyserini
-def setup_java_environment():
-    """Set up Java environment variables needed for pyserini."""
+
+def setup_java() -> None:
     java_home = os.environ.get("JAVA_HOME")
     if not java_home:
-        print("⚠️  JAVA_HOME not set. Please set it, e.g.: export JAVA_HOME=/path/to/java")
         return
-
-    possible_jvm_paths = [
-        os.path.join(java_home, "lib", "server", "libjvm.so"),
-        os.path.join(java_home, "lib", "libjvm.so"),
-    ]
-
-    jvm_path = None
-    for path in possible_jvm_paths:
-        if os.path.exists(path):
-            jvm_path = path
+    for relative in ("lib/server/libjvm.so", "lib/libjvm.so"):
+        candidate = Path(java_home) / relative
+        if candidate.exists():
+            os.environ.setdefault("JVM_PATH", str(candidate))
             break
 
-    if jvm_path:
-        os.environ["JVM_PATH"] = jvm_path
-        print(f"✅ Set JVM_PATH to: {jvm_path}")
-    else:
-        print("⚠️  Warning: Could not find libjvm.so under JAVA_HOME. Pyserini may not work.")
 
-    print(f"✅ Using JAVA_HOME: {java_home}")
-
-# Set up Java environment first
-setup_java_environment()
-
-# Add pyserini to path if needed
-try:
-    from pyserini.search.lucene import LuceneSearcher
-    print("✅ Pyserini imported successfully!")
-except ImportError:
-    print("❌ ERROR: Pyserini not found!")
-    print("   Please install pyserini with: pip install pyserini")
-    print("   Or activate the correct conda environment: conda activate pyserini-env")
-    print("   If you get conda errors, run: conda init bash")
-    sys.exit(1)
-
-def convert_your_format_to_ragnarok(input_file: str, output_file: str):
-    """
-    Convert your retrieved results to ragnarok format.
-    
-    MODIFY THIS FUNCTION based on your input format!
-    
-    Example assumes your format is:
-    {
-        "query_id": "001",
-        "query_text": "What is the capital of France?",
-        "retrieved_docs": [
-            {
-                "doc_id": "doc1",
-                "text": "Paris is the capital...",
-                "retrieval_score": 0.85
-            }
-        ]
-    }
-    """
-    
-    with open(input_file, 'r') as f:
-        your_data = json.load(f)
-    
-    ragnarok_format = []
-    
-    # If your data is a list of queries
-    if isinstance(your_data, list):
-        for item in your_data:
-            ragnarok_query = convert_single_query(item)
-            ragnarok_format.append(ragnarok_query)
-    
-    # If your data is a single query
-    elif isinstance(your_data, dict):
-        ragnarok_query = convert_single_query(your_data)
-        ragnarok_format.append(ragnarok_query)
-    
-    # Write in ragnarok format
-    with open(output_file, 'w') as f:
-        json.dump(ragnarok_format, f, indent=2)
-    
-    print(f"Converted {len(ragnarok_format)} queries to ragnarok format")
-    print(f"Output saved to: {output_file}")
-
-def convert_single_query(query_data: Dict[str, Any]) -> Dict[str, Any]:
-    """
-    Convert a single query from your format to ragnarok format.
-    
-    MODIFY THESE FIELD MAPPINGS based on your data structure!
-    """
-    
-    # Map your field names to ragnarok format
-    query_id = query_data.get("query_id", query_data.get("qid", "unknown"))
-    query_text = query_data.get("query_text", query_data.get("query", ""))
-    retrieved_docs = query_data.get("retrieved_docs", query_data.get("documents", []))
-    
-    candidates = []
-    for doc in retrieved_docs:
-        candidate = {
-            "doc": {
-                "segment": doc.get("text", doc.get("content", doc.get("passage", "")))
-            },
-            "docid": doc.get("doc_id", doc.get("docid", doc.get("id", "unknown"))),
-            "score": float(doc.get("retrieval_score", doc.get("score", 0.0)))
-        }
-        candidates.append(candidate)
-    
-    ragnarok_query = {
-        "query": {
-            "text": query_text,
-            "qid": query_id
-        },
-        "candidates": candidates
-    }
-    
-    return ragnarok_query
-
-def initialize_pyserini_searcher():
-    """
-    Initialize Pyserini searcher once for reuse across multiple files.
-    
-    Returns:
-        LuceneSearcher or None if initialization fails
-    """
-    if not LuceneSearcher:
-        return None
-        
-    try:
-        print("  🔍 Initializing pyserini searcher for msmarco-v2.1-doc index...")
-        print("  ⚠️  This may take several minutes for the first run...")
-        
-        # Add timeout handling
-        import signal
-        
-        def timeout_handler(signum, frame):
-            raise TimeoutError("Pyserini searcher initialization timed out")
-        
-        # Set a 5-minute timeout
-        signal.signal(signal.SIGALRM, timeout_handler)
-        signal.alarm(300)  # 5 minutes
-        
-        try:
-            searcher = LuceneSearcher.from_prebuilt_index('msmarco-v2.1-doc-segmented')
-            signal.alarm(0)  # Cancel the alarm
-            print("  ✅ Pyserini searcher initialized successfully!")
-            return searcher
-        except TimeoutError:
-            print("  ❌ Pyserini searcher initialization timed out after 5 minutes")
-            print("     This usually means the index is very large and needs more time")
-            print("     Will continue with placeholder document text instead")
-            return None
-        except Exception as e:
-            signal.alarm(0)  # Cancel the alarm
-            print(f"  ❌ Could not initialize pyserini searcher: {e}")
-            print("     Will use placeholder document text instead")
-            return None
-            
-    except Exception as e:
-        print(f"  ⚠️  Could not initialize pyserini searcher: {e}")
-        print("     Will use placeholder document text instead.")
-        return None
-
-def convert_trec_style_results(queries_file: str, results_file: str, output_file: str, searcher=None, k: int = 5):
-    """
-    Convert TREC-style results to ragnarok format.
-    
-    Args:
-        queries_file: File with queries (TSV: qid\tquery_text)
-        results_file: File with results (TSV: qid\tQ0\tdocid\trank\tscore\ttag)
-        output_file: Output file for ragnarok format
-        searcher: Pre-initialized Pyserini searcher (optional)
-        k: Number of top results to convert per query (default: 5)
-    """
-    
-    print(f"  📖 Loading queries from: {queries_file}")
-    # Load queries
+def read_queries(path: Path) -> dict[str, str]:
     queries = {}
-    with open(queries_file, 'r') as f:
-        for line in f:
-            parts = line.strip().split('\t', 1)
-            if len(parts) == 2:
-                qid, text = parts
-                queries[qid] = text
-    
-    print(f"  ✅ Loaded {len(queries)} queries")
-    
-    print(f"  📊 Loading results from: {results_file}")
-    # Group results by query
-    query_results = {}
-    line_count = 0
-    with open(results_file, 'r') as f:
-        for line in f:
-            line_count += 1
-            if line_count % 10000 == 0:
-                print(f"    📝 Processed {line_count:,} lines...")
-            
-            # Split by whitespace (handles both tabs and spaces)
-            parts = line.strip().split()
-            if len(parts) >= 5:
-                qid, _, docid, rank, score = parts[:5]
-                if qid not in query_results:
-                    query_results[qid] = []
-                query_results[qid].append({
-                    'docid': docid,
-                    'score': float(score),
-                    'rank': int(rank)
-                })
-    
-    print(f"  ✅ Loaded {len(query_results)} query result groups from {line_count:,} lines")
-    print(f"  📝 Note: Only converting top {k} results per query for faster processing")
-    
-    # Convert to ragnarok format
-    print(f"  🔄 Converting to ragnarok format...")
-    ragnarok_format = []
-    processed_count = 0
-    total_queries = len(query_results)
-    
-    # Extract query ID from filename and process only that single query
-    if args.single_file:
-        filename = Path(args.single_file).stem
-        # Extract query ID from filename
-        parts = filename.split('.')
-        if len(parts) >= 3:
-            query_part = parts[2]
-            actual_qid = query_part.split('_')[0]  # Remove _prediction suffix
-        else:
-            print(f"    ⚠️  Could not extract query ID from filename: {filename}")
-            return
-            
-        if actual_qid not in queries:
-            print(f"    ⚠️  Query {actual_qid} not found in topics file")
-            return
-        
-        # Process only the first query group
-        if query_results:
-            qid, results = next(iter(query_results.items()))
-            print(f"    📝 Processing single query: {actual_qid}")
-            print(f"    📊 Found {len(results)} documents for query")
-        else:
-            print(f"    ⚠️  No query results found in file")
-            return
-    else:
-        # Batch processing - process all query results
-        print(f"    📝 Processing batch file with {len(query_results)} query groups")
-        
-        # Process each query group
-        for qid, results in query_results.items():
-            print(f"    📝 Processing query: {qid}")
-            print(f"    📊 Found {len(results)} documents for query")
-            
-            candidates = []
-            # Only process top k results per query for faster conversion
-            top_results = sorted(results, key=lambda x: x['rank'])[:k]
-            
-            for result in top_results:
-                # Get document text
-                if searcher:
-                    try:
-                        # Strip segment suffix (e.g., remove #0_3617397938 from msmarco_v2.1_doc_13_1647729865#0_3617397938)
-                        base_docid = result['docid']
-                        
-                        doc = searcher.doc(base_docid)
-                        if doc and doc.raw():
-                            doc_data = json.loads(doc.raw())
-                            # Extract text from document - adjust based on actual structure
-                            doc_text = doc_data.get('title','') + " " + doc_data.get('segment', '')
-                            if not doc_text:
-                                doc_text = f"Document {base_docid} - No text available"
-                        else:
-                            doc_text = f"Document {base_docid} - Could not retrieve (tried: {base_docid})"
-                    except Exception as e:
-                        print(f"    ⚠️  Could not retrieve document {result['docid']} (base: {base_docid}): {e}")
-                        doc_text = f"Document {base_docid} - Error retrieving"
-                else:
-                    # This should never happen now since we require Pyserini
-                    raise RuntimeError("Pyserini searcher is required but not available")
-                
-                candidate = {
-                    "doc": {"segment": doc_text},
-                    "docid": result['docid'],
-                    "score": result['score']
-                }
-                candidates.append(candidate)
-            
-            # Create ragnarok query with all candidates
-            ragnarok_query = {
-                "query": {
-                    "text": queries.get(qid, f"Query {qid}"),
-                    "qid": qid
-                },
-                "candidates": candidates
-            }
-            ragnarok_format.append(ragnarok_query)
-        
-        processed_count = len(query_results)
-        print(f"    📝 Processed {processed_count}/{processed_count} queries (100.0%)")
-    
-    print(f"  💾 Saving to: {output_file}")
-    with open(output_file, 'w') as f:
-        json.dump(ragnarok_format, f, indent=2)
-    
-    print(f"  ✅ Converted {len(ragnarok_format)} queries from TREC format")
-    print(f"  📁 Results saved to: {output_file}")
+    with path.open(encoding="utf-8") as handle:
+        for line_number, line in enumerate(handle, 1):
+            if not line.strip():
+                continue
+            parts = line.rstrip("\n").split("\t", 1)
+            if len(parts) != 2:
+                raise ValueError(f"Invalid topics row {path}:{line_number}")
+            queries[parts[0]] = parts[1]
+    return queries
+
+
+def read_run(path: Path) -> dict[str, list[dict]]:
+    grouped = defaultdict(list)
+    with path.open(encoding="utf-8") as handle:
+        for line_number, line in enumerate(handle, 1):
+            parts = line.split()
+            if len(parts) < 6:
+                raise ValueError(f"Invalid TREC row {path}:{line_number}")
+            qid, _, docid, rank, score = parts[:5]
+            grouped[qid].append({
+                "docid": docid,
+                "rank": int(rank),
+                "score": float(score),
+            })
+    return dict(grouped)
+
+
+def run_name(path: Path) -> str:
+    name = path.name
+    if name.startswith("run.") and name.endswith(".txt"):
+        return name[4:-4]
+    return path.stem
+
+
+def resolve_topics(run_file: Path, source: str | None, explicit: Path | None,
+                   queries_dir: Path) -> Path:
+    if explicit:
+        return explicit
+    if source == "original":
+        return queries_dir / "topics.original.txt"
+    if source == "matching":
+        return queries_dir / f"topics.{run_name(run_file)}.txt"
+    raise ValueError(
+        "Choose query provenance explicitly with --query-text-source matching|original "
+        "or provide --queries"
+    )
+
+
+def raw_document(searcher, docid: str) -> dict:
+    stored = searcher.doc(docid)
+    if stored is None or not stored.raw():
+        raise KeyError(f"Document not found in index: {docid}")
+    data = json.loads(stored.raw())
+    if not data.get("segment"):
+        raise ValueError(f"Document has no passage segment: {docid}")
+    return data
+
+
+def convert_run(queries: dict[str, str], results: dict[str, list[dict]], searcher,
+                k: int = 5, only_qid: str | None = None,
+                max_queries: int | None = None, document_cache: dict | None = None):
+    if k != 5:
+        raise ValueError("This reproduction pipeline requires exactly --k 5")
+    qids = list(results)
+    if only_qid:
+        qids = [qid for qid in qids if qid == only_qid]
+        if not qids:
+            raise ValueError(f"QID {only_qid!r} is absent from the run")
+    if max_queries is not None:
+        qids = qids[:max_queries]
+    cache = document_cache if document_cache is not None else {}
+    requests = []
+    for qid in qids:
+        if qid not in queries:
+            raise KeyError(f"QID {qid} is absent from the selected topics file")
+        ranked = sorted(results[qid], key=lambda item: item["rank"])
+        if len(ranked) < 5:
+            raise ValueError(f"QID {qid} has only {len(ranked)} results")
+        top_five = ranked[:5]
+        if [item["rank"] for item in top_five] != [1, 2, 3, 4, 5]:
+            raise ValueError(f"QID {qid} does not have contiguous ranks 1..5")
+        candidates = []
+        for item in top_five:
+            docid = item["docid"]
+            if docid not in cache:
+                cache[docid] = raw_document(searcher, docid)
+            candidates.append({
+                "doc": cache[docid],
+                "docid": docid,
+                "score": item["score"],
+            })
+        requests.append({
+            "query": {"text": queries[qid], "qid": qid},
+            "candidates": candidates,
+        })
+    return requests
+
+
+def output_is_complete(path: Path, expected: int) -> bool:
+    if not path.exists():
+        return False
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        return isinstance(data, list) and len(data) == expected and all(
+            len(record.get("candidates", [])) == 5 for record in data
+        )
+    except (OSError, json.JSONDecodeError):
+        return False
+
+
+def main() -> int:
+    repo = Path(__file__).resolve().parent.parent
+    parser = argparse.ArgumentParser(description=__doc__)
+    inputs = parser.add_mutually_exclusive_group(required=True)
+    inputs.add_argument("--retrieval-dir", type=Path)
+    inputs.add_argument("--run-file", "--single-file", dest="run_file", type=Path)
+    parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--queries", type=Path,
+                        help="Explicit topics file; takes precedence over query-text-source")
+    parser.add_argument("--queries-dir", type=Path, default=repo / "querygym" / "queries")
+    parser.add_argument("--query-text-source", choices=("matching", "original"),
+                        help="Required unless --queries is supplied; records the provenance choice")
+    parser.add_argument("--index", default="msmarco-v2.1-doc-segmented")
+    parser.add_argument("--k", type=int, default=5)
+    parser.add_argument("--qid")
+    parser.add_argument("--max-queries", type=int)
+    parser.add_argument("--overwrite", action="store_true")
+    args = parser.parse_args()
+    if not args.queries and not args.query_text_source:
+        parser.error("Pass --query-text-source matching|original or --queries FILE")
+    if args.k != 5:
+        parser.error("The paper configuration and this pipeline require --k 5")
+
+    run_files = [args.run_file] if args.run_file else sorted(args.retrieval_dir.glob("run.*.txt"))
+    if not run_files or any(not path.exists() for path in run_files):
+        parser.error("No selected TREC run files exist")
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+
+    setup_java()
+    try:
+        from pyserini.search.lucene import LuceneSearcher
+    except ImportError as exc:
+        parser.error(f"Pyserini is required to materialize passage text: {exc}")
+    searcher = LuceneSearcher.from_prebuilt_index(args.index)
+    document_cache = {}
+
+    for run_file in run_files:
+        topics_file = resolve_topics(
+            run_file, args.query_text_source, args.queries, args.queries_dir
+        )
+        if not topics_file.exists():
+            raise FileNotFoundError(f"Topics file not found: {topics_file}")
+        results = read_run(run_file)
+        expected = len(results)
+        if args.qid:
+            expected = int(args.qid in results)
+        if args.max_queries is not None:
+            expected = min(expected, args.max_queries)
+        destination = args.output_dir / f"ragnarok_format_run.{run_name(run_file)}.json"
+        if not args.overwrite and output_is_complete(destination, expected):
+            print(f"Skipping complete file: {destination}")
+            continue
+        converted = convert_run(
+            read_queries(topics_file), results, searcher, args.k,
+            args.qid, args.max_queries, document_cache,
+        )
+        temporary = destination.with_suffix(destination.suffix + ".tmp")
+        temporary.write_text(
+            json.dumps(converted, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
+        temporary.replace(destination)
+        print(
+            f"Wrote {len(converted)} requests with query text from {topics_file}: "
+            f"{destination}"
+        )
+    return 0
+
 
 if __name__ == "__main__":
-    import argparse
-    import glob
-    from pathlib import Path
-    
-    # Parse command line arguments
-    parser = argparse.ArgumentParser(description='Convert TREC-style results to ragnarok format')
-    _here = Path(__file__).resolve().parent
-    parser.add_argument('--queries', default=str(_here.parent / "querygym" / "queries" / "topics.original.txt"),
-                       help='Path to queries file')
-    parser.add_argument('--output-dir', default=str(_here.parent / "querygym" / "rag_prepared"),
-                       help='Output directory for ragnarok format files')
-    parser.add_argument('--single-file', 
-                       help='Process only a single run file (for testing)')
-    parser.add_argument('--k', type=int, default=5,
-                       help='Number of top results to convert per query (default: 5)')
-    args = parser.parse_args()
-    
-    # Create output directory if it doesn't exist
-    output_dir = Path(args.output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
-    
-    # Initialize Pyserini searcher once for reuse
-    print("🔍 Initializing Pyserini searcher for document retrieval...")
-    searcher = initialize_pyserini_searcher()
-    
-    if args.single_file:
-        # Process only a single file
-        run_file = Path(args.single_file)
-        if not run_file.exists():
-            print(f"❌ Run file not found: {run_file}")
-            exit(1)
-        
-        # Determine output filename
-        run_name = run_file.stem  # Remove .txt extension
-        output_file = output_dir / f"ragnarok_format_{run_name}.json"
-        
-        print(f"Converting single file: {run_file} -> {output_file}")
-        print(f"📊 Converting top {args.k} results per query")
-        
-        convert_trec_style_results(args.queries, str(run_file), str(output_file), searcher=searcher, k=args.k)
-        
-    else:
-        # Process all run files in the retrieval directory
-        print("🔄 Processing all run files...")
-        
-        # Get all run files from the retrieval directory
-        runs_dir = output_dir.parent / "retrieval"
-        if not runs_dir.exists():
-            runs_dir = output_dir.parent / "retrieval_cohere"
-        
-        if runs_dir.exists():
-            all_files = list(runs_dir.glob("run.*.txt"))
-            print(f"Found {len(all_files)} run files")
-        else:
-            print(f"❌ No retrieval directory found. Please specify run files manually.")
-            exit(1)
-        print(f"📊 Converting top {args.k} results per query")
-        print("   Note: Pyserini searcher already initialized - much faster processing!")
-        
-        # Process each file
-        for i, run_file in enumerate(all_files, 1):
-            print(f"\n📁 Processing file {i}/{len(all_files)}: {run_file.name}")
-            
-            # Determine output filename
-            run_name = run_file.stem  # Remove .txt extension
-            output_file = output_dir / f"ragnarok_format_{run_name}.json"
-            
-            # Skip if output already exists
-            if output_file.exists():
-                print(f"   ⏭️  Output already exists: {output_file.name}")
-                continue
-            
-            try:
-                convert_trec_style_results(args.queries, str(run_file), str(output_file), searcher=searcher, k=args.k)
-                print(f"   ✅ Successfully converted to: {output_file.name}")
-            except Exception as e:
-                print(f"   ❌ Error processing {run_file.name}: {e}")
-                continue
-        
-        print(f"\n🎉 Batch processing complete!")
-        print(f"📁 All ragnarok format files saved to: {output_dir}")
-        print(f"📊 Processed {len(all_files)} run files")
-    
-    print(f"\nConversion complete!")
-    print("✅ Files contain real document content from the msmarco-v2.1-doc index")
-    print("You can now use these files with ragnarok!")
+    raise SystemExit(main())

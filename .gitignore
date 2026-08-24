@@ -66,6 +66,11 @@ index_cache/
 models/
 checkpoints/
 
+# The vendored Nuggetizer package contains source code in a directory named models.
+!nuggetizer/src/nuggetizer/models/
+!nuggetizer/src/nuggetizer/models/__init__.py
+!nuggetizer/src/nuggetizer/models/nuggetizer.py
+
 # Java
 *.class
 

@@ -1,245 +1,143 @@
 #!/usr/bin/env python3
-"""
-Retrieve documents for all query files using pyserini BM25.
-Processes all 31 query files (6 methods × 5 trials + 1 original).
-"""
+"""Retrieve the checked-in query variants with the paper's BM25 setup."""
 
+import argparse
 import os
 import sys
 from pathlib import Path
-import time
-import argparse
 
-def setup_java_environment():
-    """Set up Java environment for Pyserini."""
-    java_home = os.environ.get("JAVA_HOME")
-    if not java_home:
-        print("⚠️  JAVA_HOME not set. Please set it, e.g.: export JAVA_HOME=/path/to/java")
-        return
 
-    # Try to locate libjvm.so under JAVA_HOME
-    jvm_paths = [
-        os.path.join(java_home, "lib", "server", "libjvm.so"),
-        os.path.join(java_home, "lib", "libjvm.so"),
-    ]
-
-    jvm_path = None
-    for path in jvm_paths:
-        if Path(path).exists():
-            jvm_path = path
-            break
-
-    if jvm_path:
-        os.environ["JVM_PATH"] = jvm_path
-        print(f"✅ Set JVM_PATH to: {jvm_path}")
-    else:
-        print("⚠️  Warning: Could not find libjvm.so under JAVA_HOME. Pyserini may not work.")
-
-    print(f"✅ Using JAVA_HOME: {java_home}")
-
-def read_topics_file(topics_file):
-    """Read queries from a topics file."""
+def read_topics_file(topics_file: Path):
     queries = []
-    
-    with open(topics_file, 'r', encoding='utf-8') as f:
-        for line_num, line in enumerate(f, 1):
-            line = line.strip()
-            if line:
-                parts = line.split('\t', 1)
-                if len(parts) == 2:
-                    query_id, query_text = parts
-                    queries.append((query_id, query_text))
-                else:
-                    print(f"⚠️  Invalid line {line_num}: {line}")
-    
+    with topics_file.open(encoding="utf-8") as handle:
+        for line_number, line in enumerate(handle, 1):
+            if not line.strip():
+                continue
+            parts = line.rstrip("\n").split("\t", 1)
+            if len(parts) != 2:
+                raise ValueError(f"Invalid topics row {topics_file}:{line_number}")
+            queries.append((parts[0], parts[1]))
     return queries
 
-def search_pyserini_index(searcher, query_text, k=100):
-    """Search the Pyserini index for the given query."""
-    try:
-        hits = searcher.search(query_text, k=k)
-        return hits
-    except Exception as e:
-        print(f"❌ Error searching for query: {e}")
-        return []
 
-def format_trec_results(query_id, hits, run_name="pyserini"):
-    """Format search results in TREC format."""
-    trec_lines = []
-    
-    for i, hit in enumerate(hits):
-        if hit.docid and hit.score:
-            trec_lines.append(f"{query_id} Q0 {hit.docid} {i+1} {hit.score:.6f} {run_name}")
-        else:
-            continue
-    
-    return trec_lines
+def run_name_for(topics_file: Path) -> str:
+    name = topics_file.name
+    return name[7:-4] if name.startswith("topics.") and name.endswith(".txt") else topics_file.stem
 
-def process_query_file(searcher, topics_file, output_dir, k=100):
-    """Process a single query file and save results."""
-    
-    # Extract run name from filename
-    # e.g., "topics.genqr_trial1.txt" -> "genqr_trial1"
-    # or "topics.original.txt" -> "original"
-    filename = topics_file.name
-    if filename.startswith("topics.") and filename.endswith(".txt"):
-        run_name = filename[7:-4]  # Remove "topics." prefix and ".txt" suffix
-    else:
-        run_name = topics_file.stem
-    
-    print(f"\n📄 Processing: {filename}")
-    print(f"   Run name: {run_name}")
-    
-    # Read queries
+
+def normalize_checkpoint(output_file: Path, k: int) -> set[str]:
+    """Discard incomplete qid blocks so a resumed run cannot duplicate ranks."""
+    grouped: dict[str, list[str]] = {}
+    order = []
+    if output_file.exists():
+        for line in output_file.read_text(encoding="utf-8").splitlines():
+            parts = line.split()
+            if len(parts) >= 6:
+                if parts[0] not in grouped:
+                    order.append(parts[0])
+                grouped.setdefault(parts[0], []).append(line)
+    complete = {
+        qid for qid, lines in grouped.items()
+        if len(lines) == k and [int(line.split()[3]) for line in lines] == list(range(1, k + 1))
+    }
+    kept = [line for qid in order if qid in complete for line in grouped[qid]]
+    if output_file.exists():
+        output_file.write_text(("\n".join(kept) + "\n") if kept else "", encoding="utf-8")
+    return complete
+
+
+def process_query_file(searcher, topics_file: Path, output_dir: Path, k: int,
+                       only_qid: str | None = None, max_queries: int | None = None,
+                       resume: bool = True) -> tuple[int, int]:
     queries = read_topics_file(topics_file)
-    print(f"   Found {len(queries)} queries")
-    
-    if not queries:
-        print(f"   ⚠️  No queries found, skipping...")
-        return False
-    
-    # Create output file
-    output_file = output_dir / f"run.{run_name}.txt"
-    
-    # Process each query
-    all_results = []
-    start_time = time.time()
-    
-    for i, (query_id, query_text) in enumerate(queries):
-        if (i + 1) % 10 == 0:
-            print(f"   Processing query {i+1}/{len(queries)}: {query_id}")
-        
-        # Search the index
-        hits = search_pyserini_index(searcher, query_text, k)
-        
-        # Format results in TREC format
-        trec_results = format_trec_results(query_id, hits, run_name)
-        all_results.extend(trec_results)
-        
-        # Small delay to avoid overwhelming the system
-        time.sleep(0.01)
-    
-    # Write results to output file
-    with open(output_file, 'w', encoding='utf-8') as f:
-        for line in all_results:
-            f.write(line + '\n')
-    
-    end_time = time.time()
-    duration = end_time - start_time
-    
-    print(f"   ✅ Saved {len(all_results)} result lines to {output_file.name}")
-    print(f"   ⏱️  Time: {duration:.2f} seconds")
-    
-    return True
+    if only_qid:
+        queries = [row for row in queries if row[0] == only_qid]
+        if not queries:
+            raise ValueError(f"QID {only_qid!r} is not in {topics_file}")
+    if max_queries is not None:
+        queries = queries[:max_queries]
 
-def main():
-    _here = Path(__file__).resolve().parent
-    parser = argparse.ArgumentParser(description='Retrieve documents for all query files using pyserini BM25')
-    parser.add_argument('--queries-dir', type=str,
-                       default=str(_here / "queries"),
-                       help='Directory containing query files (default: querygym/queries)')
-    parser.add_argument('--output-dir', type=str,
-                       default=str(_here / "retrieval"),
-                       help='Output directory for retrieval results (default: querygym/retrieval)')
-    parser.add_argument('--k', type=int, default=100,
-                       help='Number of documents to retrieve per query (default: 100)')
-    
+    run_name = run_name_for(topics_file)
+    output_file = output_dir / f"run.{run_name}.txt"
+    done = normalize_checkpoint(output_file, k) if resume else set()
+    mode = "a" if resume and output_file.exists() else "w"
+    succeeded = failed = 0
+
+    with output_file.open(mode, encoding="utf-8") as output:
+        for query_id, query_text in queries:
+            if query_id in done:
+                continue
+            try:
+                hits = searcher.search(query_text, k=k)
+                lines = [
+                    f"{query_id} Q0 {hit.docid} {rank} {float(hit.score):.6f} {run_name}"
+                    for rank, hit in enumerate(hits, 1)
+                    if getattr(hit, "docid", None) is not None
+                ]
+                if len(lines) != k:
+                    raise RuntimeError(f"Expected {k} hits, received {len(lines)}")
+                output.write("\n".join(lines) + "\n")
+                output.flush()
+                succeeded += 1
+            except Exception as exc:
+                print(f"ERROR {topics_file.name} {query_id}: {exc}", file=sys.stderr)
+                failed += 1
+    return succeeded, failed
+
+
+def setup_java_environment() -> None:
+    java_home = os.environ.get("JAVA_HOME")
+    if not java_home:
+        return
+    for relative in ("lib/server/libjvm.so", "lib/libjvm.so"):
+        candidate = Path(java_home) / relative
+        if candidate.exists():
+            os.environ.setdefault("JVM_PATH", str(candidate))
+            break
+
+
+def main() -> int:
+    here = Path(__file__).resolve().parent
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--queries-dir", type=Path, default=here / "queries")
+    parser.add_argument("--output-dir", type=Path, default=here / "retrieval")
+    parser.add_argument("--index", default="msmarco-v2.1-doc-segmented")
+    parser.add_argument("--k", type=int, default=100)
+    parser.add_argument("--test-file", help="Process one topics filename")
+    parser.add_argument("--qid", help="Process one qid from each selected file")
+    parser.add_argument("--max-queries", type=int)
+    parser.add_argument("--no-resume", action="store_true")
     args = parser.parse_args()
-    
-    # Set up Java environment BEFORE importing Pyserini
-    print("🔧 Setting up Java environment...")
+
     setup_java_environment()
-    
-    # Now import Pyserini
-    print("📦 Importing Pyserini...")
     try:
         from pyserini.search.lucene import LuceneSearcher
-        print("✅ Pyserini imported successfully!")
-    except Exception as e:
-        print(f"❌ Failed to import Pyserini: {e}")
-        print("\nTroubleshooting tips:")
-        print("1. Ensure you're in the pyserini-env conda environment")
-        print("2. Install Pyserini: conda install -c conda-forge pyserini")
-        print("3. Check Java installation: java -version")
-        sys.exit(1)
-    
-    # Initialize Pyserini searcher
-    print("\n📥 Loading msmarco-v2.1-doc-segmented index...")
-    try:
-        searcher = LuceneSearcher.from_prebuilt_index('msmarco-v2.1-doc-segmented')
-        print(f"✅ Index loaded successfully! Documents: {searcher.num_docs:,}")
-    except Exception as e:
-        print(f"❌ Error loading Pyserini index: {e}")
-        print("The msmarco-v2.1-doc-segmented index will be downloaded automatically on first use.")
-        print("This may take some time depending on your internet connection.")
-        return
-    
-    # Find all query files
-    queries_dir = Path(args.queries_dir)
-    if not queries_dir.exists():
-        print(f"❌ Queries directory not found: {queries_dir}")
-        print("Please run generate_query_files.py first to generate query files.")
-        return
-    
-    query_files = sorted(queries_dir.glob("topics.*.txt"))
-    
-    if not query_files:
-        print(f"❌ No query files found in {queries_dir}")
-        print("Please run generate_query_files.py first to generate query files.")
-        return
-    
-    print(f"\n📋 Found {len(query_files)} query files to process")
-    print(f"🔍 K={args.k} documents per query")
-    
-    # Create output directory
-    output_dir = Path(args.output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
-    print(f"💾 Results will be saved to: {output_dir}")
-    
-    # Process each query file
-    print("\n" + "=" * 60)
-    print("🚀 Starting retrieval process...")
-    print("=" * 60)
-    
-    successful = []
-    failed = []
-    overall_start = time.time()
-    
-    for i, query_file in enumerate(query_files, 1):
-        print(f"\n[{i}/{len(query_files)}] Processing {query_file.name}...")
-        
-        try:
-            if process_query_file(searcher, query_file, output_dir, args.k):
-                successful.append(query_file.name)
-            else:
-                failed.append(query_file.name)
-        except Exception as e:
-            print(f"   ❌ Error processing {query_file.name}: {e}")
-            failed.append(query_file.name)
-    
-    overall_end = time.time()
-    overall_duration = overall_end - overall_start
-    
-    # Summary
-    print("\n" + "=" * 60)
-    print("🎉 RETRIEVAL PROCESS COMPLETED!")
-    print("=" * 60)
-    print(f"✅ Successful: {len(successful)}/{len(query_files)}")
-    print(f"❌ Failed: {len(failed)}/{len(query_files)}")
-    print(f"⏱️  Total time: {overall_duration:.2f} seconds ({overall_duration/60:.2f} minutes)")
-    print(f"💾 Results saved to: {output_dir}")
-    
-    if failed:
-        print(f"\n⚠️  Failed files:")
-        for f in failed:
-            print(f"   - {f}")
+    except ImportError as exc:
+        parser.error(f"Pyserini is required: {exc}")
+
+    files = sorted(args.queries_dir.glob("topics.*.txt"))
+    if args.test_file:
+        files = [args.queries_dir / args.test_file]
+    missing = [path for path in files if not path.exists()]
+    if missing or not files:
+        parser.error(f"Topics files not found: {missing or args.queries_dir}")
+
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    searcher = LuceneSearcher.from_prebuilt_index(args.index)
+    searcher.set_bm25(k1=0.9, b=0.4)
+
+    total_ok = total_failed = 0
+    for topics_file in files:
+        ok, failed = process_query_file(
+            searcher, topics_file, args.output_dir, args.k, args.qid,
+            args.max_queries, not args.no_resume,
+        )
+        total_ok += ok
+        total_failed += failed
+        print(f"{topics_file.name}: {ok} retrieved, {failed} failed")
+    print(f"BM25 complete: {total_ok} queries retrieved, {total_failed} failed")
+    return 1 if total_failed else 0
+
 
 if __name__ == "__main__":
-    main()
-
-
-
-
-
-
-
+    raise SystemExit(main())

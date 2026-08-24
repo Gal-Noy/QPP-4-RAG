@@ -1,0 +1,35 @@
+[
+  {
+    "query": {
+      "text": "What is the capital of France?",
+      "qid": "smoke-1"
+    },
+    "candidates": [
+      {
+        "doc": {"segment": "Paris is the capital and largest city of France."},
+        "docid": "doc-1",
+        "score": 5.0
+      },
+      {
+        "doc": {"segment": "France is a country in Western Europe."},
+        "docid": "doc-2",
+        "score": 4.0
+      },
+      {
+        "doc": {"segment": "Berlin is the capital of Germany."},
+        "docid": "doc-3",
+        "score": 3.0
+      },
+      {
+        "doc": {"segment": "Madrid is the capital of Spain."},
+        "docid": "doc-4",
+        "score": 2.0
+      },
+      {
+        "doc": {"segment": "Rome is the capital of Italy."},
+        "docid": "doc-5",
+        "score": 1.0
+      }
+    ]
+  }
+]
