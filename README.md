@@ -34,6 +34,28 @@ Every expensive stage resumes by default. Retrieval checkpoints complete qid
 blocks, preparation skips complete JSON files, Llama checkpoints after every
 batch, and Nuggetizer resumes completed qids.
 
+## Official TREC 2024 data
+
+Download the two official NIST inputs and derive the grouped Nuggetizer input:
+
+```bash
+mkdir -p data
+curl -L https://trec.nist.gov/data/rag/2024-retrieval-qrels.txt \
+  -o data/2024-retrieval-qrels.txt
+curl -L https://trec.nist.gov/data/rag/nugget_assignment.20241218.jsonl \
+  -o data/nugget_assignment.20241218.jsonl
+python3 scripts/prepare_trec2024_data.py
+```
+
+- `data/2024-retrieval-qrels.txt` is the official retrieval-assessment file
+  used by retrieval evaluation. It contains 86 official topics and covers all
+  56 experiment qids.
+- `data/nugget_assignment.20241218.jsonl` is the official per-run nugget
+  assignment export and is the source for conversion only.
+- `data/hr_scored_nist_nuggets_20241218_rag24.test_qrels_nist.jsonl` is derived
+  locally from that export. Its 56 grouped `{qid, query, nuggets}` records are
+  consumed by the GPT Nuggetizer evaluator.
+
 ## Important `query.text` provenance ambiguity
 
 The public repository is inconsistent: its old preparation commands supplied

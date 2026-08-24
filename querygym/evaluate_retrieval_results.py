@@ -88,8 +88,8 @@ def get_run_name_from_file(run_file):
 def main():
     parser = argparse.ArgumentParser(description='Evaluate retrieval results from BM25 and Cohere')
     parser.add_argument('--raggy-qrels', type=str,
-                       default=str(_REPO / 'data/qrels.rag24.raggy-dev.txt'),
-                       help='Path to raggy-dev qrels file')
+                       default=str(_REPO / 'data/2024-retrieval-qrels.txt'),
+                       help='Path to official TREC 2024 retrieval qrels file')
     parser.add_argument('--umbrella-qrels', type=str,
                        default=str(_REPO / 'data/qrels.rag24.umbrella.txt'),
                        help='Path to umbrella qrels file')
@@ -288,4 +288,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

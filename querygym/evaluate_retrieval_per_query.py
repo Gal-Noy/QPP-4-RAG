@@ -95,7 +95,7 @@ def get_run_name_from_file(run_file):
 def main():
     parser = argparse.ArgumentParser(description='Evaluate retrieval results per query')
     parser.add_argument('--qrels', type=str,
-                       default=str(_REPO / 'data/qrels.rag24.raggy-dev.txt'),
+                       default=str(_REPO / 'data/2024-retrieval-qrels.txt'),
                        help='Path to qrels file')
     parser.add_argument('--retrieval-dir', type=str,
                        default=str(_REPO / 'querygym/retrieval'),

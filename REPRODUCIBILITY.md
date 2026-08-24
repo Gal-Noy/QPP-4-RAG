@@ -41,17 +41,35 @@ Pyserini's `msmarco-v2.1-doc-segmented` prebuilt index. The first Cohere use
 downloads `Cohere/trec-rag-2024-index` and corpus shards into `index_cache/`;
 budget substantial disk space (the vector index alone is about 15 GB).
 
-The repository does not redistribute these official TREC 2024 assessment
-files. Place them at the shown paths, or pass another path explicitly:
+Download the two official NIST TREC 2024 inputs:
 
-```text
-data/hr_scored_nist_nuggets_20241218_rag24.test_qrels_nist.jsonl
-data/qrels.rag24.raggy-dev.txt
+```bash
+mkdir -p data
+curl -L https://trec.nist.gov/data/rag/2024-retrieval-qrels.txt \
+  -o data/2024-retrieval-qrels.txt
+curl -L https://trec.nist.gov/data/rag/nugget_assignment.20241218.jsonl \
+  -o data/nugget_assignment.20241218.jsonl
 ```
 
-The first is required for Nuggetizer. The second is required for retrieval
-metrics used by consolidation/oracle analysis. Java discovery normally works;
-if needed, set `JAVA_HOME` to the JDK root.
+Generate and validate the evaluator input:
+
+```bash
+python3 scripts/prepare_trec2024_data.py
+```
+
+The data flow is:
+
+| File | Provenance | Pipeline use |
+| --- | --- | --- |
+| `data/2024-retrieval-qrels.txt` | Official NIST download | Retrieval nDCG/recall evaluation used by QPP/oracle analysis |
+| `data/nugget_assignment.20241218.jsonl` | Official NIST download | Source export for nugget conversion; not passed directly to the evaluator |
+| `data/hr_scored_nist_nuggets_20241218_rag24.test_qrels_nist.jsonl` | Derived by `scripts/prepare_trec2024_data.py` | GPT-4o Nuggetizer assignment and scoring |
+
+The official retrieval file contains 86 assessed topics and covers all 56
+experiment qids; the official nugget export and derived file match the 56 qids
+exactly. The converter verifies qids, qrels syntax, consistent ordered nugget
+sets across assessed runs, and the evaluator-required schema. Java discovery
+normally works; if needed, set `JAVA_HOME` to the JDK root.
 
 Do not regenerate query variants. Confirm all 31 x 56 checked-in inputs:
 
@@ -209,7 +227,7 @@ artifacts as follows:
 
 ```bash
 python3 querygym/evaluate_retrieval_per_query.py \
-  --qrels data/qrels.rag24.raggy-dev.txt
+  --qrels data/2024-retrieval-qrels.txt
 
 python3 querygym/qpp/run_pre_retrieval_verbose.py \
   --queries-dir querygym/queries --output-dir querygym/qpp \
