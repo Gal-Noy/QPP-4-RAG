@@ -6,6 +6,8 @@ import json
 import re
 from pathlib import Path
 
+from tqdm.auto import tqdm
+
 
 MODEL_NAME = "meta-llama/Llama-3.2-3B-Instruct"
 MODEL_TAG = "llama_3_2_3b_instruct"
@@ -187,13 +189,16 @@ class LocalLlamaGenerator:
         encoded = self.tokenizer(prompts, return_tensors="pt", padding=True)
         input_lengths = encoded["attention_mask"].sum(dim=1).tolist()
         too_long = [
-            record["query"]["qid"]
+            (record["query"]["qid"], length + max_new_tokens)
             for record, length in zip(records, input_lengths)
             if length + max_new_tokens > context_size
         ]
         if too_long:
+            required = max(length for _, length in too_long)
             raise ValueError(
-                f"Prompts exceed --context-size without truncation: {', '.join(too_long)}"
+                "Prompts exceed --context-size without truncation: "
+                f"{', '.join(qid for qid, _ in too_long)}; "
+                f"this batch requires at least --context-size {required}"
             )
         encoded = {key: value.to(self.device) for key, value in encoded.items()}
         with self.torch.inference_mode():
@@ -229,18 +234,28 @@ def process_file(input_file: Path, output_file: Path, generator,
     existing = load_json_records(output_file) if output_file.exists() else []
     done = {record["topic_id"] for record in existing}
     pending = [record for record in requests if record["query"]["qid"] not in done]
+    already_complete = len(requests) - len(pending)
     run_id = (
         f"{input_file.stem.replace('ragnarok_format_', '')}_{generator_tag}_top5"
     )
-    for start in range(0, len(pending), batch_size):
-        batch = pending[start:start + batch_size]
-        generated = generator.generate(batch, max_new_tokens, context_size)
-        existing.extend(
-            make_result(record, text, run_id)
-            for record, text in zip(batch, generated)
-        )
-        write_checkpoint(output_file, existing)
-        print(f"{input_file.name}: checkpointed {len(existing)}/{len(requests)}")
+    variant = input_file.stem.replace("ragnarok_format_run.", "")
+    with tqdm(
+        total=len(requests),
+        initial=already_complete,
+        desc=f"Llama {variant}",
+        unit="answer",
+        dynamic_ncols=True,
+        disable=None,
+    ) as progress:
+        for start in range(0, len(pending), batch_size):
+            batch = pending[start:start + batch_size]
+            generated = generator.generate(batch, max_new_tokens, context_size)
+            existing.extend(
+                make_result(record, text, run_id)
+                for record, text in zip(batch, generated)
+            )
+            write_checkpoint(output_file, existing)
+            progress.update(len(batch))
     return len(pending), len(requests)
 
 
@@ -251,7 +266,7 @@ def main() -> int:
     parser.add_argument("--model", default=MODEL_NAME)
     parser.add_argument("--batch-size", type=int, default=1)
     parser.add_argument("--max-new-tokens", type=int, default=1024)
-    parser.add_argument("--context-size", type=int, default=8192)
+    parser.add_argument("--context-size", type=int, default=16384)
     parser.add_argument("--device", choices=("auto", "cpu", "cuda"), default="auto")
     parser.add_argument(
         "--dtype", choices=("auto", "float32", "float16", "bfloat16"), default="auto"

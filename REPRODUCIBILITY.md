@@ -199,7 +199,7 @@ python3 querygym/run_llama_generator.py \
                 querygym/rag_results/retrieval_cohere \
   --model meta-llama/Llama-3.2-3B-Instruct \
   --device auto --dtype float16 --load-in-4bit --batch-size 1 \
-  --context-size 8192 --max-new-tokens 1024
+  --context-size 16384 --max-new-tokens 1024
 
 python3 scripts/verify_llama_pipeline.py --stage generated
 ```
@@ -207,9 +207,11 @@ python3 scripts/verify_llama_pipeline.py --stage generated
 The shown 4-bit configuration is the appropriate starting point for 4 GB VRAM.
 On a larger GPU, omit `--load-in-4bit` and use `--dtype float16` or
 `--dtype bfloat16`. Increase `--batch-size` only if memory permits. Prompts are
-never silently truncated: a request exceeding `--context-size` fails with its
-qid. Output is checkpointed after every generation batch; rerunning skips
-existing topic IDs.
+never silently truncated: `16384` covers the checked 3,472 prepared Top-5
+requests (the observed maximum is 9,055 prompt tokens, or 10,079 after reserving
+1,024 output tokens). A request exceeding `--context-size` fails with its qid
+and required size. Output is checkpointed after every generation batch;
+rerunning skips existing topic IDs.
 
 ### Paper-consistent Nuggetizer
 

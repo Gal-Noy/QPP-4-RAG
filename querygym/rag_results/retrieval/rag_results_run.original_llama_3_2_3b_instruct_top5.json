@@ -1,0 +1,3287 @@
+[
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-105741",
+    "topic": "is it dangerous to have wbc over 15,000 without treatment?",
+    "references": [
+      "msmarco_v2.1_doc_16_287012450#4_490828734",
+      "msmarco_v2.1_doc_16_287012450#3_490827079",
+      "msmarco_v2.1_doc_38_790476313#1_1678659952",
+      "msmarco_v2.1_doc_38_1524878562#6_3221565634",
+      "msmarco_v2.1_doc_38_790476313#0_1678658072"
+    ],
+    "response_length": 236,
+    "answer": [
+      {
+        "text": "Having a white blood cell (WBC) count over 15,000/μL without treatment can be a concerning sign, as it may indicate the presence of an infection or inflammation.",
+        "citations": [
+          0,
+          3
+        ]
+      },
+      {
+        "text": "However, it's essential to consider the context and the individual's overall health status.",
+        "citations": []
+      },
+      {
+        "text": "According to the provided context, a WBC count between 5-15,000/μL is considered normal, and a band-to-neutrophil ratio of less than 0.2 is also within a normal range.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "Therefore, a WBC count of 15,000/μL may not necessarily be a cause for alarm without further evaluation.",
+        "citations": []
+      },
+      {
+        "text": "However, if the WBC count is significantly elevated, such as above 25,000/μL, with a left shift, it may indicate the presence of a bacterial infection.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "In this case, it's crucial to seek medical attention and treatment to prevent potential complications.",
+        "citations": []
+      },
+      {
+        "text": "It's also worth noting that Neulasta, a medication used to stimulate neutrophil production, can cause an increase in WBC count, but this effect may take several days to develop, and the risk of causing a WBC count to become too high is considered low.",
+        "citations": [
+          2,
+          4
+        ]
+      },
+      {
+        "text": "Nevertheless, it's always essential to monitor WBC counts and seek medical attention if they become elevated, especially in patients with underlying medical conditions or those who are immunocompromised.",
+        "citations": []
+      },
+      {
+        "text": "In summary, while a WBC count of 15,000/μL may not be a cause for alarm in itself, a significantly elevated count with other concerning signs or symptoms should be investigated further to rule out infection or other underlying conditions.",
+        "citations": []
+      },
+      {
+        "text": "References:",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-121840",
+    "topic": "should teachers notify parents about state testing?",
+    "references": [
+      "msmarco_v2.1_doc_37_1109549361#3_2434187738",
+      "msmarco_v2.1_doc_37_1109549361#2_2434185274",
+      "msmarco_v2.1_doc_06_898974997#7_1527579882",
+      "msmarco_v2.1_doc_10_190355248#8_362255576",
+      "msmarco_v2.1_doc_32_255464593#12_471389675"
+    ],
+    "response_length": 179,
+    "answer": [
+      {
+        "text": "Based on the provided context, it appears that schools are required to notify parents about the qualifications of their child's teacher, but there is no explicit mention of notifying parents about state testing.",
+        "citations": []
+      },
+      {
+        "text": "However, the context of the AzMERIT assessment in suggests that schools and districts will notify parents at the earliest indication that a student is not reading at grade level, which may be related to state testing.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "While there is no direct answer to the question, it can be inferred that schools are required to provide parents with information about their child's performance, including test results, but the specific requirement to notify parents about state testing is not explicitly stated.",
+        "citations": []
+      },
+      {
+        "text": "It's worth noting that the context of the AzMERIT assessment in suggests that schools are required to notify parents about a student's reading level, which may be related to state testing, but this is not explicitly stated as a requirement for notifying parents about state testing.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "Therefore, the answer to the question \"should teachers notify parents about state testing?\" is not explicitly stated in the provided context.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-127266",
+    "topic": "what are some key challenges related to the recycling of e-waste?",
+    "references": [
+      "msmarco_v2.1_doc_36_1331156606#17_2740590078",
+      "msmarco_v2.1_doc_51_877973062#9_1847180311",
+      "msmarco_v2.1_doc_54_366667952#6_853202534",
+      "msmarco_v2.1_doc_51_479001678#1_983187409",
+      "msmarco_v2.1_doc_54_366667952#7_853204293"
+    ],
+    "response_length": 114,
+    "answer": [
+      {
+        "text": "The key challenges related to the recycling of e-waste include exporting e-waste to developing nations, which leads to serious health hazards for workers dismantling electronic devices in countries without adequate environmental controls.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "Additionally, the inadequate management of electronics recycling in developing countries has led to various health and environmental problems.",
+        "citations": []
+      },
+      {
+        "text": "Furthermore, the quality of e-waste is decreasing as devices get smaller and contain less precious metal, resulting in lower material values.",
+        "citations": []
+      },
+      {
+        "text": "The industry also faces the challenge of exporting e-waste, including hazardous and toxic materials, which is a significant concern.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "Lastly, the rapid increase in the volume of e-waste poses a challenge, as it can lead to a decrease in the quality of e-waste.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-129925",
+    "topic": "what change did marius make in the roman empire",
+    "references": [
+      "msmarco_v2.1_doc_42_1188569574#3_2681035389",
+      "msmarco_v2.1_doc_26_1525206521#3_2702059326",
+      "msmarco_v2.1_doc_26_1820602427#2_3127453990",
+      "msmarco_v2.1_doc_08_1658733943#0_2990277546",
+      "msmarco_v2.1_doc_23_241157139#7_545155934"
+    ],
+    "response_length": 176,
+    "answer": [
+      {
+        "text": "Gaius Marius made several significant changes in the Roman Empire, including the introduction of a new recruitment system for the army, which allowed landless citizens to join the military and become Roman citizens themselves.",
+        "citations": [
+          0,
+          2
+        ]
+      },
+      {
+        "text": "He also changed the law so that soldiers had to carry their own equipment, earning them the nickname \"Marius' Mules\".",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "Additionally, Marius held the elected office of Consul an unprecedented seven times from 107 BCE, although this position became increasingly autocratic, with his \"election\" more related to granting emergency powers to fight off invading hordes than the application of the constitution.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "Furthermore, Marius made a name for himself as a General of considerable acumen in several campaigns, especially in Africa and against German tribes, and he defeated the Teutones as they advanced into Italy, ambushing them on the edge of the Alps and killing a reputed 100,000 invaders.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "However, it's worth noting that Marius' reforms also had a significant impact on the decline of the Roman Republic, as they gave ambitious generals the means to take over the Roman government by force.",
+        "citations": [
+          0,
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-141577",
+    "topic": "what happens if you are deemed a public menace",
+    "references": [
+      "msmarco_v2.1_doc_30_1743493952#21_3687540335",
+      "msmarco_v2.1_doc_00_537447010#0_983971001",
+      "msmarco_v2.1_doc_30_1743493952#22_3687541554",
+      "msmarco_v2.1_doc_52_447149593#7_795170751",
+      "msmarco_v2.1_doc_22_1526159484#5_3288903169"
+    ],
+    "response_length": 277,
+    "answer": [
+      {
+        "text": "If you are deemed a public menace, you may face various consequences depending on the severity of the threat and the jurisdiction.",
+        "citations": []
+      },
+      {
+        "text": "In Ohio, menacing is considered a crime, and the penalties vary based on the type of threat made.",
+        "citations": [
+          1,
+          2
+        ]
+      },
+      {
+        "text": "If you are deemed a public menace, you may be charged with menacing, which is the making of threats to another and causing the other person to believe that the threats are real.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "This can result in fines, imprisonment, or both.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "In addition to criminal charges, being deemed a public menace may also lead to civil consequences, such as being banned from certain areas or having your property seized.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "Furthermore, if you are deemed a public menace, you may be required to seek counseling or other forms of treatment to address any underlying issues that may have contributed to your behavior.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "It's worth noting that the specific consequences of being deemed a public menace can vary depending on the jurisdiction and the circumstances of the case.",
+        "citations": []
+      },
+      {
+        "text": "If you are facing charges or allegations of menacing, it's essential to seek the advice of an attorney who can provide guidance on the best course of action.",
+        "citations": [
+          0,
+          2
+        ]
+      },
+      {
+        "text": "In general, being deemed a public menace can have serious consequences, including:",
+        "citations": []
+      },
+      {
+        "text": "Fines and imprisonment",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "Civil consequences, such as being banned from certain areas or having property seized",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "Mandatory counseling or treatment",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "Damage to your reputation and relationships",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "It's essential to take the threat of being deemed a public menace seriously and seek help if you're experiencing any thoughts of harming others or yourself.",
+        "citations": []
+      },
+      {
+        "text": "If you're struggling with these feelings, reach out to a mental health professional or a crisis hotline for support.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-142395",
+    "topic": "what have teen done to stop animal testing",
+    "references": [
+      "msmarco_v2.1_doc_01_2032740671#11_3054367227",
+      "msmarco_v2.1_doc_01_1852589220#2_2745362851",
+      "msmarco_v2.1_doc_01_1854358546#8_2749983402",
+      "msmarco_v2.1_doc_31_1645705272#14_3365318545",
+      "msmarco_v2.1_doc_06_253235461#2_457895051"
+    ],
+    "response_length": 170,
+    "answer": [
+      {
+        "text": "Unfortunately, the provided context does not mention any specific actions that teens have taken to stop animal testing.",
+        "citations": []
+      },
+      {
+        "text": "However, I can provide some general information on the topic.",
+        "citations": []
+      },
+      {
+        "text": "It appears that the context is focused on various topics related to teens, such as health, behavior, and education.",
+        "citations": []
+      },
+      {
+        "text": "While animal testing is not explicitly mentioned, the context does discuss the importance of monitoring kidney function in teens with diabetes, which may involve animal testing in the past.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "However, this is not a direct answer to the question.",
+        "citations": []
+      },
+      {
+        "text": "If you're looking for information on how teens can stop animal testing, it's likely that the context is referring to the debate topics listed in.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "According to this section, one of the debate topics is \"Is animal testing necessary?\" which suggests that some teens may be interested in opposing animal testing.",
+        "citations": []
+      },
+      {
+        "text": "However, without more specific context or information, it's difficult to provide a more detailed answer.",
+        "citations": []
+      },
+      {
+        "text": "If you could provide more context or clarify the question, I'd be happy to try and assist further.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-143869",
+    "topic": "what is scientific evidence for or against the use of yoghurt",
+    "references": [
+      "msmarco_v2.1_doc_38_1430867027#5_2961323679",
+      "msmarco_v2.1_doc_15_1521546501#0_2969247794",
+      "msmarco_v2.1_doc_25_1489611910#13_2890285952",
+      "msmarco_v2.1_doc_42_847868051#14_1993960396",
+      "msmarco_v2.1_doc_01_773802754#0_820799895"
+    ],
+    "response_length": 143,
+    "answer": [
+      {
+        "text": "The scientific evidence for the use of yoghurt in treating or preventing bacterial vaginosis is mixed, with some trials suggesting that it may be helpful, while others have found no evidence to support its effectiveness.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "There is no conclusive scientific evidence to suggest that yoghurt is an effective treatment for bacterial vaginosis, and specialists feel that there is not enough evidence in its favour to suggest it over other treatments.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "However, some women with bacterial vaginosis report that applying a thin coat of plain, live yoghurt to the outside of the vagina daily and applying a small amount of plain live yoghurt on a tampon for internal use before bed may help alleviate symptoms.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "It is worth noting that yoghurt contains good bacteria that can help keep the bacteria in the digestive tract and vagina in check, which may help prevent vaginal infections.",
+        "citations": [
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-145979",
+    "topic": "what is vicarious trauma and how can it be coped with?",
+    "references": [
+      "msmarco_v2.1_doc_13_1647729865#0_3617397938",
+      "msmarco_v2.1_doc_13_1647729865#1_3617399591",
+      "msmarco_v2.1_doc_13_1647729865#9_3617412852",
+      "msmarco_v2.1_doc_13_1647729865#10_3617414442",
+      "msmarco_v2.1_doc_13_1647729865#3_3617403578"
+    ],
+    "response_length": 259,
+    "answer": [
+      {
+        "text": "Vicarious trauma refers to the trauma that can be experienced when being indirectly exposed to a traumatic event, such as witnessing someone being threatened or tortured, or being closely involved with someone who has experienced trauma.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "This type of trauma can affect an individual's emotional, cognitive, and physical well-being, leading to a range of negative emotions and thoughts, including anxiety, sadness, irritability, anger, numbness, and cynicism.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "Vicarious trauma can also impact an individual's ability to maintain a healthy work-life balance, leading to a jaded view of the world and a sense of purposelessness.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "To cope with vicarious trauma, seeking professional help is essential.",
+        "citations": []
+      },
+      {
+        "text": "Consulting with a therapist trained in Cognitive Behavioural Therapy and Trauma Therapy can be beneficial in recognizing and addressing the vicarious pain and effects of trauma.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "A therapist can also help individuals replace the lingering negative maternal voice in their head with a healthier one, promoting emotional healing and growth.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "Additionally, EMDR (Eye Movement Desensitization and Reprocessing) is a treatment approach that can be effective in reducing negative feelings, thoughts, and physical sensations associated with the traumatic event.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "By addressing vicarious trauma, individuals can prevent future occurrences and improve their overall mental health and well-being.",
+        "citations": []
+      },
+      {
+        "text": "It is essential to note that those who are susceptible to vicarious trauma, including healthcare professionals, social workers, and first responders, may be at risk of developing mental health issues such as anxiety, clinical depression, post-traumatic stress disorder, and addiction.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "Therefore, seeking professional help and taking proactive steps to address vicarious trauma is crucial for maintaining a healthy and balanced life.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-152259",
+    "topic": "what society issues did goth rock address",
+    "references": [
+      "msmarco_v2.1_doc_10_740892484#15_1376979673",
+      "msmarco_v2.1_doc_10_740892484#14_1376978017",
+      "msmarco_v2.1_doc_24_550765986#1_1169061692",
+      "msmarco_v2.1_doc_58_5379274#5_5949515",
+      "msmarco_v2.1_doc_10_740892484#9_1376970434"
+    ],
+    "response_length": 228,
+    "answer": [
+      {
+        "text": "Goth rock addressed various societal issues, primarily focusing on the darker aspects of modern life, such as the horrors of modern society, the decay of morality, and the dehumanizing effects of technology.",
+        "citations": [
+          0,
+          3
+        ]
+      },
+      {
+        "text": "The music and art of the Goth culture reflects the horrors of modern society, with lyrics often exploring themes of darkness, depravity, and the human condition.",
+        "citations": [
+          0,
+          3
+        ]
+      },
+      {
+        "text": "The Goth subculture emerged as a reaction to the Punk movement, which was characterized by its rebellious and anti-conformist attitude towards society.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "The Goth subculture, on the other hand, is more focused on ignoring and creating its own society, with a dark and theatrical aesthetic that reflects the negative aspects of modern life.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "The Goth subculture also explores the idea that technology has led to a decline in human connection and morality, with Steampunks seeking to preserve a Victorian-era aesthetic in a world that has become increasingly mechanized.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "Overall, Goth rock addressed a range of societal issues, including the decay of morality, the dehumanizing effects of technology, and the need for a more meaningful and human connection in a world that has become increasingly mechanized.",
+        "citations": [
+          0,
+          3,
+          4
+        ]
+      },
+      {
+        "text": "It's worth noting that the Goth subculture is diverse and individual, and not all Goths share the same views or concerns.",
+        "citations": []
+      },
+      {
+        "text": "However, the music and art of the Goth culture often explores the darker aspects of modern life, making it a unique and thought-provoking genre.",
+        "citations": [
+          0,
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-152817",
+    "topic": "what steps should individuals take to dispose of their electronic devices?",
+    "references": [
+      "msmarco_v2.1_doc_57_1707028258#6_2947266029",
+      "msmarco_v2.1_doc_57_1707028258#7_2947268393",
+      "msmarco_v2.1_doc_57_1707028258#8_2947270465",
+      "msmarco_v2.1_doc_57_1707028258#5_2947263557",
+      "msmarco_v2.1_doc_31_1536260291#5_3126600979"
+    ],
+    "response_length": 170,
+    "answer": [
+      {
+        "text": "To dispose of electronic devices, individuals should follow these steps:",
+        "citations": []
+      },
+      {
+        "text": "First, remove the SIM or SD card to prevent identity theft.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "Then, perform a factory reset on the device to restore it to its original settings.",
+        "citations": [
+          3,
+          4
+        ]
+      },
+      {
+        "text": "This will erase all data on the device, so it's essential to back up any important data beforehand.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "Next, take the device to a school, senior center, or community center, as many of these locations accept used electronics and may even use them for students or elderly people learning technology.",
+        "citations": [
+          2,
+          3
+        ]
+      },
+      {
+        "text": "Alternatively, donate the electronic device to a nonprofit organization, such as the National Cristina Foundation or Computers with Causes, which accept donations of specific types of electronics.",
+        "citations": [
+          1,
+          3
+        ]
+      },
+      {
+        "text": "Before donating, ask the organization what types of electronics they accept and in what condition.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "If the device contains data, remove it and destroy it to prevent identity theft.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "Finally, consider attending a hard-to-recycle or e-waste recycling event, where the device will be inspected and dismantled to determine what can be reused and what can be recycled.",
+        "citations": [
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-153051",
+    "topic": "what target stors's policies for shoplifting",
+    "references": [
+      "msmarco_v2.1_doc_19_2021688056#1_3321145933",
+      "msmarco_v2.1_doc_19_2021688056#2_3321147942",
+      "msmarco_v2.1_doc_19_2021688056#6_3321155149",
+      "msmarco_v2.1_doc_19_2021688056#3_3321149932",
+      "msmarco_v2.1_doc_19_2021688056#0_3321144158"
+    ],
+    "response_length": 307,
+    "answer": [
+      {
+        "text": "Target stores have a comprehensive loss prevention policy that includes the use of video surveillance systems to control theft and assist in the recovery of stolen merchandise, both inside and outside the store on Target property.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "This policy is designed to prevent shoplifting and ensure the safety of employees and customers.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "The policy also involves asset protection and security specialists who are responsible for theft prevention and recovery of Target merchandise and equipment.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "These specialists work at the front of the store and are trained in emergency response and how to handle a crisis to avoid escalating the situation.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "In the event of a shoplifting incident, the security officer should attempt to give the suspect a chance to cooperate with them before an apprehension becomes physical.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "However, Target loss prevention and security officers do have the authority to apprehend suspects both inside and outside the store.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "Target shoplifting fines and fees for each individual incident will vary by state and degree of crime severity.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "The charges and punishment for shoplifting are also determined by the shoplifting laws set by each state.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "In terms of specific store policies, each state has guidelines that define a specific dollar amount as the criteria for determining whether a shoplifting offense is a misdemeanor or a felony.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "For example, in New York, a theft totaling under $1,000 is classified as a misdemeanor, while a theft over $1,000 qualifies as felony larceny charges.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "Target's asset protection and security specialists also work to identify shoplifting trends occurring within the store, such as whether shoplifters are targeting certain items.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "They also conduct internal theft investigations if necessary.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "Overall, Target's loss prevention policy is designed to prevent shoplifting and ensure the safety of employees and customers, and involves a range of measures including video surveillance, asset protection and security specialists, and apprehension and prosecution of suspects.",
+        "citations": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-158261",
+    "topic": "what us trade policies help aid chinese growth?",
+    "references": [
+      "msmarco_v2.1_doc_35_64235116#5_134492092",
+      "msmarco_v2.1_doc_33_270494173#5_613700810",
+      "msmarco_v2.1_doc_39_769016547#1_1551594188",
+      "msmarco_v2.1_doc_33_270494173#6_613704339",
+      "msmarco_v2.1_doc_33_270494173#3_613693686"
+    ],
+    "response_length": 239,
+    "answer": [
+      {
+        "text": "Based on the provided context, it appears that trade policies that promote trade openness and reduce trade barriers, such as tariffs, can aid Chinese growth.",
+        "citations": []
+      },
+      {
+        "text": "According to economic theory, countries with trade openness that receive loans and aid from global non-governmental organizations and governmental organizations, such as the World Bank and the International Monetary Fund, experience economic development and growth.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "This is because trade openness provides access to means of transporting goods, communication, and technology, which can improve a country's infrastructure and increase its economic competitiveness.",
+        "citations": []
+      },
+      {
+        "text": "In addition, reducing business taxes can also aid Chinese growth by making it less desirable for companies to build and operate in other countries, thereby increasing the attractiveness of investing in China.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "Furthermore, countries that have a strong and stable economy, such as Australia, can increase Beijing's confidence in asserting its position in regional and global affairs, which can lead to increased investment and trade.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "However, it is worth noting that the effectiveness of trade policies in aiding Chinese growth is not without controversy.",
+        "citations": []
+      },
+      {
+        "text": "Some studies refute the theory that trade openness results in economic development and growth, citing concerns over economic, ecological, human, and cultural exploitation.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "Overall, while trade policies that promote trade openness and reduce trade barriers can aid Chinese growth, the relationship between trade policies and economic growth is complex and influenced by various factors, including the global economic context and the specific characteristics of the country in question.",
+        "citations": []
+      },
+      {
+        "text": "References:",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-158677",
+    "topic": "what was entertainment like in the 1990s in the us",
+    "references": [
+      "msmarco_v2.1_doc_03_329872101#1_615164288",
+      "msmarco_v2.1_doc_03_329872101#3_615168092",
+      "msmarco_v2.1_doc_46_684917708#6_1447339605",
+      "msmarco_v2.1_doc_03_329872101#2_615166219",
+      "msmarco_v2.1_doc_46_684917708#5_1447335935"
+    ],
+    "response_length": 181,
+    "answer": [
+      {
+        "text": "Entertainment in the 1990s in the US was gigantic, brash, and over-the-top, with a focus on innovation and pushing social boundaries.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "The decade saw a rise in American exceptionalism, with the US setting global trends for online presence and entertainment.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "Movies, music, TV, and other mediums experienced radical departures from prior decades, with films like \"Jurassic Park\" (1993) being a culturally defining film of the decade.",
+        "citations": [
+          1,
+          3
+        ]
+      },
+      {
+        "text": "The use of computer-generated effects in films like \"Jurassic Park\" was revolutionary and paved the way for modern Hollywood.",
+        "citations": [
+          1,
+          3
+        ]
+      },
+      {
+        "text": "The decade was also marked by a fascination with developments in science and technology, with innovations being announced on a daily basis.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "Entertainment options were diverse and varied, with the rise of new gaming systems like the Nintendo Entertainment System (NES).",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "The NES was first released in 1985 and came in various versions, including a non-deluxe set, which can be worth anywhere from $400 to $550, depending on its condition.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "Overall, entertainment in the 1990s in the US was a time of great change and innovation, with a focus on pushing boundaries and exploring new frontiers.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-158743",
+    "topic": "what was happening in germany and netherlands in the 1840s",
+    "references": [
+      "msmarco_v2.1_doc_39_1095366039#14_2191603549",
+      "msmarco_v2.1_doc_06_132754766#1_226820339",
+      "msmarco_v2.1_doc_39_1095366039#5_2191564192",
+      "msmarco_v2.1_doc_39_1095366039#6_2191568662",
+      "msmarco_v2.1_doc_39_1095366039#15_2191607991"
+    ],
+    "response_length": 140,
+    "answer": [
+      {
+        "text": "In the 1840s, in Germany, there were no specific events mentioned in the provided context.",
+        "citations": []
+      },
+      {
+        "text": "However, it is worth noting that the first adhesive stamp was invented in Britain in 1840, which may have had an impact on the postal system in Germany.",
+        "citations": []
+      },
+      {
+        "text": "In the Netherlands, the pendulum clock was invented by Christiaan Huygens in 1657.",
+        "citations": [
+          2,
+          3
+        ]
+      },
+      {
+        "text": "There is no mention of any significant events or inventions in the Netherlands in the 1840s.",
+        "citations": []
+      },
+      {
+        "text": "It is also worth noting that the Maronite leader Bashir II surrendered to the British Army in 1840 and was sent into exile on the islands of Malta.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "However, this event is not specific to Germany or the Netherlands.",
+        "citations": []
+      },
+      {
+        "text": "If you are looking for information on the 1840s in Germany, I would recommend looking for additional sources or historical records that may provide more information on the period.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-18963",
+    "topic": "did old dominion commit voter fraud",
+    "references": [
+      "msmarco_v2.1_doc_06_235821098#0_424643312",
+      "msmarco_v2.1_doc_48_98349439#3_195216031",
+      "msmarco_v2.1_doc_48_98349439#4_195218770",
+      "msmarco_v2.1_doc_48_98349439#5_195221617",
+      "msmarco_v2.1_doc_36_1329336989#0_2735503342"
+    ],
+    "response_length": 252,
+    "answer": [
+      {
+        "text": "Based on the provided context, it appears that Dominion Voting Systems has been accused of voter fraud by Mike Lindell, the CEO of MyPillow, and Sidney Powell, a lawyer.",
+        "citations": []
+      },
+      {
+        "text": "However, the claims of voter fraud by Dominion have been widely rejected by experts and officials.",
+        "citations": []
+      },
+      {
+        "text": "According to the text, Dominion has been accused of using its software and machines in 30 states and Puerto Rico to commit massive election fraud, but this claim has been disputed.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "The text also mentions that Dominion has been sued by the company for allegedly rigging the election, bribing Georgia officials, and creating a global conspiracy to harvest millions of votes in favor of President-elect Biden, but the lawsuit claims that no such evidence exists.",
+        "citations": [
+          2,
+          3
+        ]
+      },
+      {
+        "text": "Furthermore, the text states that numerous studies have found in-person voter fraud to be rare.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "The article from FactCheck.org also notes that the 2020 election was conducted fairly and that election experts have uniformly declared it to be the most secure in American history.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "Therefore, based on the provided context, it appears that there is no credible evidence to support the claim that Dominion committed voter fraud.",
+        "citations": []
+      },
+      {
+        "text": "The claims of voter fraud by Dominion have been largely debunked by experts and officials, and the lawsuits against the company have failed to identify any scintilla of credible evidence.",
+        "citations": [
+          2,
+          3
+        ]
+      },
+      {
+        "text": "In summary, while Dominion has been accused of voter fraud, the claims have been widely rejected, and there is no evidence to support the claim that the company committed voter fraud in the 2020 election.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-19025",
+    "topic": "did people trust the telephone when it was invented",
+    "references": [
+      "msmarco_v2.1_doc_26_805138873#6_1563958247",
+      "msmarco_v2.1_doc_26_805138873#5_1563949091",
+      "msmarco_v2.1_doc_10_1543180806#11_2580332291",
+      "msmarco_v2.1_doc_26_805138873#3_1563931549",
+      "msmarco_v2.1_doc_26_805138873#2_1563922574"
+    ],
+    "response_length": 216,
+    "answer": [
+      {
+        "text": "Based on the context provided, it can be inferred that people did not trust the telephone when it was first invented.",
+        "citations": []
+      },
+      {
+        "text": "The text states that the first telephone did not have a bell, so the caller had to tap the phone with a hammer to let the receiver know a call was being sent to them.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "This suggests that the technology was not yet reliable or convenient, and people may have been hesitant to use it.",
+        "citations": []
+      },
+      {
+        "text": "Additionally, the text mentions that the party line system was created in the 1940s because it was too expensive for each home to have its own line.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "This implies that people were not yet willing to invest in individual phone lines, and instead opted for a system where multiple households shared a single line, which could lead to eavesdropping on neighbors' conversations.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "This lack of trust in the technology and the party line system suggests that people were not yet fully confident in the telephone's reliability and privacy.",
+        "citations": []
+      },
+      {
+        "text": "It's also worth noting that the text does not mention any instances of people trusting the telephone immediately after its invention.",
+        "citations": []
+      },
+      {
+        "text": "Instead, it highlights the challenges and limitations of the early telephone technology, which suggests that people's trust in the telephone grew over time as the technology improved and became more widespread.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-213469",
+    "topic": "why a comprehensive crypto bill is unlikely to pass",
+    "references": [
+      "msmarco_v2.1_doc_45_680163438#4_1277039574",
+      "msmarco_v2.1_doc_45_680163438#5_1277040715",
+      "msmarco_v2.1_doc_40_1610887914#3_3271483420",
+      "msmarco_v2.1_doc_12_1750101909#12_3536434713",
+      "msmarco_v2.1_doc_12_1750101909#11_3536433228"
+    ],
+    "response_length": 191,
+    "answer": [
+      {
+        "text": "A comprehensive crypto bill is unlikely to pass because different agents in the US view cryptocurrencies differently from a juridical standpoint, as mentioned in.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "This discrepancy in views has led to various bills being proposed, but the passage in highlights that seven other pro-crypto bills remain active, which entail granting digital currencies the same legal status as money, authorizing banks to hold digital assets in custody, allowing corporations to tokenize their shares, and creating a regulatory fintech sandbox aimed at further diminishing any regulatory hurdles for industry startups, indicating that while there is a push for comprehensive crypto regulation, the path to passing such a bill is complex and contentious.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "Additionally, the passage in mentions that the regulatory environment for cryptocurrencies is still evolving, with some states having more favorable regulations than others, which may create challenges for a comprehensive bill to pass.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "The fact that California, for instance, does not oblige crypto firms to get specific licenses, while Wyoming has passed a bill defining \"utility tokens\" and exempting them from securities regulations, suggests that the regulatory landscape is still in flux and may not be conducive to a comprehensive bill.",
+        "citations": [
+          2,
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-213789",
+    "topic": "why are blacks at higher risk for organ failure?",
+    "references": [
+      "msmarco_v2.1_doc_36_370980331#6_770787315",
+      "msmarco_v2.1_doc_10_661960532#15_1236829484",
+      "msmarco_v2.1_doc_25_107324668#1_216370439",
+      "msmarco_v2.1_doc_40_1180062388#3_2512715971",
+      "msmarco_v2.1_doc_25_107324668#2_216372021"
+    ],
+    "response_length": 253,
+    "answer": [
+      {
+        "text": "Blacks are at higher risk for organ failure due to the fact that certain treatments for high blood pressure and heart failure may not be as effective for black patients as they are for white patients.",
+        "citations": []
+      },
+      {
+        "text": "This is evident from the clinical trials mentioned in passage, which show that a promising treatment for heart failure didn't seem to be working for black patients, but worked much better for white patients.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "Additionally, black Americans and Mexican-Americans have twice the risk of diabetes as white Americans, which can increase the risk of organ failure.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "Furthermore, the fact that certain treatments may respond differently to patients of different races is a result of the complexities of high blood pressure treatment, as suggested by Dr.",
+        "citations": []
+      },
+      {
+        "text": "Yancey in passage.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "The study of black patients confirmed that the drug worked much better for black patients than for white patients, providing tantalizing evidence that the drug will help patients of all races with certain disease characteristics.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "It's also worth noting that the differences in treatment outcomes between black and white patients may be due to the fact that the treatment guidelines suggest that doctors should consider different drugs based on a patient's race.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "However, the data suggests that all therapies do equally well, but patients at higher risk need more intensive therapy.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "In summary, the higher risk of organ failure for black patients is a complex issue that is influenced by a variety of factors, including the effectiveness of treatments and the presence of underlying health conditions such as diabetes.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-213817",
+    "topic": "why are cancer rates higher on the east coast",
+    "references": [
+      "msmarco_v2.1_doc_17_458289946#9_496651590",
+      "msmarco_v2.1_doc_23_971577038#11_2161526694",
+      "msmarco_v2.1_doc_28_906602268#1_1916855727",
+      "msmarco_v2.1_doc_17_458289946#8_496649757",
+      "msmarco_v2.1_doc_54_477361305#3_1104822057"
+    ],
+    "response_length": 132,
+    "answer": [
+      {
+        "text": "The cancer rates are higher on the east coast due to the presence of e-waste processing sites, which have been found to have greater soil and groundwater contamination, leading to a higher cancer incidence.",
+        "citations": [
+          0,
+          3
+        ]
+      },
+      {
+        "text": "The proximity of these sites to the east coast, particularly in regions such as Guangdong province, Zhejiang, Shanghai, Tianjin, Hunan, Fujian, and Shandong, also contributes to the higher cancer rates.",
+        "citations": [
+          0,
+          3
+        ]
+      },
+      {
+        "text": "The toxic chemicals released from e-waste, including mercury, lead, and cadmium, can cause serious health risks for residents in these regions, including a higher daily intake of heavy metals through inhalation, diet, soil/dust ingestion, and skin contact.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "Additionally, the fact that children are exposed to these hazardous materials at a higher rate due to their smaller size and higher ingestion rate further increases their risk of developing cancer.",
+        "citations": [
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-213978",
+    "topic": "why are french farmers protesting",
+    "references": [
+      "msmarco_v2.1_doc_36_753104678#5_1451354311",
+      "msmarco_v2.1_doc_36_753104678#6_1451356530",
+      "msmarco_v2.1_doc_50_2254745594#2_3061470288",
+      "msmarco_v2.1_doc_23_1311571321#20_2915830090",
+      "msmarco_v2.1_doc_23_1311571321#19_2915827630"
+    ],
+    "response_length": 213,
+    "answer": [
+      {
+        "text": "Based on the provided context, it appears that French farmers are not protesting, but rather, the protests are led by ordinary working people, ranging from students and farmers, as well as anti-government activists, anarchists, and environmentalists, who are calling for a \"Citizens' Initiative Referendum\" (RIC) to have the chance to vote on government policies.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "However, there is no specific mention of French farmers protesting.",
+        "citations": []
+      },
+      {
+        "text": "But, in the context of the Farm Laws 2020 in India, Indian farmers are protesting against the new agriculture reforms, which they fear might lead to them losing more than they could gain.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "They are demanding the repeal of the laws and are ready to have future talks with the government.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "It is worth noting that the protests in France are not directly related to French farmers protesting, but rather a broader social movement against the government, while the protests in India are specifically related to the Farm Laws 2020 and the impact on Indian farmers.",
+        "citations": []
+      },
+      {
+        "text": "If I had to provide a more detailed answer, it would be that the protests in France are driven by a desire for greater representation and control over government policies, while the protests in India are driven by concerns over the impact of the Farm Laws 2020 on the livelihoods of Indian farmers.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-214096",
+    "topic": "why are marijuana users stereotypically portrayed as sluggish people with the munchies?",
+    "references": [
+      "msmarco_v2.1_doc_27_2403580#17_3661660",
+      "msmarco_v2.1_doc_26_1719991254#2_2987774461",
+      "msmarco_v2.1_doc_26_1691695122#6_2946214998",
+      "msmarco_v2.1_doc_27_2403580#16_3660561",
+      "msmarco_v2.1_doc_26_1691695122#5_2946213824"
+    ],
+    "response_length": 162,
+    "answer": [
+      {
+        "text": "Marijuana users are stereotypically portrayed as sluggish people with the munchies because marijuana has many side effects, such as feelings of general relaxation, distorted time-sense, short-term memory loss, and increased appetite.",
+        "citations": []
+      },
+      {
+        "text": "These side effects together manifest themselves as a general disregard for time schedules and the inability to remember to perform tasks or chores, leading to increased appetite and the sensation of feeling hungry, which is commonly referred to as \"the munchies.\"",
+        "citations": [
+          0,
+          3
+        ]
+      },
+      {
+        "text": "In other words, the combination of marijuana's effects on the body, including relaxation, memory loss, and increased appetite, can lead to a decrease in motivation and energy, causing users to feel sluggish and hungry, which is why they are stereotypically portrayed as being lazy and always wanting to eat.",
+        "citations": [
+          0,
+          3
+        ]
+      },
+      {
+        "text": "It's worth noting that the question \"Why are marijuana users stereotypically portrayed as sluggish people with the munchies?\" is repeated in multiple flashcards, with similar answers, emphasizing the connection between marijuana use and the side effects that lead to this stereotype.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-214257",
+    "topic": "why are people boycotting starbucks",
+    "references": [
+      "msmarco_v2.1_doc_24_1633801506#6_3514116846",
+      "msmarco_v2.1_doc_24_1633801506#7_3514119200",
+      "msmarco_v2.1_doc_22_1519335331#16_3274019462",
+      "msmarco_v2.1_doc_24_1633801506#20_3514151197",
+      "msmarco_v2.1_doc_24_1633801506#23_3514158220"
+    ],
+    "response_length": 246,
+    "answer": [
+      {
+        "text": "Based on the context provided, it appears that people are boycotting Starbucks for various reasons, including:",
+        "citations": []
+      },
+      {
+        "text": "The company's decision to list properties in the occupied West Bank settlements, which has led to opposition from thousands of people who object to the company's involvement in the Israeli-Palestinian conflict.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "The company's provision of housing to refugees, which has also led to criticism and boycotts from those who feel that the company is not doing enough to address the issue.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "The company's attempts to overturn GMO labeling laws, which has led to a boycott by the Organic Consumers Association.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "The company's contracts with Nestle, which has led to criticism from an indigenous rights group.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "The company's support for Donald Trump's election efforts, which has led to criticism from liberals and others who oppose Trump's policies.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "The company's decision to drop Trump products in response to Trump's highly offensive comments about Mexico and its people, which has led to a boycott from thousands of supporters.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "It's worth noting that the motivations behind the boycotts are varied and complex, and may not be limited to the reasons listed above.",
+        "citations": []
+      },
+      {
+        "text": "Additionally, it's also worth noting that some people who claim to be boycotting Starbucks may not actually be doing so because of the reasons listed above, but rather because they never intended to do business with the company in the first place.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "Overall, the boycott of Starbucks appears to be driven by a range of factors, including politics, ethics, and personal values.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-214467",
+    "topic": "why are students protesting at columbia",
+    "references": [
+      "msmarco_v2.1_doc_16_3164994015#6_3495009430",
+      "msmarco_v2.1_doc_16_3164994015#5_3495006769",
+      "msmarco_v2.1_doc_16_3164994015#0_3494992346",
+      "msmarco_v2.1_doc_16_3164994015#1_3494996115",
+      "msmarco_v2.1_doc_08_661276143#8_1190116770"
+    ],
+    "response_length": 215,
+    "answer": [
+      {
+        "text": "Students at Columbia University are protesting against the university's affiliation with the Institute for Defense Analyses (IDA), a weapons research think tank affiliated with the U.S.",
+        "citations": []
+      },
+      {
+        "text": "Department of Defense, and the construction of a gymnasium in Morningside Park, which they believe is a symbol of the university's involvement in the Vietnam War and its discriminatory policies towards African American students.",
+        "citations": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "text": "The protests are also in response to the university's attempts to suppress anti-IDA student protests on campus, and the fact that the university has a history of evicting more than seven thousand Harlem residents from Columbia-controlled properties, with 85 percent of them being African American or Puerto Rican.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "The protests are part of a larger movement against the Vietnam War and the institution's involvement in it, as well as a call for an end to apartheid and racial segregation on campus.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "In addition, the students are also protesting the university's alleged segregation of black students, with a \"stacking system\" that puts all the former black football players in the same position, and the fact that black women are constantly checked and told not to register for difficult courses.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "Overall, the students are protesting against what they see as a university that is complicit in the Vietnam War and perpetuates racial segregation and discrimination on campus.",
+        "citations": [
+          0,
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-215044",
+    "topic": "why did 99 cent srtores go out of business",
+    "references": [
+      "msmarco_v2.1_doc_50_2341441233#3_3136353719",
+      "msmarco_v2.1_doc_40_1378950265#2_2820579824",
+      "msmarco_v2.1_doc_23_1343105039#4_2957072993",
+      "msmarco_v2.1_doc_38_528650741#0_1157248883",
+      "msmarco_v2.1_doc_45_116043852#0_258764719"
+    ],
+    "response_length": 162,
+    "answer": [
+      {
+        "text": "Unfortunately, the context provided does not mention why 99 Cent Stores went out of business.",
+        "citations": []
+      },
+      {
+        "text": "However, it does provide information about the company's business practices, its reputation, and its operations.",
+        "citations": []
+      },
+      {
+        "text": "One possible inference can be made from the fact that the company has a strong reputation among consumer goods manufacturers as a leading purchaser of name-brand, re-orderable, and closeout merchandise, and that it has never cancelled a purchase order.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "This suggests that the company's business model may have been successful, but it does not provide any information about why it may have gone out of business.",
+        "citations": []
+      },
+      {
+        "text": "Additionally, the fact that the company is a corporate entity, not a franchise, and that it has a complex process for registering its business name and obtaining an EIN number may indicate that it was a large and complex organization that may have been difficult to manage or maintain.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "However, without more information, it is impossible to determine why 99 Cent Stores went out of business.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-215952",
+    "topic": "why did robespierre care so much about killing the king",
+    "references": [
+      "msmarco_v2.1_doc_04_159469073#9_428144573",
+      "msmarco_v2.1_doc_04_159469073#10_428147198",
+      "msmarco_v2.1_doc_04_159469073#8_428142059",
+      "msmarco_v2.1_doc_04_159469073#4_428132262",
+      "msmarco_v2.1_doc_04_159469073#3_428129905"
+    ],
+    "response_length": 240,
+    "answer": [
+      {
+        "text": "Maximilien Robespierre's motivation for wanting to execute King Louis XVI was rooted in his strong ideological beliefs about the French Revolution and the need to protect the political changes made during that time.",
+        "citations": []
+      },
+      {
+        "text": "As a leading figure of the Jacobin faction, Robespierre believed that the monarchy was a symbol of the old regime and that its continuation would undermine the revolution's goals of equality and liberty.",
+        "citations": []
+      },
+      {
+        "text": "He argued that the king's execution was necessary to ensure the stability and security of the revolution, and to prevent the restoration of the monarchy.",
+        "citations": []
+      },
+      {
+        "text": "This motivation is evident in his opposition to King Louis XVI, as stated in, where it is mentioned that \"Did Maximilien Robespierre oppose or support King Louis XVI?",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "He opposed King Louis.\" This opposition was driven by his desire to protect the revolution and its ideals, rather than a personal vendetta against the king.",
+        "citations": []
+      },
+      {
+        "text": "It's also worth noting that Robespierre's actions during the Reign of Terror, which resulted in the execution of thousands of people, including the king, were motivated by his desire to eliminate any perceived threats to the revolution and to consolidate power in his own hands.",
+        "citations": []
+      },
+      {
+        "text": "This is evident in, where it is stated that \"Maximilien Robespierre beheaded an estimated 40,000 people during the Reign of Terror.\"",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "Overall, Robespierre's motivations for wanting to kill the king were driven by his ideological beliefs about the French Revolution and his desire to protect the revolution's goals and ideals.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-216592",
+    "topic": "why disability insurance is a smart investment",
+    "references": [
+      "msmarco_v2.1_doc_57_787083874#7_1233641295",
+      "msmarco_v2.1_doc_52_1092442741#0_2165182704",
+      "msmarco_v2.1_doc_57_787083874#6_1233637775",
+      "msmarco_v2.1_doc_57_787083874#0_1233617963",
+      "msmarco_v2.1_doc_57_787083874#1_1233621318"
+    ],
+    "response_length": 142,
+    "answer": [
+      {
+        "text": "Disability insurance is a smart investment because it provides a source of income to people who are unable to work due to an accident or illness, thereby protecting their financial stability and independence.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "This is particularly important, as the average disability claim lasts almost 13 months, and mortgage foreclosures due to disability occur 16 times as often as they do for death.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "Furthermore, research indicates that one-third of employed Americans will become disabled for at least 90 days at some point in their career, highlighting the need for adequate disability insurance.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "By investing in disability insurance, individuals can avoid the risk of losing their homes and investments, and instead, have a financial safety net to fall back on.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "Additionally, disability insurance can provide peace of mind, allowing individuals to focus on their recovery and well-being, rather than worrying about their financial security.",
+        "citations": [
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-217279",
+    "topic": "why do marines not get paid well",
+    "references": [
+      "msmarco_v2.1_doc_49_560288923#3_1183954561",
+      "msmarco_v2.1_doc_08_969419588#17_1749749132",
+      "msmarco_v2.1_doc_03_1645775782#2_2840062003",
+      "msmarco_v2.1_doc_08_972421542#3_1757895870",
+      "msmarco_v2.1_doc_49_560288923#2_1183952208"
+    ],
+    "response_length": 241,
+    "answer": [
+      {
+        "text": "Marines, specifically Marine Engineers, may not get paid well due to various factors.",
+        "citations": []
+      },
+      {
+        "text": "According to the context, Marine Engineers' salaries vary based on their experience level, with entry-level engineers earning an average total compensation of $60,492 per year, mid-career engineers earning $68,931 per year, and experienced engineers earning $23,000 per year.",
+        "citations": [
+          0,
+          3
+        ]
+      },
+      {
+        "text": "However, it's also worth noting that Marine Engineers may face challenges in securing funding for their work, as indicated by the example of a marine biologist who may not get paid for the full 25 months of work due to the uncertainty of grant funding.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "Additionally, the lack of job security and tenure at \"soft money research institutions\" may also impact Marine Engineers' earning potential.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "Furthermore, the context suggests that Marine Engineers may not get paid well due to the nature of their work, which involves designing, developing, and constructing marine vessels and their component parts, a task that may not be as lucrative as other professions.",
+        "citations": []
+      },
+      {
+        "text": "However, this is not explicitly stated in the provided context.",
+        "citations": []
+      },
+      {
+        "text": "It's also worth noting that the context does not provide a definitive answer to why Marines do not get paid well, but rather highlights the complexities and challenges associated with their profession.",
+        "citations": []
+      },
+      {
+        "text": "In summary, while the context does not provide a single reason why Marines do not get paid well, it suggests that factors such as experience level, funding uncertainty, job security, and the nature of their work may contribute to this issue.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-217812",
+    "topic": "why do some people have positive cantal tilt",
+    "references": [
+      "msmarco_v2.1_doc_50_436041381#0_883936814",
+      "msmarco_v2.1_doc_55_93307357#1_237361884",
+      "msmarco_v2.1_doc_50_436041381#1_883938909",
+      "msmarco_v2.1_doc_33_157802431#16_360322878",
+      "msmarco_v2.1_doc_53_204812157#12_364988896"
+    ],
+    "response_length": 231,
+    "answer": [
+      {
+        "text": "It appears that the positive association of Cantal cheese with a positive response is a social signal, as suggested by the text.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "According to the text, \"Others have suggested that it is a social signal—perhaps the dog recognizes that we respond to that particular posture in a positive way (because it is so cute), and therefore the dog adopts this position, because they are more likely to get smiles and rewards when they do.\" This implies that the positive response to Cantal cheese is not necessarily due to its taste or nutritional value, but rather the emotional response it elicits from humans.",
+        "citations": []
+      },
+      {
+        "text": "However, it's also possible that the positive association of Cantal cheese with a positive response is due to its taste and nutritional value, as mentioned in passage.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "The text states that \"Both of Emmental and Gruyère are baking cheeses that melt extremely smooth.",
+        "citations": []
+      },
+      {
+        "text": "And they have a distinctive taste that isn’t too overpowering which explains why there are so many French recipes that use these two kinds of cheese.\" This suggests that the positive response to Cantal cheese may be due to its unique taste and melting properties.",
+        "citations": []
+      },
+      {
+        "text": "It's also worth noting that the text does not provide a clear answer to the question of why some people have a positive Cantal tilt, but rather provides different possible explanations for the association between Cantal cheese and a positive response.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-219563",
+    "topic": "why free things have less percieved value",
+    "references": [
+      "msmarco_v2.1_doc_51_75622193#11_172153932",
+      "msmarco_v2.1_doc_50_1905944573#2_2715717897",
+      "msmarco_v2.1_doc_50_1867232906#24_2671385133",
+      "msmarco_v2.1_doc_50_1867232906#23_2671382909",
+      "msmarco_v2.1_doc_51_75622193#6_172137247"
+    ],
+    "response_length": 340,
+    "answer": [
+      {
+        "text": "The concept of \"free things having less perceived value\" is a complex and multifaceted issue that cannot be directly answered based on the provided context.",
+        "citations": []
+      },
+      {
+        "text": "However, I can offer some insights and possible explanations.",
+        "citations": []
+      },
+      {
+        "text": "The notion that free things have less perceived value may stem from the idea that when something is free, it is often associated with a lack of effort or investment, which can lead to a perception that the value is lower.",
+        "citations": []
+      },
+      {
+        "text": "This is reflected in the context of the \"career-oriented person\" who has already spent a significant amount of time researching, selecting, and visualizing their preferred occupational career path, implying that they have invested a lot of effort and value in their career.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "On the other hand, the concept of \"free things\" can also be related to the idea of abundance and excess, which may lead to a perception that the value is lower.",
+        "citations": []
+      },
+      {
+        "text": "This is reflected in the context of the \"career-oriented person\" who is described as having a well-earned holiday and a party to attend, implying a sense of abundance and excess.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "However, it's essential to note that these interpretations are based on a limited context and may not be universally applicable.",
+        "citations": []
+      },
+      {
+        "text": "The perception of value is subjective and can vary greatly from person to person.",
+        "citations": []
+      },
+      {
+        "text": "In terms of the historical context, the Egyptians' emphasis on cosmetics, clothing, health, hygiene, and administrative and political roles may suggest that they placed a high value on certain aspects of life, including personal grooming.",
+        "citations": []
+      },
+      {
+        "text": "However, this does not necessarily imply that free things have less perceived value.",
+        "citations": []
+      },
+      {
+        "text": "In conclusion, while the context provides some insights into the concept of perceived value, it is challenging to provide a definitive answer to the question of why free things have less perceived value.",
+        "citations": []
+      },
+      {
+        "text": "The notion that free things have less perceived value may be a complex and multifaceted issue that cannot be fully addressed based on the provided context.",
+        "citations": []
+      },
+      {
+        "text": "If you're looking for a more detailed answer, I would need more information or context to provide a more comprehensive response.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-219624",
+    "topic": "why has olive oil increased in price",
+    "references": [
+      "msmarco_v2.1_doc_28_894654474#5_1888251288",
+      "msmarco_v2.1_doc_51_931005265#2_1959206061",
+      "msmarco_v2.1_doc_20_206759700#14_478672568",
+      "msmarco_v2.1_doc_36_1605022416#3_3317011980",
+      "msmarco_v2.1_doc_37_952553479#8_2073765949"
+    ],
+    "response_length": 236,
+    "answer": [
+      {
+        "text": "The exact reason for the increase in olive oil price is not explicitly stated in the provided context.",
+        "citations": []
+      },
+      {
+        "text": "However, it is mentioned that the lower cost of production in countries like Spain, combined with excess supply, had a marked impact on the product's price, leading to a 25% decline in virgin olive oil prices between October and May.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "This suggests that the price decrease was due to an oversupply in the market, rather than an increase in demand.",
+        "citations": []
+      },
+      {
+        "text": "It is also worth noting that the production in Spain may have been 15% lower over this period, but still remained considerably higher than its nearest competitors.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "This could imply that the price decrease was not solely due to a decrease in production, but rather a result of the excess supply in the market.",
+        "citations": []
+      },
+      {
+        "text": "There is no mention of any external factors, such as changes in global demand, weather conditions, or geopolitical events, that could have contributed to the price increase.",
+        "citations": []
+      },
+      {
+        "text": "However, it is worth noting that the context does mention that the EU estimates that Spanish production of olive oil will increase by 10% this year, which could potentially lead to an increase in price.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "But this is not explicitly stated as the reason for the price increase.",
+        "citations": []
+      },
+      {
+        "text": "In summary, while the context provides some information about the production and market trends, it does not provide a clear answer to why olive oil has increased in price.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-224279",
+    "topic": "why should teachers always be reviewing their instruction",
+    "references": [
+      "msmarco_v2.1_doc_23_1012321711#6_2247502784",
+      "msmarco_v2.1_doc_16_134292525#2_274798188",
+      "msmarco_v2.1_doc_28_1651049205#16_3354881000",
+      "msmarco_v2.1_doc_02_1801255630#10_3055196259",
+      "msmarco_v2.1_doc_01_1655511337#7_2424358212"
+    ],
+    "response_length": 284,
+    "answer": [
+      {
+        "text": "Teachers should always be reviewing their instruction to ensure that they are providing effective and engaging learning experiences for their students.",
+        "citations": []
+      },
+      {
+        "text": "This involves reflecting on their teaching methods, assessing student learning outcomes, and making adjustments as needed to meet the diverse needs of their students.",
+        "citations": []
+      },
+      {
+        "text": "Reviewing instruction is essential to build on previous knowledge, skill, and understandings, and to provide appropriately challenging learning experiences for all students.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "It also acknowledges that not all students possess the same learning foundations at the start of a given investigation, and that sometimes a task that lacks challenge for some learners is frustratingly complex to others.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "Furthermore, reviewing instruction allows teachers to identify areas where students may need additional support or review, and to make necessary adjustments to their teaching strategies.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "This can be particularly important for students who struggle with working memory or require repeated, systematic instruction to grasp a concept.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "Additionally, reviewing instruction can help teachers to identify what works and what doesn't, and to refine their teaching methods to better meet the needs of their students.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "By reflecting on their instruction, teachers can also establish common understandings, provide opportunities for shared discussion and review, and build a sense of community in the classroom.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "Overall, reviewing instruction is an ongoing process that requires teachers to be intentional and reflective about their teaching practices, and to be willing to make changes as needed to provide the best possible learning experiences for their students.",
+        "citations": []
+      },
+      {
+        "text": "References:",
+        "citations": []
+      },
+      {
+        "text": "\"A Kid’s Toy Review\" \"Empowering Teachers, Inspiring Students\" \"Direct Instruction Teaching Method: Definition, Examples & Strategies - MTTC Class [2021 Video]\" \"Direct Instruction Teaching Method: Definition, Examples & Strategies - MTTC Class [2021 Video]\" \"7 Reasons Why Differentiated Instruction Works - ASCD Inservice\"",
+        "citations": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-224701",
+    "topic": "why was dame van winkle portrayed so negatively?",
+    "references": [
+      "msmarco_v2.1_doc_39_795520860#6_1606562195",
+      "msmarco_v2.1_doc_39_795520860#5_1606560715",
+      "msmarco_v2.1_doc_39_795508142#14_1606540581",
+      "msmarco_v2.1_doc_39_795508142#13_1606539168",
+      "msmarco_v2.1_doc_23_1002636624#8_2221271731"
+    ],
+    "response_length": 153,
+    "answer": [
+      {
+        "text": "Dame Van Winkle was portrayed negatively because she is depicted as a domineering and nagging wife who takes advantage of her husband's laziness and lack of responsibility, leaving him to fend for himself and the family, while she is often idle and does not contribute to the household chores or help with domestic matters.",
+        "citations": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "text": "Her behavior is also shown to be cruel, as she treats her dog, Wolf, poorly, and is described as a \"petticoat cruel\".",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "Additionally, her nagging is portrayed as a major source of conflict in the story, and Rip's escape from her contentious nature is a significant plot point, suggesting that her behavior has a profound impact on Rip's life.",
+        "citations": [
+          0,
+          2
+        ]
+      },
+      {
+        "text": "However, it's also worth noting that Dame Van Winkle's nagging may be justified, as Rip's lack of effort and responsibility contribute to the problems in their marriage, and she may be fighting for the well-being of herself and her family.",
+        "citations": [
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-224926",
+    "topic": "why was salsa not noticed in america",
+    "references": [
+      "msmarco_v2.1_doc_04_224387073#4_598082560",
+      "msmarco_v2.1_doc_04_224387073#3_598080586",
+      "msmarco_v2.1_doc_04_224387073#0_598074865",
+      "msmarco_v2.1_doc_04_224387073#8_598090600",
+      "msmarco_v2.1_doc_15_166751933#23_335621797"
+    ],
+    "response_length": 90,
+    "answer": [
+      {
+        "text": "It appears that salsa was not particularly noticed or popular in America, at least not in the context of the provided conversations.",
+        "citations": []
+      },
+      {
+        "text": "The conversations suggest that salsa is a popular form of social dance in most of Latin America, particularly in Cuba, but there is no mention of its popularity in America.",
+        "citations": []
+      },
+      {
+        "text": "In fact, the conversations mention that salsa is popular in countries such as Jamaica, Africa, Spain, and Italy, but not specifically in America.",
+        "citations": []
+      },
+      {
+        "text": "Therefore, it can be inferred that salsa was not particularly notable or popular in America.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-22886",
+    "topic": "do illegal immigrants get free healthcare",
+    "references": [
+      "msmarco_v2.1_doc_03_256010595#13_477480963",
+      "msmarco_v2.1_doc_03_256010595#12_477479937",
+      "msmarco_v2.1_doc_03_256010595#14_477482015",
+      "msmarco_v2.1_doc_51_479997533#3_985528863",
+      "msmarco_v2.1_doc_08_459171871#0_811649910"
+    ],
+    "response_length": 278,
+    "answer": [
+      {
+        "text": "Based on the context provided, it appears that the answer is not a simple yes or no.",
+        "citations": []
+      },
+      {
+        "text": "The information available suggests that while some undocumented immigrants may receive free or low-cost healthcare, particularly in emergency situations, the overall picture is more complex.",
+        "citations": []
+      },
+      {
+        "text": "According to, Medicaid, which covers one in five Americans, is a government-sponsored program that provides public health insurance to people with low income and limited resources, including those on Medicare.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "However, the eligibility criteria vary by state, and undocumented immigrants may face many hurdles to getting healthcare in the United States.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "In some states, such as California and New York, Medicaid state-only funds cover low-income children regardless of their immigration status.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "Additionally, some locally funded programs provide healthcare coverage to undocumented immigrants.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "However, the majority of the context suggests that undocumented immigrants do not receive free healthcare in the same way that citizens do.",
+        "citations": []
+      },
+      {
+        "text": "According to, the cost of treating uninsured immigrants who entered the country illegally at all levels of government is estimated to be $4.3 billion a year, primarily at emergency rooms and free clinics.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "This suggests that while some undocumented immigrants may receive free or low-cost healthcare, the overall cost is significant and is borne by American taxpayers.",
+        "citations": []
+      },
+      {
+        "text": "It's also worth noting that the original article and seem to be misinformed or misleading, as they claim that undocumented immigrants receive \"free stuff\" and that citizens should take them in and pay for them.",
+        "citations": [
+          0,
+          1
+        ]
+      },
+      {
+        "text": "However, these claims are not supported by the context provided.",
+        "citations": []
+      },
+      {
+        "text": "In summary, while some undocumented immigrants may receive free or low-cost healthcare, particularly in emergency situations, the overall picture is complex, and the cost is significant, borne by American taxpayers.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-27366",
+    "topic": "does minimalism comes from creativity?",
+    "references": [
+      "msmarco_v2.1_doc_15_263413970#12_547166292",
+      "msmarco_v2.1_doc_15_263413970#13_547169647",
+      "msmarco_v2.1_doc_15_263413970#11_547162970",
+      "msmarco_v2.1_doc_15_262415197#6_543448323",
+      "msmarco_v2.1_doc_15_263413970#5_547142691"
+    ],
+    "response_length": 332,
+    "answer": [
+      {
+        "text": "Minimalism and creativity are often associated with each other, but the relationship between the two is complex and multifaceted.",
+        "citations": []
+      },
+      {
+        "text": "While some people may think that minimalism is a constraint that stifles creativity, others see it as a means to focus the mind and unleash creativity.",
+        "citations": []
+      },
+      {
+        "text": "Minimalism, as seen in the context of PowerPoint templates, refers to a design aesthetic that emphasizes simplicity, clarity, and clean layouts.",
+        "citations": []
+      },
+      {
+        "text": "This style is often used to create presentations that are easy to follow and understand, with a focus on conveying information in a clear and concise manner.",
+        "citations": [
+          0,
+          2,
+          4
+        ]
+      },
+      {
+        "text": "However, the question of whether minimalism comes from creativity is more subjective and depends on individual perspectives.",
+        "citations": []
+      },
+      {
+        "text": "Some people may find that the simplicity and clarity of a minimalist design actually inspires creativity, as it forces the creator to focus on the essential elements of the message and eliminate distractions.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "On the other hand, others may argue that minimalism can be a constraint that stifles creativity, as it limits the range of design options and may not allow for the expression of complex ideas or emotions.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "Ultimately, the relationship between minimalism and creativity is not a straightforward one, and it depends on the individual's perspective and approach to design.",
+        "citations": []
+      },
+      {
+        "text": "In the context of PowerPoint templates, minimalism is often used to create presentations that are easy to use and understand, with a focus on conveying information in a clear and concise manner.",
+        "citations": []
+      },
+      {
+        "text": "This style is often used in templates such as Montaen, Warlock, and Balance, which feature clean and clutter-free designs that allow the creator to focus on the essential elements of the message.",
+        "citations": [
+          2,
+          4
+        ]
+      },
+      {
+        "text": "However, other templates, such as XGDragon and Mevla, feature more elaborate designs that may be seen as more creative and expressive, but may also be more distracting and difficult to follow.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "Therefore, while minimalism can be a useful tool for creating presentations, it is not necessarily a direct result of creativity, but rather a design aesthetic that can be used to facilitate creativity in different ways.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-29182",
+    "topic": "does your mood have an effect on buying things",
+    "references": [
+      "msmarco_v2.1_doc_48_1190492408#20_2168631507",
+      "msmarco_v2.1_doc_53_706601432#4_1514266855",
+      "msmarco_v2.1_doc_42_336550933#6_632568320",
+      "msmarco_v2.1_doc_34_1389923254#2_2890012080",
+      "msmarco_v2.1_doc_01_696877040#6_705484499"
+    ],
+    "response_length": 232,
+    "answer": [
+      {
+        "text": "Research suggests that one's mood can indeed have an impact on their purchasing decisions.",
+        "citations": []
+      },
+      {
+        "text": "Studies have shown that people who are in a good mood are more likely to make impulsive and spontaneous purchases, while those who are in a bad mood are more likely to make more rational and thoughtful purchases.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "However, the relationship between mood and purchasing behavior is complex and can vary depending on the individual and the specific product being purchased.",
+        "citations": []
+      },
+      {
+        "text": "In terms of the specific products mentioned in the reviews, it appears that Gabatrol is marketed as a fast-acting supplement that can calm the mind and boost mood, which may appeal to individuals who are looking for a quick fix to improve their mood.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "On the other hand, Onnit's New Mood is marketed as a natural supplement that may help with stress relief, but the results are not as clear-cut.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "It's also worth noting that Saffron extract, which is mentioned in review, has been shown to have antidepressant effects and promote relaxation, which may appeal to individuals who are looking for a natural way to improve their mood.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "Ultimately, the impact of mood on buying decisions can vary depending on the individual and the specific product being purchased.",
+        "citations": []
+      },
+      {
+        "text": "While some products may be marketed as mood-boosting or stress-relieving, the effectiveness of these products can be difficult to measure and may not be supported by scientific evidence.",
+        "citations": []
+      },
+      {
+        "text": "References:",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-32912",
+    "topic": "how bad did the vietnam war devastate the economy in 1968",
+    "references": [
+      "msmarco_v2.1_doc_27_55934524#12_81583981",
+      "msmarco_v2.1_doc_27_55934524#13_81585110",
+      "msmarco_v2.1_doc_34_1553540940#10_3268121931",
+      "msmarco_v2.1_doc_33_1365594455#11_2932003015",
+      "msmarco_v2.1_doc_35_281011577#12_689562174"
+    ],
+    "response_length": 422,
+    "answer": [
+      {
+        "text": "The Vietnam War had a significant impact on the American economy in 1968, but the exact extent of the devastation is difficult to quantify.",
+        "citations": []
+      },
+      {
+        "text": "However, it is clear that the war was a major drain on the US economy, with the US government spending billions of dollars on the war effort.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "The war was expensive, with the US government spending over $111 billion in 1968 alone, which is equivalent to over $800 billion in today's dollars.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "This was a significant burden on the US economy, and it contributed to rising inflation and a growing national debt.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "The war also led to a decline in the US stock market, with the Dow Jones Industrial Average falling by 14.4% in 1968.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "This was due in part to the growing public opposition to the war, which led to a decline in consumer spending and investment.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "Furthermore, the war also led to a decline in the US trade deficit, as the US government imposed trade restrictions on countries that were providing aid to North Vietnam.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "This had a negative impact on the US economy, as it reduced the amount of foreign goods and services that the US was importing.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "Overall, while the exact extent of the economic devastation caused by the Vietnam War in 1968 is difficult to quantify, it is clear that the war had a significant impact on the US economy, leading to rising inflation, a growing national debt, a decline in the stock market, and a decline in the US trade deficit.",
+        "citations": []
+      },
+      {
+        "text": "It's worth noting that the Tet Offensive, which took place in January 1968, was a significant turning point in the war and had a profound impact on American public opinion.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "The surprise attacks by North Vietnamese and Viet Cong forces on dozens of towns, cities, airfields, and military bases, including Westmoreland's headquarters and the US embassy in Saigon, shocked the American public and undermined the assurances by Johnson and Westmoreland that the war was being won.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "This event marked a turning point in the war, as public opinion began to shift against the war, leading to growing protests and opposition to the war.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "In terms of the economic impact of the Tet Offensive, it's worth noting that the war was already taking a toll on the US economy, and the Tet Offensive simply accelerated this trend.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "The war was a major drain on the US economy, and the Tet Offensive was a significant event that marked a turning point in the war and had a profound impact on American public opinion.",
+        "citations": [
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-35227",
+    "topic": "how did african rulers contribute to the triangle trade",
+    "references": [
+      "msmarco_v2.1_doc_03_1592990377#4_2701978409",
+      "msmarco_v2.1_doc_03_1592990377#5_2701981657",
+      "msmarco_v2.1_doc_53_75729873#12_135841954",
+      "msmarco_v2.1_doc_53_75729873#13_135844381",
+      "msmarco_v2.1_doc_03_1592990377#8_2701990665"
+    ],
+    "response_length": 243,
+    "answer": [
+      {
+        "text": "African rulers played a significant role in the establishment and continuation of the Atlantic slave trade, primarily through their involvement in the capture and sale of enslaved Africans to European traders. This process involved African merchants, with the help of local rulers, capturing Africans to be enslaved and then delivering them to the Europeans in exchange for goods such as gold, guns, and other commodities. In some cases, African rulers voiced their opposition to the practice, but many continued to participate in the slave trade due to its profitability. This led to the development of new trade routes by African merchants to avoid rulers who refused to cooperate.",
+        "citations": [
+          2,
+          3
+        ]
+      },
+      {
+        "text": "It is essential to note that the slave trade was not a simple transaction between European traders and African rulers, but rather a complex system involving multiple actors and stages. The three stages of the slave trade triangle involved the initial purchase of enslaved Africans by Europeans, the forced transportation of Africans across the Atlantic Ocean to the Americas, and the sale of these Africans as slaves to work on plantations in the Americas.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "In summary, African rulers contributed to the triangle trade by capturing and selling enslaved Africans to European traders, often for their own financial gain and to maintain their power and wealth. This process was facilitated by the desire for wealth and the need for labor, which led to the exploitation and suffering of millions of Africans during the transatlantic slave trade.",
+        "citations": [
+          0,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-35269",
+    "topic": "how did american leaders think the marshall plan would help american businesses?",
+    "references": [
+      "msmarco_v2.1_doc_11_1296199414#11_2703787775",
+      "msmarco_v2.1_doc_11_972385972#11_1894733520",
+      "msmarco_v2.1_doc_13_688393621#4_1557834413",
+      "msmarco_v2.1_doc_44_1668605667#4_3456682987",
+      "msmarco_v2.1_doc_33_1364216259#3_2928135411"
+    ],
+    "response_length": 179,
+    "answer": [
+      {
+        "text": "According to the text, American leaders believed that the Marshall Plan would help American businesses in two ways.",
+        "citations": []
+      },
+      {
+        "text": "Firstly, it would increase government spending, which would benefit every American railroad, factory, and branch of industry, thereby stimulating domestic commerce.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "Secondly, the plan would provide an opportunity for American businesses to sell their goods to the European countries that received the aid, as the Marshall Plan funds were used to purchase American goods.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "It is also worth noting that Senator John M.",
+        "citations": []
+      },
+      {
+        "text": "Thurston from Nebraska argued that war with Spain would bring more government spending, which would increase the business and earnings of every American railroad, it would increase the output of every American factory, it would stimulate every branch of industry and domestic commerce.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "However, this statement is not directly related to the Marshall Plan, but it shows that some American leaders believed that government spending would benefit businesses.",
+        "citations": []
+      },
+      {
+        "text": "Overall, the Marshall Plan was seen as a way to stimulate economic growth and provide opportunities for American businesses to export their goods to Europe, thereby benefiting the American economy.",
+        "citations": [
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-35284",
+    "topic": "how did andrew carnegie impact modern medicine",
+    "references": [
+      "msmarco_v2.1_doc_33_1323090534#6_2817311876",
+      "msmarco_v2.1_doc_33_1323090534#5_2817309199",
+      "msmarco_v2.1_doc_33_1323090534#4_2817306809",
+      "msmarco_v2.1_doc_24_1027239628#0_2163650670",
+      "msmarco_v2.1_doc_37_172076620#5_346031102"
+    ],
+    "response_length": 140,
+    "answer": [
+      {
+        "text": "Unfortunately, the provided text does not mention Andrew Carnegie's impact on modern medicine.",
+        "citations": []
+      },
+      {
+        "text": "The text discusses his impact on the industrial revolution, his role in the steel industry, and his philanthropic efforts, but it does not provide any information on his contributions to modern medicine.",
+        "citations": []
+      },
+      {
+        "text": "However, it is worth noting that Andrew Carnegie was a philanthropist who donated millions of dollars to various causes, including education, science, and world peace.",
+        "citations": []
+      },
+      {
+        "text": "He was a strong advocate for the importance of education and the role of science in improving society.",
+        "citations": []
+      },
+      {
+        "text": "While he did not directly impact modern medicine, his philanthropic efforts may have indirectly contributed to advancements in medical research or healthcare infrastructure.",
+        "citations": []
+      },
+      {
+        "text": "If you're looking for information on Andrew Carnegie's philanthropic efforts, I can provide more information on his charitable donations and their impact on various fields, including education and science.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-35620",
+    "topic": "how did escalante encourage students to envision their futures?",
+    "references": [
+      "msmarco_v2.1_doc_48_1039848851#14_1878661556",
+      "msmarco_v2.1_doc_39_586753098#14_1198889772",
+      "msmarco_v2.1_doc_39_586753098#13_1198887923",
+      "msmarco_v2.1_doc_17_2119863051#12_2281933119",
+      "msmarco_v2.1_doc_39_586753098#19_1198898316"
+    ],
+    "response_length": 244,
+    "answer": [
+      {
+        "text": "Jaime Escalante encouraged students to envision their futures by using an unorthodox yet effective approach to teaching.",
+        "citations": []
+      },
+      {
+        "text": "He believed that with the right mindset, or \"ganas,\" students could succeed in anything.",
+        "citations": []
+      },
+      {
+        "text": "This is evident from his statement, \"He told them that they could succeed at everything if they had the ganas, the desire.\" He also used various techniques to get his students' attention and motivate them, such as wearing funny hats, making jokes, and using props like a meat cleaver and an apple to teach fractions. Additionally, he decorated his classroom with inspirational sayings and sports posters, which helped to create a positive and supportive learning environment. Furthermore, he gave his students encouragement and taught them to believe in themselves, which helped to build their confidence and motivation.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "It's worth noting that Escalante's approach was not limited to just verbal encouragement.",
+        "citations": []
+      },
+      {
+        "text": "He also used his personality and creativity to engage his students and make learning fun.",
+        "citations": []
+      },
+      {
+        "text": "For example, he once brought a meat cleaver and an apple to class to teach fractions, which shows that he was willing to think outside the box and use unconventional methods to get his points across.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "Overall, Escalante's approach to teaching was characterized by his enthusiasm, creativity, and willingness to challenge his students and push them to succeed.",
+        "citations": []
+      },
+      {
+        "text": "By using a combination of verbal encouragement, creative teaching methods, and a positive classroom environment, he was able to inspire his students to envision their futures and achieve great things.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-38986",
+    "topic": "how do we support life on other planets",
+    "references": [
+      "msmarco_v2.1_doc_00_465021312#4_853257109",
+      "msmarco_v2.1_doc_00_465021312#5_853260375",
+      "msmarco_v2.1_doc_50_657962765#13_1334083123",
+      "msmarco_v2.1_doc_27_1210600275#7_2436538681",
+      "msmarco_v2.1_doc_00_465021312#14_853288977"
+    ],
+    "response_length": 500,
+    "answer": [
+      {
+        "text": "Supporting life on other planets is a complex task that involves understanding the conditions necessary for life to exist and thrive.",
+        "citations": []
+      },
+      {
+        "text": "This includes the presence of liquid water, a stable energy source, and a habitable environment, which are all essential components of life as we know it.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "The search for life beyond Earth is an active area of research, with scientists exploring the possibility of life on Mars, Europa, Enceladus, and other celestial bodies in our solar system.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "One of the key factors in supporting life on other planets is the presence of plate tectonics, which is the movement of the Earth's lithosphere.",
+        "citations": []
+      },
+      {
+        "text": "Without plate tectonics, Earth might not support life, as it plays a crucial role in shaping the planet's surface and creating environments that can support life.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "However, not all planets are likely to have plate tectonics, and scientists estimate that only one-third of extrasolar planets could host plate tectonics, at least long enough for complex life to evolve.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "Another crucial aspect of supporting life on other planets is the presence of oceans.",
+        "citations": []
+      },
+      {
+        "text": "Did oceans on Earth and Mars result from cometary impacts?",
+        "citations": []
+      },
+      {
+        "text": "What role does this constant influx of materials play in a planet's ecosystem?",
+        "citations": []
+      },
+      {
+        "text": "Can viable organisms be transferred between planets - i.e. do we need to consider an ecology where more than one planet's biota are involved?.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "The study of comets and their role in delivering organic materials to Earth and potentially other planets is an active area of research, and it may provide insights into the origins of life on Earth and the possibility of life on other planets.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "To support life on other planets, scientists must also consider the potential for contamination.",
+        "citations": []
+      },
+      {
+        "text": "Planetary protection: preventing an undesirable interplanetary mix of life forms Epidemiologists, microbiologists, ethicists, spacecraft engineers, and environmental health professionals will be called upon to assess how we protect ourselves and our planet's biosphere from harmful extraterrestrial life forms - as well as what steps we take to be certain that we do not contaminate other worlds.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "Sterilizing spacecraft and returning samples from other worlds in a way that reduces the risk of contamination is essential to preventing the introduction of terrestrial life forms to other planets.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "In summary, supporting life on other planets requires a deep understanding of the conditions necessary for life to exist and thrive, including the presence of liquid water, a stable energy source, and a habitable environment.",
+        "citations": []
+      },
+      {
+        "text": "Plate tectonics, oceans, and the potential for cometary impacts all play critical roles in shaping the environments that support life.",
+        "citations": []
+      },
+      {
+        "text": "Additionally, scientists must consider the potential for contamination and take steps to prevent the introduction of terrestrial life forms to other planets.",
+        "citations": []
+      },
+      {
+        "text": "References:",
+        "citations": []
+      },
+      {
+        "text": "Astrobiology Content: On the immediate front: how do all of these interactions between air, water, and life on Earth bode for the way we are transforming our planet?",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "Title: Without Plate Tectonics, Earth Might Not Support Life | Everyday Einstein",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "How many planets in our universe could support life? | HowStuffWorks",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "Title: What is Astrobiology?",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "Astrobiology Content",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-41849",
+    "topic": "how does our use of electronics cause natural disasters",
+    "references": [
+      "msmarco_v2.1_doc_13_1313934211#11_2906355435",
+      "msmarco_v2.1_doc_37_919970019#0_1969340879",
+      "msmarco_v2.1_doc_44_1427085883#7_2945537623",
+      "msmarco_v2.1_doc_29_836970872#6_1923592700",
+      "msmarco_v2.1_doc_31_31536071#1_81653705"
+    ],
+    "response_length": 364,
+    "answer": [
+      {
+        "text": "Our use of electronics can contribute to the vulnerability of natural disasters in several ways.",
+        "citations": []
+      },
+      {
+        "text": "The electromagnetic pulses (EMPs) generated by solar storms or nuclear explosions can damage electronic devices and disrupt power grids, leading to widespread power outages.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "Additionally, the increased demand for electricity during a natural disaster can put a strain on the power grid, making it more susceptible to damage from an EMP or other external factors.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "Furthermore, the use of electronic devices can also contribute to the risk of fires, which can be exacerbated by the power outages caused by natural disasters.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "However, it's worth noting that the primary cause of natural disasters is not the use of electronics itself, but rather the vulnerability of our infrastructure and the potential for external events like solar storms or nuclear explosions to cause widespread damage.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "In the context of solar storms, extreme geomagnetic activity can produce a high-output electromagnetic pulse that can damage electronic devices and disrupt power grids.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "This is a natural phenomenon that is inevitable and impossible to predict in time for emergency preparations.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "On the other hand, the use of electronics can also contribute to the risk of fires, which can be exacerbated by the power outages caused by natural disasters.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "However, the primary cause of natural disasters is not the use of electronics itself, but rather the vulnerability of our infrastructure and the potential for external events like solar storms or nuclear explosions to cause widespread damage.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "It's also worth noting that the Bible teaches that God will rid the earth of all causes of pain and suffering, including natural disasters.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "However, this does not necessarily mean that our use of electronics is the primary cause of natural disasters, but rather that we should be prepared and take steps to mitigate the risks associated with them.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "In summary, while our use of electronics can contribute to the vulnerability of natural disasters, it is not the primary cause of these events.",
+        "citations": []
+      },
+      {
+        "text": "The primary cause of natural disasters is often external factors like solar storms or nuclear explosions, and our use of electronics is more of a contributing factor to the risk of fires and power outages during these events.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-42497",
+    "topic": "how does the informal recycling sector add to air pollution through burning of e-waste?",
+    "references": [
+      "msmarco_v2.1_doc_51_880750803#7_1852937533",
+      "msmarco_v2.1_doc_17_458289946#5_496643753",
+      "msmarco_v2.1_doc_51_880750803#6_1852935478",
+      "msmarco_v2.1_doc_17_458289946#4_496641536",
+      "msmarco_v2.1_doc_34_1636826970#5_3436856503"
+    ],
+    "response_length": 212,
+    "answer": [
+      {
+        "text": "The informal recycling sector contributes to air pollution through the burning of e-waste, which releases pollutants such as hydrocarbons, heavy metals, and brominated dioxins into the air.",
+        "citations": []
+      },
+      {
+        "text": "This is evident from the fact that the burning of computer monitors and other electronics can lead to the release of pollutants into the air, affecting overall health and air quality measures.",
+        "citations": [
+          0,
+          2
+        ]
+      },
+      {
+        "text": "The burning of e-waste in the informal sector, which involves rudimentary practices such as heating circuit boards, cutting cables and wires, chipping and melting plastics, and extracting precious metals through acid leaching and incineration, also results in the release of toxic metals and pollutants.",
+        "citations": [
+          1,
+          3
+        ]
+      },
+      {
+        "text": "These pollutants can cause air pollution and have severe health implications, making it essential to adopt more environmentally friendly and responsible e-waste management practices.",
+        "citations": []
+      },
+      {
+        "text": "In addition, the burning of e-waste in the informal sector can lead to the emission of brominated and chlorinated dioxins, which are known to cause air pollution.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "Furthermore, the dust particles loaded with heavy metals and flame retardants from dismantling activities can redeposit near the emission source or be transported over long distances, contributing to atmospheric pollution.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "Therefore, it is crucial to address the issue of informal e-waste recycling and promote more sustainable and environmentally responsible practices to minimize the negative impacts on the environment.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-43037",
+    "topic": "how europe solved its russian gas problem",
+    "references": [
+      "msmarco_v2.1_doc_05_743919027#2_1138229729",
+      "msmarco_v2.1_doc_02_1342549711#15_2255102373",
+      "msmarco_v2.1_doc_17_529130854#7_572962085",
+      "msmarco_v2.1_doc_06_1492923476#6_2105055148",
+      "msmarco_v2.1_doc_05_743919027#1_1138227221"
+    ],
+    "response_length": 151,
+    "answer": [
+      {
+        "text": "Europe's solution to its Russian gas problem is not explicitly stated in the provided context.",
+        "citations": []
+      },
+      {
+        "text": "However, it can be inferred that Europe's dependence on Russian energy is a significant issue, as stated in and.",
+        "citations": [
+          3,
+          4
+        ]
+      },
+      {
+        "text": "The European Union imports almost half of its natural gas and 30 percent of its oil from Russia, and the demand for these resources is expected to continue growing.",
+        "citations": [
+          3,
+          4
+        ]
+      },
+      {
+        "text": "The context suggests that Europe's reliance on Russian energy is a concern, but it does not provide a specific solution to this problem.",
+        "citations": []
+      },
+      {
+        "text": "However, it can be noted that the Trans-Eurasian Belt Development (TEPR) plan proposed by Vladimir Fortov, the Head of the Russian Academy of Science, aims to create a massive transportation network that would link Europe, Asia, and North America, potentially reducing Europe's dependence on Russian energy.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "The plan involves building a road, rail link, and pipelines, which could provide an alternative route for energy transportation.",
+        "citations": [
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-43983",
+    "topic": "how has inclusivity made vogue magazine more popular",
+    "references": [
+      "msmarco_v2.1_doc_29_890812850#6_2057571599",
+      "msmarco_v2.1_doc_14_981615974#2_2021750480",
+      "msmarco_v2.1_doc_14_981615974#1_2021747920",
+      "msmarco_v2.1_doc_55_321922495#9_704645418",
+      "msmarco_v2.1_doc_54_626604776#6_1466626926"
+    ],
+    "response_length": 190,
+    "answer": [
+      {
+        "text": "Vogue magazine's inclusivity has contributed to its enduring popularity, as it has become a platform for showcasing diverse voices, styles, and perspectives, making it a go-to destination for readers seeking inspiration and representation.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "The magazine's ability to cover a wide range of topics, including health, love lives, and fashion dilemmas, has helped to make it a staple for teenagers, who are eager to see themselves reflected in the pages.",
+        "citations": [
+          0
+        ]
+      },
+      {
+        "text": "Additionally, Vogue's commitment to featuring more than just the hottest celebrities wearing the latest trends, as seen in Teen Vogue, has helped to attract a younger audience and establish the brand as a leader in the fashion industry.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "Furthermore, Vogue's long-standing reputation as an iconic fashion guide for women of all ages and backgrounds has helped to build trust and credibility with readers, making it a sought-after publication.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "The magazine's willingness to accept innovative and impressive ideas from new talent, as seen in its internship program, has also helped to foster a sense of community and inclusivity among its readers.",
+        "citations": [
+          1,
+          2
+        ]
+      },
+      {
+        "text": "Overall, Vogue's commitment to diversity, representation, and inclusivity has helped to make it a beloved and respected publication around the world.",
+        "citations": [
+          0,
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-44060",
+    "topic": "how hatred is used as a tool to unite people in 1984",
+    "references": [
+      "msmarco_v2.1_doc_39_722767292#5_1438109293",
+      "msmarco_v2.1_doc_39_722767292#4_1438107155",
+      "msmarco_v2.1_doc_39_756379993#2_1521306013",
+      "msmarco_v2.1_doc_23_1468170104#6_3246111231",
+      "msmarco_v2.1_doc_39_784841887#8_1588826597"
+    ],
+    "response_length": 443,
+    "answer": [
+      {
+        "text": "In George Orwell's 1984, hatred is used as a tool to unite people against the Party's enemies, such as the rival powers of Eastasia and Eurasia, and against internal enemies who display subversive, counter-revolutionary tendencies.",
+        "citations": []
+      },
+      {
+        "text": "This is achieved through the national festival known as Hate Week, which takes place in late summer and encourages citizens to hate the regime's enemies and internal enemies.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "The hatred generated by Hate Week is intense, and if a captured enemy soldier were to appear, the populace would be torn limb from limb by an enraged crowd.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "The Party has worked out that if people are focused on hating the regime's enemies, they are less likely to direct their hate towards the Party itself, thereby maintaining control over the masses.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "This tactic is a classic diversionary strategy used by authoritarian states to control people by channeling their anger and hatred away from the state and towards objects of hate created by the regime.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "Moreover, the Party uses hatred as a tool to unite people by creating a sense of shared identity and purpose.",
+        "citations": []
+      },
+      {
+        "text": "During the Two Minutes Hate, which is routinely performed by all Party members, citizens are forced to express feelings of hatred towards the Party's enemies, creating a sense of unity and solidarity among the crowd.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "This psychological manipulation removes all feelings of hatred towards the Party, replacing it with a sense of loyalty and devotion to the regime.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "The Party's use of hatred as a tool to unite people is also evident in the way it portrays Big Brother as a symbol of the Party's values, representing the dangers of blind worship and religious extremism, and serving as a \"focusing point for love, fear, and reverence\".",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "By creating a shared sense of hatred and fear, the Party is able to maintain control over the masses and prevent individuals from engaging in conscious thought and pursuing innovative ideas.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "In addition, the Party's use of hatred as a tool to unite people is also evident in the way it creates a sense of us versus them mentality.",
+        "citations": []
+      },
+      {
+        "text": "The Party portrays its enemies as inhuman forces of pure evil, and Big Brother as a symbol of the Party's values, thereby creating a sense of shared identity and purpose among the citizens.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "This us versus them mentality creates a sense of unity and solidarity among the citizens, as they are united in their hatred towards the Party's enemies.",
+        "citations": [
+          2
+        ]
+      },
+      {
+        "text": "Overall, the Party's use of hatred as a tool to unite people is a key aspect of its totalitarian regime, and is used to maintain control over the masses and prevent individuals from engaging in conscious thought and pursuing innovative ideas.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-58819",
+    "topic": "how many latino have been misinformed about education?",
+    "references": [
+      "msmarco_v2.1_doc_44_170417548#3_374342878",
+      "msmarco_v2.1_doc_56_879628999#11_1799844159",
+      "msmarco_v2.1_doc_46_749089946#7_1576947417",
+      "msmarco_v2.1_doc_49_984171938#2_2034660889",
+      "msmarco_v2.1_doc_05_1613732665#0_3087791178"
+    ],
+    "response_length": 154,
+    "answer": [
+      {
+        "text": "According to the text, about 8% of Latinos have received a post-secondary degree, and Hispanic students are the second largest ethnic group in U.S. public schools after white students.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "However, the text does not provide a specific number of Latinos who have been misinformed about education.",
+        "citations": []
+      },
+      {
+        "text": "But, it does mention that language and economic barriers, as well as discrimination, have historically contributed to the Latino achievement gap in U.S. education.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "Additionally, the text states that Hispanic immigrants and second-generation Hispanics (those born in the U.S. to at least one immigrant parent) report more often than third or higher generation Hispanics being subjected to three of the four incidents asked about in the survey – being criticized for speaking Spanish, being told to go back to their home country and experiencing discrimination or unfair treatment.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "It's worth noting that the text does not provide a specific number of Latinos who have been misinformed about education.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-73340",
+    "topic": "how much support did the patriot act receive?",
+    "references": [
+      "msmarco_v2.1_doc_04_141941248#5_382411900",
+      "msmarco_v2.1_doc_36_1211966885#15_2500851754",
+      "msmarco_v2.1_doc_04_141941248#4_382410597",
+      "msmarco_v2.1_doc_49_1396589385#0_2873183599",
+      "msmarco_v2.1_doc_06_1544906758#1_2195554032"
+    ],
+    "response_length": 106,
+    "answer": [
+      {
+        "text": "The Patriot Act received mixed support from Congress.",
+        "citations": []
+      },
+      {
+        "text": "While it was signed into law by President George W.",
+        "citations": []
+      },
+      {
+        "text": "Bush on October 26, 2001, it faced criticism and controversy from civil rights activists and some members of Congress who had originally supported the bill.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "A Republican-controlled Congress passed and Bush signed a renewal of the act in March 2006, but this was met with criticism and ongoing legal challenges from the American Civil Liberties Union.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "In addition, some members of Congress who had originally supported the bill have come to mistrust the Bush administration's interpretation of the law, indicating that the act did not receive universal support.",
+        "citations": [
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-73918",
+    "topic": "how often do officers kill innocent victims",
+    "references": [
+      "msmarco_v2.1_doc_48_1403053423#5_2568287109",
+      "msmarco_v2.1_doc_57_160521998#5_350673685",
+      "msmarco_v2.1_doc_57_160521998#4_350671316",
+      "msmarco_v2.1_doc_50_2713474378#0_3850216598",
+      "msmarco_v2.1_doc_09_711582818#0_1172066492"
+    ],
+    "response_length": 218,
+    "answer": [
+      {
+        "text": "Unfortunately, the exact frequency of officers killing innocent victims is not explicitly stated in the provided context.",
+        "citations": []
+      },
+      {
+        "text": "However, it is mentioned that \"In theory, no-knock raids are supposed to be used in only the most dangerous situations\", suggesting that the intention is to minimize harm to innocent bystanders.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "Additionally, it is stated that \"In reality, though, no-knock raids are a common tactic, even in less-than-dangerous circumstances\", implying that the actual frequency of such incidents may be higher than intended.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "However, there is no concrete data or statistics provided in the context to determine the exact number of officers killing innocent victims.",
+        "citations": []
+      },
+      {
+        "text": "The context primarily focuses on the prevalence of no-knock raids and the potential consequences of these incidents, rather than the specific number of innocent victims killed.",
+        "citations": []
+      },
+      {
+        "text": "It is worth noting that the context does mention that \"By the numbers, it's clear that no-knock SWAT raids are far more dangerous to civilians than they are to police\", suggesting that the risk of harm to innocent bystanders is a concern.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "However, this statement does not provide a specific statistic or estimate of the frequency of such incidents.",
+        "citations": []
+      },
+      {
+        "text": "Therefore, while the context provides some insight into the nature and implications of no-knock raids, it does not provide a definitive answer to the question of how often officers kill innocent victims.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-79081",
+    "topic": "how taylor swift's age affects her relationships",
+    "references": [
+      "msmarco_v2.1_doc_04_1081579649#2_2253244363",
+      "msmarco_v2.1_doc_48_481103263#4_840591332",
+      "msmarco_v2.1_doc_04_1081579649#3_2253246607",
+      "msmarco_v2.1_doc_35_202251892#5_427544565",
+      "msmarco_v2.1_doc_04_1081579649#10_2253261554"
+    ],
+    "response_length": 241,
+    "answer": [
+      {
+        "text": "Taylor Swift's age appears to have no significant impact on her relationships, as she has dated individuals across a wide range of ages, from 19 to 27 years old. However, it's worth noting that the age gap between Swift and her partners has sometimes been a subject of discussion and speculation, with some of her relationships ending in controversy and songwriting.",
+        "citations": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "text": "In the case of her relationship with Joe Jonas, Swift was 19 years old, and he was 19 as well, making their age gap negligible. However, when she dated John Mayer, she was 23, and he was 32, which is a more significant age gap. Despite this, Swift has stated that she tries not to let the opinions of others affect her life and that she believes her partners are lucky to be dating her.",
+        "citations": [
+          0,
+          4
+        ]
+      },
+      {
+        "text": "Swift's relationship with Lucas Till was brief and platonic, and he was 19, which is only a year older than Swift. Her relationship with Jake Gyllenhaal, on the other hand, was more significant, and she was 21 while he was 30, which is a notable age gap. Swift has stated that writing about her relationship with Gyllenhaal was difficult because it took her a long time to filter through her emotions and condense the story into a song.",
+        "citations": [
+          3,
+          4
+        ]
+      },
+      {
+        "text": "Overall, while Swift's age may have played a role in some of her relationships, it does not seem to be a determining factor in her romantic choices.",
+        "citations": [
+          0,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-79154",
+    "topic": "how the solar eclipse can affect mental health",
+    "references": [
+      "msmarco_v2.1_doc_35_379109228#4_964160475",
+      "msmarco_v2.1_doc_03_1580122518#4_2668409320",
+      "msmarco_v2.1_doc_03_1580122518#3_2668407039",
+      "msmarco_v2.1_doc_35_379109228#3_964158574",
+      "msmarco_v2.1_doc_12_541815956#0_978566700"
+    ],
+    "response_length": 267,
+    "answer": [
+      {
+        "text": "The solar eclipse can have a significant impact on mental health, with some people experiencing uncomfortable emotions or mood swings during and after the event.",
+        "citations": []
+      },
+      {
+        "text": "This is because solar eclipses have been traditionally thought of as bad omens or a sign of death, and can cause a sense of unease or anxiety in some individuals.",
+        "citations": [
+          0,
+          4
+        ]
+      },
+      {
+        "text": "However, it's also worth noting that some people may experience a sense of renewal or spiritual awakening during a solar eclipse, as the sudden darkness can be a catalyst for introspection and self-reflection.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "In contrast, individuals born during a solar eclipse, such as Prince William, may be more likely to use their \"eclipse gifts\" for the greater good, as they have a natural inclination to care for and protect others, and to give and receive emotional safety, privacy, and security.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "This can be a blessing or a curse, depending on how the individual chooses to use their gifts, and can have a significant impact on their mental health and well-being.",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "It's also worth noting that the emotional impact of a solar eclipse can be influenced by the individual's personal experiences and circumstances.",
+        "citations": []
+      },
+      {
+        "text": "For example, someone who has experienced trauma or loss may be more likely to experience anxiety or depression during a solar eclipse, while someone who is more resilient and adaptable may be less affected.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "Overall, the impact of a solar eclipse on mental health can be complex and multifaceted, and can vary widely from person to person.",
+        "citations": []
+      },
+      {
+        "text": "While some people may experience negative emotions or mood swings, others may find the event to be a transformative and life-changing experience.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "References:",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-88894",
+    "topic": "how to help students understand number of deaths in world war 1",
+    "references": [
+      "msmarco_v2.1_doc_25_195370164#1_375286129",
+      "msmarco_v2.1_doc_32_631337962#9_1167961602",
+      "msmarco_v2.1_doc_09_908636850#14_1542781513",
+      "msmarco_v2.1_doc_09_908636850#1_1542757680",
+      "msmarco_v2.1_doc_09_908636850#13_1542779582"
+    ],
+    "response_length": 394,
+    "answer": [
+      {
+        "text": "To help students understand the number of deaths in World War I, it's essential to consider the context of the time period and the impact of technological advancements on warfare.",
+        "citations": []
+      },
+      {
+        "text": "According to the text, the use of technology was a significant factor in the way World War I was fought, and it led to a \"huge number of casualties\".",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "The text states that \"Over 60 million people were killed, which was over 3% of the 1939 world population\".",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "This suggests that the number of deaths in World War I was staggering, and it's crucial for students to understand the magnitude of this loss.",
+        "citations": []
+      },
+      {
+        "text": "Moreover, the text highlights the fact that the military leadership on both sides during WWI was \"sadly lacking in intelligence and the ability to grasp that these new technologies had radically changed warfare\".",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "This lack of understanding led to \"drawn out protracted battles\" and \"defensive fighting tactics\".",
+        "citations": [
+          3
+        ]
+      },
+      {
+        "text": "This implies that the number of deaths was not only a result of the use of new technologies but also a consequence of the inadequate understanding of how to effectively use them.",
+        "citations": []
+      },
+      {
+        "text": "It's also worth noting that the text mentions that the use of technology was more widespread and effective in World War II, which resulted in a \"huge number of casualties\".",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "This suggests that the number of deaths in World War I was not an isolated incident, but rather a part of a larger pattern of technological advancements and their impact on warfare.",
+        "citations": []
+      },
+      {
+        "text": "In terms of teaching students about the number of deaths in World War I, it's essential to provide them with a clear and concise understanding of the magnitude of the loss.",
+        "citations": []
+      },
+      {
+        "text": "This can be achieved by using visual aids, such as graphs or charts, to illustrate the number of deaths and the impact of technological advancements on warfare.",
+        "citations": []
+      },
+      {
+        "text": "Additionally, discussing the historical context and the consequences of the war can help students develop a deeper understanding of the significance of the number of deaths and the importance of learning from the past.",
+        "citations": []
+      },
+      {
+        "text": "Overall, to help students understand the number of deaths in World War I, it's crucial to provide them with a comprehensive understanding of the context, the impact of technological advancements, and the consequences of the war.",
+        "citations": []
+      },
+      {
+        "text": "By doing so, students can develop a deeper appreciation for the significance of this event and the importance of learning from history.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-94706",
+    "topic": "how to views of euthanasia vary from west to east",
+    "references": [
+      "msmarco_v2.1_doc_05_260843865#3_253258101",
+      "msmarco_v2.1_doc_05_260843865#4_253268476",
+      "msmarco_v2.1_doc_05_260843865#30_253535845",
+      "msmarco_v2.1_doc_05_260843865#16_253392445",
+      "msmarco_v2.1_doc_05_260843865#15_253381992"
+    ],
+    "response_length": 114,
+    "answer": [
+      {
+        "text": "I'm happy to provide an answer based on the context provided.",
+        "citations": []
+      },
+      {
+        "text": "However, I must point out that the context does not mention euthanasia at all.",
+        "citations": []
+      },
+      {
+        "text": "The text appears to be a passage from a Buddhist story, specifically the life of Prince Siddhartha, and it does not touch on the topic of euthanasia.",
+        "citations": []
+      },
+      {
+        "text": "Therefore, I must inform you that it is not possible to provide a complete and accurate answer to your question based on the provided context.",
+        "citations": []
+      },
+      {
+        "text": "The text does not contain any information on euthanasia or its views from different parts of the world.",
+        "citations": []
+      },
+      {
+        "text": "If you could provide more context or clarify the question, I'll be happy to try and assist you further.",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-96063",
+    "topic": "how using maps can impact your pedagogy",
+    "references": [
+      "msmarco_v2.1_doc_39_1199170318#9_2443109806",
+      "msmarco_v2.1_doc_36_614638563#1_1234355561",
+      "msmarco_v2.1_doc_13_351589017#5_832060368",
+      "msmarco_v2.1_doc_39_1199170318#10_2443111891",
+      "msmarco_v2.1_doc_39_1199170318#5_2443101397"
+    ],
+    "response_length": 284,
+    "answer": [
+      {
+        "text": "Using maps can have a significant impact on pedagogy, particularly in the context of teaching and learning.",
+        "citations": []
+      },
+      {
+        "text": "This can be seen in the interactive map provided by the UK Met Office Hadley Centre, which shows a variety of projected impacts from a temperature rise of 4 degrees Celsius.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "The map encourages learners to explore how different impacts are connected to temperature rise and to each other, and how these impacts differ over the globe.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "This type of interactive learning experience can help students develop a deeper understanding of complex issues and make connections between different pieces of information.",
+        "citations": []
+      },
+      {
+        "text": "Moreover, using maps can also impact pedagogy by providing a visual representation of data, making it easier for students to understand and analyze.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "This can be particularly useful in teaching subjects such as geography, where maps are a fundamental tool for understanding spatial relationships and patterns.",
+        "citations": []
+      },
+      {
+        "text": "In addition, using maps can also foster critical thinking and problem-solving skills in students, as they learn to interpret and analyze the data presented on the map.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "This can lead to a more engaging and interactive learning experience, which can have a positive impact on student motivation and academic achievement.",
+        "citations": []
+      },
+      {
+        "text": "However, it's worth noting that the map is out of date in some ways, as it was created in 2007 and may not reflect the latest scientific evidence.",
+        "citations": [
+          1
+        ]
+      },
+      {
+        "text": "Therefore, teachers should be aware of the limitations of the map and use it in conjunction with other sources of information to provide a more comprehensive understanding of the topic.",
+        "citations": []
+      },
+      {
+        "text": "Overall, using maps can be a valuable tool in teaching and learning, but it's essential to consider the limitations and potential biases of the map when using it in the classroom.",
+        "citations": []
+      },
+      {
+        "text": "References:",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "run_id": "run.original_llama_3_2_3b_instruct_top5",
+    "topic_id": "2024-96359",
+    "topic": "how were the non aligned countries affected by boris yeltsin",
+    "references": [
+      "msmarco_v2.1_doc_02_897225352#6_1560245587",
+      "msmarco_v2.1_doc_02_897225352#7_1560248853",
+      "msmarco_v2.1_doc_13_716374556#0_1628619755",
+      "msmarco_v2.1_doc_02_897225352#0_1560230216",
+      "msmarco_v2.1_doc_25_1304437588#11_2469197938"
+    ],
+    "response_length": 246,
+    "answer": [
+      {
+        "text": "The non-aligned countries were not directly affected by Boris Yeltsin in terms of their foreign policy or economic interests.",
+        "citations": []
+      },
+      {
+        "text": "However, the collapse of the Soviet Union and the emergence of Russia as a newly independent state had a significant impact on the non-aligned movement.",
+        "citations": []
+      },
+      {
+        "text": "The non-aligned countries, such as India, had played a significant role in mediating during the Korean War, demonstrating their neutrality and non-alignment.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "This neutrality was not isolationism, as non-aligned countries remained silent and did not interfere between the superpowers.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "The disintegration of the USSR, led by Mikhail Gorbachev's reforms, led to a power vacuum that affected the non-aligned countries, as they had to navigate the changing global landscape.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "The reforms were necessary to keep the USSR abreast of the information and technological revolutions taking place in the West, and to normalize relations with the West.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "Boris Yeltsin's emergence as a national hero after opposing the coup in 1991 further solidified the non-aligned movement's stance on non-alignment, as they did not want the old-style rule of the Communist Party.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "It is worth noting that the non-aligned countries' primary concern shifted from economic issues to other areas, such as human rights and regional security, as the mid-1970s saw a significant change in their priorities.",
+        "citations": [
+          4
+        ]
+      },
+      {
+        "text": "Overall, while the non-aligned countries were not directly affected by Boris Yeltsin's presidency, the collapse of the Soviet Union and the emergence of Russia as a newly independent state had a significant impact on the non-aligned movement's stance and priorities.",
+        "citations": []
+      }
+    ]
+  }
+]
