@@ -8,6 +8,7 @@ import time
 from pathlib import Path
 
 import numpy as np
+from tqdm.auto import tqdm
 
 
 def load_local_env() -> None:
@@ -84,6 +85,32 @@ def embed_batch(index, texts: list[str], retries: int = 5) -> np.ndarray:
     raise AssertionError("unreachable")
 
 
+def download_with_retries(index, relative_path: str, retries: int = 8) -> None:
+    """Retry transient Hugging Face corpus-download failures."""
+    target = Path(index.local_dir) / relative_path
+    for attempt in range(retries):
+        try:
+            index.download_from_remote(relative_path)
+            return
+        except Exception as exc:
+            # DiskVectorIndex finalizes downloads with an atomic rename. If the
+            # target now exists, another completed attempt won the race.
+            if target.exists():
+                return
+            if attempt + 1 == retries:
+                raise RuntimeError(
+                    f"Could not download {relative_path} after {retries} attempts. "
+                    "Check DNS/network access to huggingface.co and rerun the same "
+                    "command; completed query checkpoints will be resumed."
+                ) from exc
+            delay = min(2 ** attempt, 30)
+            tqdm.write(
+                f"Download failed for {relative_path} ({exc}); "
+                f"retrying in {delay}s [{attempt + 2}/{retries}]"
+            )
+            time.sleep(delay)
+
+
 def fetch_document(index, doc_idx: int) -> dict:
     """Use DiskVectorIndex's corpus layout without issuing another API call."""
     from indexed_zstd import IndexedZstdFile
@@ -93,8 +120,8 @@ def fetch_document(index, doc_idx: int) -> dict:
     folder = file_id_text[-index.config["corpus_folder_len"]:]
     corpus_relative = f"corpus/{folder}/{file_id_text}.jsonl.zst"
     offsets_relative = f"corpus/{folder}/{file_id_text}.jsonl.offsets"
-    index.download_from_remote(corpus_relative)
-    index.download_from_remote(offsets_relative)
+    download_with_retries(index, corpus_relative)
+    download_with_retries(index, offsets_relative)
     offsets = np.load(Path(index.local_dir) / offsets_relative, mmap_mode="r")
     # indexed_zstd accepts str/bytes (or an integer file descriptor), but
     # some releases do not implement the os.PathLike protocol.
@@ -166,6 +193,7 @@ def main() -> int:
     fcntl.flock(cache_lock, fcntl.LOCK_EX)
 
     tasks = []
+    total_selected = already_complete = 0
     handles = {}
     try:
         for topics_file in files:
@@ -178,26 +206,34 @@ def main() -> int:
                 rows = [row for row in rows if row[0] == args.qid]
             if args.max_queries is not None:
                 rows = rows[:args.max_queries]
+            total_selected += len(rows)
+            already_complete += sum(qid in done for qid, _ in rows)
             tasks.extend((output_file, run_name, qid, text) for qid, text in rows if qid not in done)
             mode = "a" if resume and output_file.exists() else "w"
             handles[output_file] = output_file.open(mode, encoding="utf-8")
 
         index = DiskVectorIndex(str(args.index_name), cache_dir=str(args.cache_dir))
-        completed = 0
-        for start in range(0, len(tasks), args.batch_size):
-            batch = tasks[start:start + args.batch_size]
-            results = search_batch(index, [task[3] for task in batch], args.k)
-            for (output_file, run_name, qid, _), docs in zip(batch, results):
-                if len(docs) != args.k:
-                    raise RuntimeError(f"{qid}: expected {args.k} results, got {len(docs)}")
-                lines = [
-                    f"{qid} Q0 {docid_of(result)} {rank} {result['score']:.6f} {run_name}"
-                    for rank, result in enumerate(docs, 1)
-                ]
-                handles[output_file].write("\n".join(lines) + "\n")
-                handles[output_file].flush()
-                completed += 1
-            print(f"Cohere dense retrieval: {completed}/{len(tasks)} queries")
+        with tqdm(
+            total=total_selected,
+            initial=already_complete,
+            desc="Cohere retrieval",
+            unit="query",
+            dynamic_ncols=True,
+            disable=None,
+        ) as progress:
+            for start in range(0, len(tasks), args.batch_size):
+                batch = tasks[start:start + args.batch_size]
+                results = search_batch(index, [task[3] for task in batch], args.k)
+                for (output_file, run_name, qid, _), docs in zip(batch, results):
+                    if len(docs) != args.k:
+                        raise RuntimeError(f"{qid}: expected {args.k} results, got {len(docs)}")
+                    lines = [
+                        f"{qid} Q0 {docid_of(result)} {rank} {result['score']:.6f} {run_name}"
+                        for rank, result in enumerate(docs, 1)
+                    ]
+                    handles[output_file].write("\n".join(lines) + "\n")
+                    handles[output_file].flush()
+                    progress.update(1)
     finally:
         for handle in handles.values():
             handle.close()

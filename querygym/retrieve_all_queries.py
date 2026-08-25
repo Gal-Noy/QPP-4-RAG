@@ -6,6 +6,8 @@ import os
 import sys
 from pathlib import Path
 
+from tqdm.auto import tqdm
+
 
 def read_topics_file(topics_file: Path):
     queries = []
@@ -60,13 +62,22 @@ def process_query_file(searcher, topics_file: Path, output_dir: Path, k: int,
     run_name = run_name_for(topics_file)
     output_file = output_dir / f"run.{run_name}.txt"
     done = normalize_checkpoint(output_file, k) if resume else set()
+    pending = [row for row in queries if row[0] not in done]
+    already_complete = len(queries) - len(pending)
     mode = "a" if resume and output_file.exists() else "w"
     succeeded = failed = 0
 
     with output_file.open(mode, encoding="utf-8") as output:
-        for query_id, query_text in queries:
-            if query_id in done:
-                continue
+        progress = tqdm(
+            pending,
+            total=len(queries),
+            initial=already_complete,
+            desc=f"BM25 {run_name}",
+            unit="query",
+            dynamic_ncols=True,
+            disable=None,
+        )
+        for query_id, query_text in progress:
             try:
                 hits = searcher.search(query_text, k=k)
                 lines = [
@@ -110,10 +121,19 @@ def main() -> int:
     args = parser.parse_args()
 
     setup_java_environment()
+    # Pyserini imports its optional OpenAI encoder alongside Lucene and recent
+    # OpenAI clients reject an empty key at import time. BM25 never uses that
+    # encoder, so provide a temporary placeholder only for the import.
+    added_openai_placeholder = not os.environ.get("OPENAI_API_KEY")
+    if added_openai_placeholder:
+        os.environ["OPENAI_API_KEY"] = "unused-by-bm25"
     try:
         from pyserini.search.lucene import LuceneSearcher
     except ImportError as exc:
         parser.error(f"Pyserini is required: {exc}")
+    finally:
+        if added_openai_placeholder:
+            os.environ.pop("OPENAI_API_KEY", None)
 
     files = sorted(args.queries_dir.glob("topics.*.txt"))
     if args.test_file:

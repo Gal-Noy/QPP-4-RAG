@@ -133,6 +133,29 @@ class ReproductionPipelineTests(unittest.TestCase):
         self.assertEqual([[item["doc"]["docid"] for item in row] for row in results],
                          [["d0", "d1"], ["d2", "d3"], ["d4", "d5"]])
 
+    def test_cohere_corpus_download_retries_transient_failure(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            class FakeIndex:
+                local_dir = temporary
+                calls = 0
+
+                def download_from_remote(self, relative_path):
+                    self.calls += 1
+                    if self.calls < 3:
+                        raise ConnectionError("temporary DNS failure")
+                    target = Path(self.local_dir) / relative_path
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    target.write_text("complete", encoding="utf-8")
+
+            index = FakeIndex()
+            with patch.object(retrieve_all_queries_cohere.time, "sleep") as sleep:
+                with patch.object(retrieve_all_queries_cohere.tqdm, "write"):
+                    retrieve_all_queries_cohere.download_with_retries(
+                        index, "corpus/01/00101.jsonl.zst"
+                    )
+            self.assertEqual(index.calls, 3)
+            self.assertEqual([call.args[0] for call in sleep.call_args_list], [1, 2])
+
     def test_top5_conversion_and_llama_result_preserve_provenance(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
