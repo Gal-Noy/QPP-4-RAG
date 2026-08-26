@@ -12,6 +12,23 @@ from collections import defaultdict
 
 _REPO = Path(__file__).resolve().parent.parent
 
+
+def _generation_only_scores(reformulation):
+    """Read either historical spelling of the optional generation-only field."""
+    return (
+        reformulation.get('generationonly_nugget_scores')
+        or reformulation.get('generation_only_nugget_scores')
+        or {}
+    )
+
+
+def _append_available_row(frame, row):
+    """Do not add meaningless all-empty oracle rows for unavailable metrics."""
+    if not row.get('n_queries'):
+        print(f"    Skipped {row.get('qpp_metric')}: no source values found")
+        return frame
+    return pd.concat([frame, pd.DataFrame([row])], ignore_index=True)
+
 def load_consolidated_data(json_file):
     """Load the consolidated query data."""
     with open(json_file, 'r', encoding='utf-8') as f:
@@ -160,7 +177,7 @@ def analyze_qpp_oracle_performance(data, retrieval_method='pyserini'):
                     nugget_scores = best_reformulation.get('nugget_scores', {}).get('retrieval_cohere', {})
                 
                 # Get generation-only nugget scores
-                generation_only_scores = best_reformulation.get('generation_only_nugget_scores', {})
+                generation_only_scores = _generation_only_scores(best_reformulation)
                 
                 # Get retrieval metrics
                 retrieval_metrics = best_reformulation.get('retrieval_metrics', {}).get(retrieval_method, {})
@@ -237,7 +254,7 @@ def calculate_original_performance(data, retrieval_method='pyserini'):
                     nugget_scores = reformulation.get('nugget_scores', {}).get('retrieval_cohere', {})
                 
                 # Get generation-only scores
-                generation_only_scores = reformulation.get('generation_only_nugget_scores', {})
+                generation_only_scores = _generation_only_scores(reformulation)
                 
                 # Get retrieval metrics
                 retrieval_metrics = reformulation.get('retrieval_metrics', {}).get(retrieval_method, {})
@@ -317,7 +334,7 @@ def calculate_max_oracle_performance(data, retrieval_method='pyserini', performa
             # Determine which scores to use for selection
             if use_generation_only:
                 # Use generation-only scores for selection
-                generation_only_scores = reformulation.get('generation_only_nugget_scores', {})
+                generation_only_scores = _generation_only_scores(reformulation)
                 if performance_metric.startswith('nugget_'):
                     metric_value = generation_only_scores.get(performance_metric.replace('nugget_', ''))
                 else:
@@ -354,7 +371,7 @@ def calculate_max_oracle_performance(data, retrieval_method='pyserini', performa
                 nugget_scores = best_reformulation.get('nugget_scores', {}).get('retrieval_cohere', {})
             
             # Get generation-only scores
-            generation_only_scores = best_reformulation.get('generation_only_nugget_scores', {})
+            generation_only_scores = _generation_only_scores(best_reformulation)
             
             # Get retrieval metrics
             retrieval_metrics = best_reformulation.get('retrieval_metrics', {}).get(retrieval_method, {})
@@ -465,7 +482,7 @@ def calculate_method_average_performance(data, retrieval_method='pyserini', meth
                 nugget_scores = reformulation.get('nugget_scores', {}).get('retrieval_cohere', {})
             
             # Get generation-only scores
-            generation_only_scores = reformulation.get('generation_only_nugget_scores', {})
+            generation_only_scores = _generation_only_scores(reformulation)
             
             # Get retrieval metrics
             retrieval_metrics = reformulation.get('retrieval_metrics', {}).get(retrieval_method, {})
@@ -605,7 +622,7 @@ def analyze_generationonly_oracle_performance(data):
                 queries_processed += 1
                 
                 # Get generation-only nugget scores
-                generationonly_nugget_scores = best_reformulation.get('generationonly_nugget_scores', {})
+                generationonly_nugget_scores = _generation_only_scores(best_reformulation)
                 
                 # Collect metrics
                 if generationonly_nugget_scores:
@@ -669,7 +686,7 @@ def main():
     print("  Adding maximum oracle performance (based on retrieval_ndcg@5)...")
     max_oracle_ndcg5_pyserini = calculate_max_oracle_performance(data, retrieval_method='pyserini', performance_metric='retrieval_ndcg@5')
     max_oracle_ndcg5_pyserini['qpp_metric'] = 'max_oracle_ndcg@5'
-    df_pyserini = pd.concat([df_pyserini, pd.DataFrame([max_oracle_ndcg5_pyserini])], ignore_index=True)
+    df_pyserini = _append_available_row(df_pyserini, max_oracle_ndcg5_pyserini)
     
     print("  Adding maximum oracle performance (based on retrieval_ndcg@10)...")
     max_oracle_ndcg_pyserini = calculate_max_oracle_performance(data, retrieval_method='pyserini', performance_metric='retrieval_ndcg@10')
@@ -699,19 +716,19 @@ def main():
     # Add generation-only oracle rows (selecting based on generation-only scores)
     print("  Adding generation-only oracle performance (based on genonly nugget_all_score)...")
     max_oracle_genonly_all_pyserini = calculate_max_oracle_performance(data, retrieval_method='pyserini', performance_metric='nugget_all_score', use_generation_only=True)
-    df_pyserini = pd.concat([df_pyserini, pd.DataFrame([max_oracle_genonly_all_pyserini])], ignore_index=True)
+    df_pyserini = _append_available_row(df_pyserini, max_oracle_genonly_all_pyserini)
     
     print("  Adding generation-only oracle performance (based on genonly nugget_strict_all_score)...")
     max_oracle_genonly_strict_all_pyserini = calculate_max_oracle_performance(data, retrieval_method='pyserini', performance_metric='nugget_strict_all_score', use_generation_only=True)
-    df_pyserini = pd.concat([df_pyserini, pd.DataFrame([max_oracle_genonly_strict_all_pyserini])], ignore_index=True)
+    df_pyserini = _append_available_row(df_pyserini, max_oracle_genonly_strict_all_pyserini)
     
     print("  Adding generation-only oracle performance (based on genonly nugget_strict_vital_score)...")
     max_oracle_genonly_strict_vital_pyserini = calculate_max_oracle_performance(data, retrieval_method='pyserini', performance_metric='nugget_strict_vital_score', use_generation_only=True)
-    df_pyserini = pd.concat([df_pyserini, pd.DataFrame([max_oracle_genonly_strict_vital_pyserini])], ignore_index=True)
+    df_pyserini = _append_available_row(df_pyserini, max_oracle_genonly_strict_vital_pyserini)
     
     print("  Adding generation-only oracle performance (based on genonly nugget_vital_score)...")
     max_oracle_genonly_vital_pyserini = calculate_max_oracle_performance(data, retrieval_method='pyserini', performance_metric='nugget_vital_score', use_generation_only=True)
-    df_pyserini = pd.concat([df_pyserini, pd.DataFrame([max_oracle_genonly_vital_pyserini])], ignore_index=True)
+    df_pyserini = _append_available_row(df_pyserini, max_oracle_genonly_vital_pyserini)
     
     # Add average performance across trials for each reformulation method
     print("\n  Adding average performance across trials for each reformulation method...")
@@ -739,7 +756,9 @@ def main():
     # Round to 4 decimals
     for col in simple_columns[3:]:
         if col in df_pyserini_simple.columns:
-            df_pyserini_simple[col] = df_pyserini_simple[col].round(4)
+            df_pyserini_simple[col] = pd.to_numeric(
+                df_pyserini_simple[col], errors='coerce'
+            ).round(4)
     output_csv_pyserini_simple = output_dir / "qpp_oracle_performance_pyserini_simple.csv"
     df_pyserini_simple.to_csv(output_csv_pyserini_simple, index=False)
     print(f"✅ Saved Pyserini simplified results: {output_csv_pyserini_simple}")
@@ -762,7 +781,7 @@ def main():
     print("  Adding maximum oracle performance (based on retrieval_ndcg@5)...")
     max_oracle_ndcg5_cohere = calculate_max_oracle_performance(data, retrieval_method='cohere', performance_metric='retrieval_ndcg@5')
     max_oracle_ndcg5_cohere['qpp_metric'] = 'max_oracle_ndcg@5'
-    df_cohere = pd.concat([df_cohere, pd.DataFrame([max_oracle_ndcg5_cohere])], ignore_index=True)
+    df_cohere = _append_available_row(df_cohere, max_oracle_ndcg5_cohere)
     
     print("  Adding maximum oracle performance (based on retrieval_ndcg@10)...")
     max_oracle_ndcg_cohere = calculate_max_oracle_performance(data, retrieval_method='cohere', performance_metric='retrieval_ndcg@10')
@@ -792,19 +811,19 @@ def main():
     # Add generation-only oracle rows (selecting based on generation-only scores)
     print("  Adding generation-only oracle performance (based on genonly nugget_all_score)...")
     max_oracle_genonly_all_cohere = calculate_max_oracle_performance(data, retrieval_method='cohere', performance_metric='nugget_all_score', use_generation_only=True)
-    df_cohere = pd.concat([df_cohere, pd.DataFrame([max_oracle_genonly_all_cohere])], ignore_index=True)
+    df_cohere = _append_available_row(df_cohere, max_oracle_genonly_all_cohere)
     
     print("  Adding generation-only oracle performance (based on genonly nugget_strict_all_score)...")
     max_oracle_genonly_strict_all_cohere = calculate_max_oracle_performance(data, retrieval_method='cohere', performance_metric='nugget_strict_all_score', use_generation_only=True)
-    df_cohere = pd.concat([df_cohere, pd.DataFrame([max_oracle_genonly_strict_all_cohere])], ignore_index=True)
+    df_cohere = _append_available_row(df_cohere, max_oracle_genonly_strict_all_cohere)
     
     print("  Adding generation-only oracle performance (based on genonly nugget_strict_vital_score)...")
     max_oracle_genonly_strict_vital_cohere = calculate_max_oracle_performance(data, retrieval_method='cohere', performance_metric='nugget_strict_vital_score', use_generation_only=True)
-    df_cohere = pd.concat([df_cohere, pd.DataFrame([max_oracle_genonly_strict_vital_cohere])], ignore_index=True)
+    df_cohere = _append_available_row(df_cohere, max_oracle_genonly_strict_vital_cohere)
     
     print("  Adding generation-only oracle performance (based on genonly nugget_vital_score)...")
     max_oracle_genonly_vital_cohere = calculate_max_oracle_performance(data, retrieval_method='cohere', performance_metric='nugget_vital_score', use_generation_only=True)
-    df_cohere = pd.concat([df_cohere, pd.DataFrame([max_oracle_genonly_vital_cohere])], ignore_index=True)
+    df_cohere = _append_available_row(df_cohere, max_oracle_genonly_vital_cohere)
     
     # Add average performance across trials for each reformulation method
     print("\n  Adding average performance across trials for each reformulation method...")
@@ -832,7 +851,9 @@ def main():
     # Round to 4 decimals
     for col in simple_columns[3:]:
         if col in df_cohere_simple.columns:
-            df_cohere_simple[col] = df_cohere_simple[col].round(4)
+            df_cohere_simple[col] = pd.to_numeric(
+                df_cohere_simple[col], errors='coerce'
+            ).round(4)
     output_csv_cohere_simple = output_dir / "qpp_oracle_performance_cohere_simple.csv"
     df_cohere_simple.to_csv(output_csv_cohere_simple, index=False)
     print(f"✅ Saved Cohere simplified results: {output_csv_cohere_simple}")

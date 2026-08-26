@@ -19,6 +19,57 @@ from collections import defaultdict
 
 _REPO = Path(__file__).resolve().parent.parent
 
+
+def _numeric_array(values):
+    """Return float data with missing/non-numeric values represented as NaN."""
+    converted = []
+    for value in values:
+        try:
+            converted.append(float(value) if value is not None else np.nan)
+        except (TypeError, ValueError):
+            converted.append(np.nan)
+    return np.asarray(converted, dtype=float)
+
+
+def _generation_only_scores(reformulation):
+    """Read either historical spelling of the optional generation-only field."""
+    return (
+        reformulation.get('generationonly_nugget_scores')
+        or reformulation.get('generation_only_nugget_scores')
+        or {}
+    )
+
+
+def _has_generation_only_scores(data):
+    return any(
+        any(value is not None for value in _generation_only_scores(reformulation).values())
+        for query_data in data.values()
+        for reformulation in query_data['reformulations']
+    )
+
+
+def _append_pair_correlation(destination, qpp_values, performance_values):
+    """Append one valid Pearson/Kendall pair, if both inputs vary."""
+    qpp_array = _numeric_array(qpp_values)
+    performance_array = _numeric_array(performance_values)
+    if qpp_array.shape != performance_array.shape:
+        raise ValueError("QPP and performance arrays are not aligned")
+
+    valid = np.isfinite(qpp_array) & np.isfinite(performance_array)
+    if valid.sum() < 3:
+        return
+    qpp_valid = qpp_array[valid]
+    performance_valid = performance_array[valid]
+    if np.ptp(qpp_valid) == 0 or np.ptp(performance_valid) == 0:
+        return
+
+    pearson_r, _ = pearsonr(qpp_valid, performance_valid)
+    kendall_tau, _ = kendalltau(qpp_valid, performance_valid)
+    pearson_value = pearson_r if np.isfinite(pearson_r) else None
+    kendall_value = kendall_tau if np.isfinite(kendall_tau) else None
+    if pearson_value is not None or kendall_value is not None:
+        destination.append({'pearson': pearson_value, 'kendall': kendall_value})
+
 def load_consolidated_data(json_file):
     """Load the consolidated query data."""
     with open(json_file, 'r', encoding='utf-8') as f:
@@ -126,37 +177,12 @@ def calculate_correlations(data, qpp_metric_name, qpp_type):
         
         # Calculate correlations for this query
         if len(qpp_values) >= 3:  # Need at least 3 points for correlation
-            qpp_array = np.array(qpp_values)
-            
-            for perf_metric in correlations_per_query.keys():
-                perf_array = np.array(performance_values[perf_metric])
-                
-                # Filter out NaN values
-                valid_mask = ~(np.isnan(qpp_array) | np.isnan(perf_array))
-                if valid_mask.sum() >= 3:
-                    qpp_valid = qpp_array[valid_mask]
-                    perf_valid = perf_array[valid_mask]
-                    
-                    # Calculate Pearson correlation
-                    try:
-                        pearson_r, pearson_p = pearsonr(qpp_valid, perf_valid)
-                        if not np.isnan(pearson_r):
-                            correlations_per_query[perf_metric].append({
-                                'pearson': pearson_r,
-                                'kendall': None  # Will calculate separately
-                            })
-                    except:
-                        pass
-                    
-                    # Calculate Kendall Tau
-                    try:
-                        kendall_tau, kendall_p = kendalltau(qpp_valid, perf_valid)
-                        if not np.isnan(kendall_tau):
-                            # Update the last entry with Kendall
-                            if correlations_per_query[perf_metric]:
-                                correlations_per_query[perf_metric][-1]['kendall'] = kendall_tau
-                    except:
-                        pass
+            for perf_metric in correlations_per_query:
+                _append_pair_correlation(
+                    correlations_per_query[perf_metric],
+                    qpp_values,
+                    performance_values[perf_metric],
+                )
     
     # Calculate average correlations across all queries
     result = {
@@ -220,7 +246,7 @@ def calculate_generationonly_correlations(data, qpp_metric_name):
             qpp_value = qpp_metrics.get(qpp_metric_name)
             
             # Get generation-only nugget scores
-            generationonly_nugget_scores = reformulation.get('generationonly_nugget_scores', {})
+            generationonly_nugget_scores = _generation_only_scores(reformulation)
             
             # Only include if QPP value is valid
             if qpp_value is not None:
@@ -243,37 +269,12 @@ def calculate_generationonly_correlations(data, qpp_metric_name):
         
         # Calculate correlations for this query
         if len(qpp_values) >= 3:  # Need at least 3 points for correlation
-            qpp_array = np.array(qpp_values)
-            
-            for perf_metric in correlations_per_query.keys():
-                perf_array = np.array(performance_values[perf_metric])
-                
-                # Filter out NaN values
-                valid_mask = ~(np.isnan(qpp_array) | np.isnan(perf_array))
-                if valid_mask.sum() >= 3:
-                    qpp_valid = qpp_array[valid_mask]
-                    perf_valid = perf_array[valid_mask]
-                    
-                    # Calculate Pearson correlation
-                    try:
-                        pearson_r, pearson_p = pearsonr(qpp_valid, perf_valid)
-                        if not np.isnan(pearson_r):
-                            correlations_per_query[perf_metric].append({
-                                'pearson': pearson_r,
-                                'kendall': None  # Will calculate separately
-                            })
-                    except:
-                        pass
-                    
-                    # Calculate Kendall Tau
-                    try:
-                        kendall_tau, kendall_p = kendalltau(qpp_valid, perf_valid)
-                        if not np.isnan(kendall_tau):
-                            # Update the last entry with Kendall
-                            if correlations_per_query[perf_metric]:
-                                correlations_per_query[perf_metric][-1]['kendall'] = kendall_tau
-                    except:
-                        pass
+            for perf_metric in correlations_per_query:
+                _append_pair_correlation(
+                    correlations_per_query[perf_metric],
+                    qpp_values,
+                    performance_values[perf_metric],
+                )
     
     # Calculate average correlations across all queries
     result = {
@@ -332,17 +333,20 @@ def main():
         results.append(result)
     
     # Calculate generation-only correlations (only with pre-retrieval metrics)
-    print("\n🔄 Calculating generation-only correlations (pre-retrieval metrics only)...")
-    pre_retrieval_metrics = set()
-    for query_id, query_data in data.items():
-        for reformulation in query_data['reformulations']:
-            pre_qpp = reformulation.get('pre_retrieval_qpp_metrics', {})
-            pre_retrieval_metrics.update(pre_qpp.keys())
-    
-    for qpp_metric_name in sorted(pre_retrieval_metrics):
-        print(f"  Processing generation-only: {qpp_metric_name}...")
-        result = calculate_generationonly_correlations(data, qpp_metric_name)
-        results.append(result)
+    if _has_generation_only_scores(data):
+        print("\n🔄 Calculating generation-only correlations (pre-retrieval metrics only)...")
+        pre_retrieval_metrics = set()
+        for query_id, query_data in data.items():
+            for reformulation in query_data['reformulations']:
+                pre_qpp = reformulation.get('pre_retrieval_qpp_metrics', {})
+                pre_retrieval_metrics.update(pre_qpp.keys())
+
+        for qpp_metric_name in sorted(pre_retrieval_metrics):
+            print(f"  Processing generation-only: {qpp_metric_name}...")
+            result = calculate_generationonly_correlations(data, qpp_metric_name)
+            results.append(result)
+    else:
+        print("\n⏭️  Skipping generation-only correlations: no generation-only scores found")
     
     # Create DataFrame
     df = pd.DataFrame(results)

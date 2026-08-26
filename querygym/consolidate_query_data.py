@@ -86,7 +86,7 @@ def load_reformulated_queries(queries_file):
     return queries
 
 def load_retrieval_metrics(jsonl_file):
-    """Load retrieval evaluation metrics (NDCG@10, Recall@100) from JSONL file."""
+    """Load per-query NDCG@5, NDCG@10, and Recall@100 metrics."""
     metrics = {}
     if not Path(jsonl_file).exists():
         return metrics
@@ -100,6 +100,7 @@ def load_retrieval_metrics(jsonl_file):
             qid = data.get('qid')
             if qid and qid != 'all':  # Skip aggregate 'all' entry
                 metrics[qid] = {
+                    'ndcg@5': data.get('ndcg_cut_5'),
                     'ndcg@10': data.get('ndcg_cut_10'),
                     'recall@100': data.get('recall_100')
                 }

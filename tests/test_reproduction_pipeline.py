@@ -12,6 +12,8 @@ import numpy as np
 
 from querygym import retrieve_all_queries
 from querygym import retrieve_all_queries_cohere
+from querygym.analyze_qpp_correlations import _append_pair_correlation
+from querygym.consolidate_query_data import load_retrieval_metrics
 from querygym.run_llama_generator import (
     build_messages,
     load_local_env as load_llama_env,
@@ -58,6 +60,35 @@ class FakeSearcher:
 
 
 class ReproductionPipelineTests(unittest.TestCase):
+    def test_correlation_filter_handles_missing_and_constant_values(self):
+        correlations = []
+        _append_pair_correlation(
+            correlations,
+            [1, 2, 3, 4],
+            [None, "1", "2", "3"],
+        )
+        self.assertEqual(len(correlations), 1)
+        self.assertAlmostEqual(correlations[0]["pearson"], 1.0)
+
+        constant = []
+        _append_pair_correlation(constant, [1, 1, 1], [1, 2, 3])
+        self.assertEqual(constant, [])
+
+    def test_retrieval_metric_loader_preserves_ndcg_at_5(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            metrics_file = Path(temporary) / "metrics.jsonl"
+            metrics_file.write_text(json.dumps({
+                "qid": "q1",
+                "ndcg_cut_5": 0.1,
+                "ndcg_cut_10": 0.2,
+                "recall_100": 0.3,
+            }) + "\n", encoding="utf-8")
+            self.assertEqual(load_retrieval_metrics(metrics_file)["q1"], {
+                "ndcg@5": 0.1,
+                "ndcg@10": 0.2,
+                "recall@100": 0.3,
+            })
+
     def test_all_active_key_loaders_use_repo_env_without_override(self):
         calls = []
 
