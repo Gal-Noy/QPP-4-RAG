@@ -32,16 +32,17 @@ cp .env.example .env
 
 ```dotenv
 COHERE_API_KEY=...   # CO_API_KEY is also accepted
-OPENAI_API_KEY=...   # only the unchanged GPT-4o Nuggetizer
 HF_TOKEN=...         # if Hugging Face requests authentication
 ```
 
-Azure OpenAI variables are also listed in `.env.example`. Shell-exported
-variables remain supported and take precedence over values in `.env`.
+OpenAI variables remain in `.env.example` for vendored upstream utilities but
+are not required by this pipeline. Shell-exported variables remain supported
+and take precedence over values in `.env`.
 
 Accept the Meta model terms if Hugging Face requires it, then make sure
-`meta-llama/Llama-3.2-3B-Instruct` can be downloaded. The first BM25 use pulls
-Pyserini's `msmarco-v2.1-doc-segmented` prebuilt index. The first Cohere use
+`meta-llama/Llama-3.2-3B-Instruct` and `Qwen/Qwen3-4B-Instruct-2507` can be
+downloaded. The first BM25 use pulls Pyserini's
+`msmarco-v2.1-doc-segmented` prebuilt index. The first Cohere use
 downloads `Cohere/trec-rag-2024-index` and corpus shards into `index_cache/`;
 budget substantial disk space (the vector index alone is about 15 GB).
 
@@ -67,7 +68,7 @@ The data flow is:
 | --- | --- | --- |
 | `data/2024-retrieval-qrels.txt` | Official NIST download | Retrieval nDCG/recall evaluation used by QPP/oracle analysis |
 | `data/nugget_assignment.20241218.jsonl` | Official NIST download | Source export for nugget conversion; not passed directly to the evaluator |
-| `data/hr_scored_nist_nuggets_20241218_rag24.test_qrels_nist.jsonl` | Derived by `scripts/prepare_trec2024_data.py` | GPT-4o Nuggetizer assignment and scoring |
+| `data/hr_scored_nist_nuggets_20241218_rag24.test_qrels_nist.jsonl` | Derived by `scripts/prepare_trec2024_data.py` | Local Qwen Nuggetizer assignment and scoring |
 
 The official retrieval file contains 86 assessed topics and covers all 56
 experiment qids; the official nugget export and derived file match the 56 qids
@@ -132,15 +133,16 @@ python3 querygym/run_llama_generator.py \
   --device auto --dtype float16 --load-in-4bit --batch-size 1
 ```
 
-Evaluate the generated smoke answer with the unchanged evaluator (the nugget
-file may contain all 56 qids; only the present answer is processed):
+Evaluate the generated smoke answer with the local Qwen judge (the nugget file
+may contain all 56 qids; only the present answer is processed):
 
 ```bash
 python3 querygym/run_rag_nuggetizer.py \
   --rag-results-dir querygym/smoke/rag_results/retrieval \
   --nugget-file data/hr_scored_nist_nuggets_20241218_rag24.test_qrels_nist.jsonl \
   --output-dir querygym/smoke/rag_nuggetized_eval/retrieval \
-  --model gpt-4o --max-files 1
+  --model Qwen/Qwen3-4B-Instruct-2507 \
+  --device auto --dtype float16 --load-in-4bit --max-files 1
 ```
 
 ## 3. Full 56 x 31 pipeline
@@ -213,21 +215,35 @@ requests (the observed maximum is 9,055 prompt tokens, or 10,079 after reserving
 and required size. Output is checkpointed after every generation batch;
 rerunning skips existing topic IDs.
 
-### Paper-consistent Nuggetizer
+### Nuggetizer: local Qwen3-4B-Instruct judge
 
 ```bash
 python3 querygym/run_rag_nuggetizer.py \
   --rag-results-dir querygym/rag_results \
   --nugget-file data/hr_scored_nist_nuggets_20241218_rag24.test_qrels_nist.jsonl \
   --output-dir querygym/rag_nuggetized_eval \
-  --model gpt-4o
+  --model Qwen/Qwen3-4B-Instruct-2507 \
+  --device auto --dtype float16 --load-in-4bit \
+  --context-size 16384 --log-level 1
 
 python3 scripts/verify_llama_pipeline.py --stage scores
 ```
 
-This is an expensive OpenAI stage and resumes by qid. Do not pass a Llama model:
-the wrapper rejects it. Score files contain per-qid and aggregate `all_score`
-and `strict_vital_score` values.
+The model is loaded once and uses constrained A/B/C classification, so every
+nugget receives exactly one valid support label. Assignments are atomically
+checkpointed and resumed per qid, and scores are replaced atomically. An
+`evaluation_manifest.json` prevents results from a different judge or
+configuration from being mixed into the output. The first run downloads Qwen;
+after it is cached, add `--local-files-only` for offline execution. Verify with:
+
+```bash
+python3 scripts/verify_llama_pipeline.py --stage scores
+```
+
+These results must be reported as **Qwen3-4B-Instruct-as-judge**, not as a
+replication of the paper's GPT-4o Nuggetizer. Score files retain the original
+per-qid and aggregate `all_score` and `strict_vital_score` schema, so the rest
+of the analysis pipeline is unchanged.
 
 ### Retrieval metrics, QPP, oracle, and Utility-Gap analysis
 

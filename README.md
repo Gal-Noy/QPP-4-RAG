@@ -2,8 +2,10 @@
 
 This fork keeps the paper's 31 checked-in query variants, BM25 and Cohere dense
 retrieval, Top-5 contexts, Nuggetizer evaluation, and QPP/oracle analysis. The
-only experimental substitution is the answer generator:
-`meta-llama/Llama-3.2-3B-Instruct` running locally through Hugging Face.
+answer generator remains `meta-llama/Llama-3.2-3B-Instruct` running locally
+through Hugging Face. Only the Nuggetizer assignment judge is changed from
+GPT-4o to the local `Qwen/Qwen3-4B-Instruct-2507`; its scores are therefore not
+paper-consistent evaluator results.
 
 The 31 files in `querygym/queries/` are experiment inputs: one original plus
 six reformulation methods with five trials each, all with 56 topics. **Do not
@@ -23,10 +25,9 @@ python3 scripts/verify_llama_pipeline.py --stage queries
    Ragnarok request format.
 4. `querygym/run_llama_generator.py`: local Llama 3.2 3B generation with the
    prepared query and five references preserved verbatim/in order.
-5. `querygym/run_rag_nuggetizer.py`: the vendored GPT-4o Nuggetizer assigner;
-   this evaluator is deliberately not replaced by Llama. It emits Nugget-All
-   (`all_score`) and Nugget-Strict (`strict_vital_score`), plus the other
-   original metrics.
+5. `querygym/run_rag_nuggetizer.py`: the vendored Nuggetizer with a local Qwen3
+   4B judge. It emits Nugget-All (`all_score`) and Nugget-Strict
+   (`strict_vital_score`), plus the other original metrics.
 6. Existing QPP, retrieval evaluation, consolidation, correlation, oracle, and
    Utility-Gap analysis scripts consume the new Llama score filenames.
 
@@ -54,7 +55,8 @@ python3 scripts/prepare_trec2024_data.py
   assignment export and is the source for conversion only.
 - `data/hr_scored_nist_nuggets_20241218_rag24.test_qrels_nist.jsonl` is derived
   locally from that export. Its 56 grouped `{qid, query, nuggets}` records are
-  consumed by the GPT Nuggetizer evaluator.
+  consumed by the Qwen Nuggetizer judge. These fixed NIST-derived nuggets are
+  never generated or rewritten by the judge.
 
 ## Main experiment: matching `query.text`
 
@@ -88,7 +90,7 @@ querygym/retrieval/               BM25 top-100 runs
 querygym/retrieval_cohere/        Cohere dense top-100 runs
 querygym/rag_prepared/            Ragnarok Top-5 requests
 querygym/rag_results/             local Llama answers
-querygym/rag_nuggetized_eval/     GPT Nuggetizer assignments and scores
+querygym/rag_nuggetized_eval/     local Qwen judge assignments and scores
 querygym/qpp/                     existing QPP outputs and scripts
 ```
 

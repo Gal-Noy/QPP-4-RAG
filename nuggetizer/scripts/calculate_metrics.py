@@ -1,62 +1,24 @@
 #!/usr/bin/env python3
+"""Calculate per-query and aggregate metrics from nugget assignments."""
+
 import argparse
-import json
 import sys
 from pathlib import Path
-from typing import Dict, List
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from nuggetizer.core.metrics import calculate_nugget_scores, calculate_global_metrics
+from nuggetizer.evaluation import score_assignment_file  # noqa: E402
 
 
-def read_jsonl(file_path: str) -> List[Dict]:
-    """Read JSONL file and return list of dictionaries."""
-    data = []
-    with open(file_path, 'r') as f:
-        for line in f:
-            data.append(json.loads(line))
-    return data
-
-
-def process_records(records: List[Dict]) -> List[Dict]:
-    """Process each record to add metrics."""
-    for record in records:
-        metrics = calculate_nugget_scores(record['qid'], record['nuggets'])
-        record['metrics'] = {
-            'qid': metrics.qid,
-            'strict_vital_score': metrics.strict_vital_score,
-            'strict_all_score': metrics.strict_all_score,
-            'vital_score': metrics.vital_score,
-            'all_score': metrics.all_score,
-        }
-    return records
-
-
-def main():
-    parser = argparse.ArgumentParser(description='Calculate metrics for nugget assignments')
-    parser.add_argument('--input_file', type=str, help='Path to input JSONL file with assignments')
-    parser.add_argument('--output_file', type=str, help='Path to output JSONL file')
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--input_file", type=Path, required=True)
+    parser.add_argument("--output_file", type=Path, required=True)
     args = parser.parse_args()
-
-    # Read input data
-    records = read_jsonl(args.input_file)
-    
-    # Calculate per-response metrics
-    processed_records = process_records(records)
-    
-    # Calculate global metrics
-    global_metrics = calculate_global_metrics(records)
-    
-    # Write output with metrics
-    with open(args.output_file, 'w') as f:
-        # Write per-response metrics
-        for record in processed_records:
-            f.write(json.dumps(record['metrics']) + '\n')
-        print(global_metrics)
-        # Write global metrics as final line
-        f.write(json.dumps(global_metrics) + '\n')
+    aggregate = score_assignment_file(args.input_file, args.output_file)
+    print(aggregate)
+    return 0
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    raise SystemExit(main())

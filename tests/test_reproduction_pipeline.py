@@ -19,12 +19,19 @@ from querygym.run_llama_generator import (
     model_tag,
     parse_answer,
 )
+from querygym.run_rag_nuggetizer import (
+    QWEN_JUDGE_MODEL,
+    ensure_manifest,
+    parser_for as nuggetizer_parser_for,
+)
 from scripts.convert_to_ragnarok_format import convert_run, read_queries, read_run
 
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "nuggetizer" / "src"))
 from nuggetizer.core.metrics import calculate_nugget_scores  # noqa: E402
+from nuggetizer.evaluation import assign_answer_file, read_records, score_assignment_file  # noqa: E402
+from nuggetizer.models.constrained_nuggetizer import ConstrainedNuggetizer  # noqa: E402
 
 
 class FakeStoredDocument:
@@ -201,6 +208,96 @@ class ReproductionPipelineTests(unittest.TestCase):
         ])
         self.assertEqual(metrics.strict_vital_score, 0.5)
         self.assertEqual(metrics.all_score, 0.5)
+
+    def test_constrained_local_judge_returns_one_label_per_nugget(self):
+        class FakeChooser:
+            def choose_one_token(self, messages, choices, labels):
+                self.messages = messages
+                self.choices = choices
+                self.labels = labels
+                return ["support"] * len(messages)
+
+        chooser = FakeChooser()
+        judge = ConstrainedNuggetizer(chooser, batch_size=2)
+        nuggets = [
+            SimpleNamespace(text=f"fact {index}", importance="vital")
+            for index in range(3)
+        ]
+        assigned = judge.assign("query", "answer", nuggets)
+        self.assertEqual(len(assigned), 3)
+        self.assertTrue(all(item.assignment == "support" for item in assigned))
+        self.assertEqual(set(chooser.choices.values()), {
+            "support", "partial_support", "not_support",
+        })
+
+    def test_nuggetizer_defaults_to_local_qwen_only(self):
+        args = nuggetizer_parser_for(REPO).parse_args(["--nugget-file", "nuggets.jsonl"])
+        self.assertEqual(args.model, "Qwen/Qwen3-4B-Instruct-2507")
+        self.assertEqual(args.model, QWEN_JUDGE_MODEL)
+        self.assertFalse(hasattr(args, "judge_backend"))
+        self.assertFalse(hasattr(args, "use_azure_openai"))
+
+    def test_manifest_refuses_unidentified_or_different_judge_outputs(self):
+        manifest = {"judge_backend": "local-hf", "judge_model": QWEN_JUDGE_MODEL}
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "eval"
+            ensure_manifest(output, manifest)
+            ensure_manifest(output, manifest)
+            with self.assertRaisesRegex(ValueError, "provenance mismatch"):
+                ensure_manifest(output, {**manifest, "judge_model": "different"})
+
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "eval"
+            output.mkdir()
+            (output / "old_scores.jsonl").write_text("{}\n", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "without a provenance manifest"):
+                ensure_manifest(output, manifest)
+
+    def test_resumable_assignment_and_atomic_scoring(self):
+        class FakeNuggetizer:
+            calls = 0
+
+            def assign(self, _query, _answer, nuggets):
+                self.calls += 1
+                return [
+                    SimpleNamespace(
+                        text=item.text,
+                        importance=item.importance,
+                        assignment="support",
+                    )
+                    for item in nuggets
+                ]
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            nuggets = root / "nuggets.jsonl"
+            nuggets.write_text(
+                json.dumps({
+                    "qid": "q1", "query": "question",
+                    "nuggets": [{"text": "fact", "importance": "vital"}],
+                }) + "\n",
+                encoding="utf-8",
+            )
+            answers = root / "answers.json"
+            answers.write_text(json.dumps([{
+                "topic_id": "q1", "response_length": 1,
+                "answer": [{"text": "fact", "citations": []}],
+            }]), encoding="utf-8")
+            assignments = root / "assignments.jsonl"
+            judge = FakeNuggetizer()
+            self.assertEqual(
+                assign_answer_file(nuggets, answers, assignments, judge),
+                (1, {"q1"}),
+            )
+            self.assertEqual(
+                assign_answer_file(nuggets, answers, assignments, judge),
+                (0, {"q1"}),
+            )
+            self.assertEqual(judge.calls, 1)
+            scores = root / "scores.jsonl"
+            aggregate = score_assignment_file(assignments, scores)
+            self.assertEqual(aggregate["all_score"], 1.0)
+            self.assertEqual([row["qid"] for row in read_records(scores)], ["q1", "all"])
 
     def test_parser_drops_out_of_range_citations(self):
         parsed = parse_answer("Supported statement [1, 9].")
