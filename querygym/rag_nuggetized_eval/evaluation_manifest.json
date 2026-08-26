@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "judge_backend": "local-hf",
+  "judge_model": "Qwen/Qwen3-4B-Instruct-2507",
+  "fixed_nugget_sha256": "37acbaca7dc6716c2f80b93ea272732cf7ae9a48edbb3e0023e7b4ee16299cd3",
+  "assignment_mode": "support_grade_3",
+  "local_generation": {
+    "assignment_strategy": "constrained_next_token_abc_v1",
+    "assignment_unit": "per_nugget",
+    "context_size": 16384,
+    "dtype": "float16",
+    "load_in_4bit": true,
+    "judge_batch_size": 1
+  }
+}
